@@ -28,7 +28,7 @@ baseurl: "/ESGI.documentation" # the subpath of your site, e.g. /blog
 url: "https://tstohn.github.io/ESGI.documentation" # the base hostname & protocol for your site
 
 # Social (First three Required)
-repo: "https://github.com/tstohn/ESGI.documentation"
+repo: "https://github.com/tstohn/ESGI"
 github_user: "t.stohn"
 github_repo: "https://github.com/tstohn/ESGI"
 github_branch: "master"
