@@ -4,9 +4,9 @@ title: Docsy Jekyll Theme
 permalink: /
 ---
 
-# Welcome to Docsy Jekyll
+# Demultiplexing barcoded single-cell sequencing data with ESGI
 
-This is a starter template for a docsy jekyll theme.
+This website guides you through ESGI - Efficient Splitting of Generic Indices.
 
 ![assets/img/docsy-jekyll.png](assets/img/docsy-jekyll.png)
 
