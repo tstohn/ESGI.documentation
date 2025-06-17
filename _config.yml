@@ -25,7 +25,7 @@ description: > # this means to ignore newlines until "baseurl:"
 baseurl: "https://github.com/tstohn/ESGI.documentation" # the subpath of your site, e.g. /blog
 
 # This is mostly for testing
-url: "https://vsoch.github.io" # the base hostname & protocol for your site
+url: "https://github.com/tstohn/ESGI.documentation" # the base hostname & protocol for your site
 
 # Social (First three Required)
 repo: "https://github.com/tstohn/ESGI"
@@ -67,7 +67,7 @@ feedback: true
 # If commented, will use material hat theme
 # logo: "assets/img/logo/SRCC-square-red.png"
 logo_pixels: 34
-color: "#30638e"
+color: "#0138FE"
 # color: "#8c1515" # primary color for header, buttons
 
 # Build settings
