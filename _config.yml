@@ -22,10 +22,10 @@ description: > # this means to ignore newlines until "baseurl:"
   Here we guide you through examples how to demultiplex your data.
 
 # Add your baseurl here (your repository) but DO NOT CHANGE THE LINE NUMBER without editing .circleci/circle_urls.sh
-baseurl: "https://github.com/tstohn/ESGI.documentation" # the subpath of your site, e.g. /blog
+baseurl: "/ESGI.documentation" # the subpath of your site, e.g. /blog
 
 # This is mostly for testing
-url: "https://github.com/tstohn/ESGI.documentation" # the base hostname & protocol for your site
+url: "https://tstohn.github.io/ESGI.documentation/" # the base hostname & protocol for your site
 
 # Social (First three Required)
 repo: "https://github.com/tstohn/ESGI"
