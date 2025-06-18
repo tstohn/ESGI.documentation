@@ -4,7 +4,7 @@
     margin: 0 10px;
     height: 125px;
     position: absolute;
-    top: 40px;
+    top: 25px;
     left: 10px;
     z-index: 1000;
 }
@@ -18,7 +18,7 @@
 }
 
 .td-navbar .navbar-brand span.text-uppercase {
-    margin-left: 140px !important;
+    margin-left: 160px !important;
     display: inline-block !important;
     vertical-align: middle !important;
     position: relative !important;
@@ -28,33 +28,32 @@
 /* Mobile-specific adjustments */
 @media(max-width: 767.98px) {
     .td-navbar {
-        min-height: 180px !important; /* Make header taller on mobile */
+        min-height: 200px !important;
         padding-bottom: 20px !important;
-        flex-direction: column !important; /* Stack elements vertically */
+        flex-direction: column !important;
     }
     
     .td-navbar .navbar-brand svg {
-        top: 15px; /* Move logo up slightly on mobile */
+        top: 15px;
         left: 10px;
-        height: 90px; /* Smaller on mobile */
+        height: 90px;
     }
     
     .td-navbar .navbar-brand {
-        margin-left: 110px; /* Less margin on mobile */
-        margin-bottom: 10px !important; /* Space below brand */
+        margin-left: 110px;
+        margin-bottom: 10px !important;
     }
     
     .td-navbar .navbar-brand span.text-uppercase {
-        margin-left: 70px !important; /* Less margin on mobile */
+        margin-left: 70px !important;
         top: 5px !important;
     }
     
-    /* Position navigation tabs below the logo */
     .td-navbar .navbar-nav {
-        margin-top: 0 !important; /* Reset margin */
+        margin-top: 20px !important;
         width: 100% !important;
         justify-content: center !important;
-        order: 2 !important; /* Ensure it comes after the brand */
+        order: 2 !important;
     }
     
     .td-navbar .navbar-nav .nav-link {
@@ -63,7 +62,6 @@
         font-size: 14px !important;
     }
     
-    /* Ensure navbar container uses flexbox properly */
     .td-navbar .container {
         flex-direction: column !important;
         align-items: center !important;
