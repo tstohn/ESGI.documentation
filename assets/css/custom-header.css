@@ -22,58 +22,61 @@
     display: inline-block !important;
     vertical-align: middle !important;
     position: relative !important;
-    top: 20px !important;
+    top: 0px !important;
 }
 
 /* Mobile-specific adjustments */
 @media(max-width: 767.98px) {
     .td-navbar {
-        min-height: 250px !important;
-        padding-bottom: 30px !important;
+        min-height: 120px !important;
+        padding-bottom: 10px !important;
         flex-direction: column !important;
         overflow: visible !important;
     }
     
     .td-navbar .navbar-brand svg {
-        top: 15px;
+        top: 8px;
         left: 10px;
-        height: 90px;
+        height: 70px;
     }
     
     .td-navbar .navbar-brand {
-        margin-left: 110px;
-        margin-bottom: 20px !important;
+        margin-left: 90px;
+        margin-bottom: 0px !important;
     }
     
     .td-navbar .navbar-brand span.text-uppercase {
-        margin-left: 70px !important;
-        top: 5px !important;
+        margin-left: 50px !important;
+        top: -5px !important;
     }
     
     .td-navbar .navbar-nav {
-        margin-top: 30px !important;
+        margin-top: 0px !important;
         width: 100% !important;
         justify-content: center !important;
         order: 2 !important;
         position: relative !important;
         z-index: 1001 !important;
+        display: flex !important;
+        flex-direction: row !important;
     }
     
     .td-navbar .navbar-nav .nav-link {
-        padding: 10px 20px !important;
+        padding: 6px 12px !important;
         text-align: center !important;
-        font-size: 16px !important;
-        margin: 0 5px !important;
+        font-size: 13px !important;
+        margin: 0 2px !important;
+        display: block !important;
     }
     
     .td-navbar .container {
         flex-direction: column !important;
         align-items: center !important;
-        min-height: 250px !important;
+        min-height: 120px !important;
     }
     
     .td-main main {
-        padding-top: 280px !important;
+        padding-top: 140px !important;
     }
 }
 
