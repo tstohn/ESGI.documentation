@@ -4,8 +4,8 @@
     margin: 0 10px;
     height: 125px;
     position: absolute;
-    top: 20px;
-    left: 15px;
+    top: 40px;
+    left: 10px;
     z-index: 1000;
 }
 
@@ -18,11 +18,46 @@
 }
 
 .td-navbar .navbar-brand span.text-uppercase {
-    margin-left: -200px !important;
+    margin-left: 140px !important;
     display: inline-block !important;
     vertical-align: middle !important;
     position: relative !important;
-    top: 0px !important;
+    top: 20px !important;
+}
+
+/* Mobile-specific adjustments */
+@media(max-width: 767.98px) {
+    .td-navbar {
+        min-height: 160px !important; /* Make header taller on mobile */
+        padding-bottom: 20px !important;
+    }
+    
+    .td-navbar .navbar-brand svg {
+        top: 20px; /* Move logo up slightly on mobile */
+        left: 10px;
+        height: 100px; /* Slightly smaller on mobile */
+    }
+    
+    .td-navbar .navbar-brand {
+        margin-left: 120px; /* Less margin on mobile */
+    }
+    
+    .td-navbar .navbar-brand span.text-uppercase {
+        margin-left: 80px !important; /* Less margin on mobile */
+        top: 10px !important;
+    }
+    
+    /* Position navigation tabs below the logo */
+    .td-navbar .navbar-nav {
+        margin-top: 120px !important; /* Push tabs down below logo */
+        width: 100% !important;
+        justify-content: center !important;
+    }
+    
+    .td-navbar .navbar-nav .nav-link {
+        padding: 8px 15px !important;
+        text-align: center !important;
+    }
 }
 
 @media(min-width:768px) {
