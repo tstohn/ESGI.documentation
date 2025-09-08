@@ -8,7 +8,7 @@ permalink: /
 
 This website guides you through ESGI - Efficient Splitting of Generic Indices.
 
-![assets/img/docsy-jekyll.png](assets/img/overview.png)
+![assets/img/overview.png](assets/img/overview.png)
 
 ## Purpose
 
