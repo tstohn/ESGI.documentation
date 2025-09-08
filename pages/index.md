@@ -6,35 +6,27 @@ permalink: /
 
 # Demultiplexing barcoded single-cell sequencing data with ESGI
 
-This website guides you through ESGI - Efficient Splitting of Generic Indices.
+ESGI - Efficient Splitting of Generic Indices - makes demultiplexing singl-cell data easy. 
+Download the App to easily run demultiplexing on your laptop (without gene-mapping) or download to CLI to run ESGI on a server for more functionality.
 
 ![assets/img/overview.png](assets/img/overview.png)
 
-## Purpose
+## ESGI
 
-GitHub pages uses Jekyll natively, so when I make documentation, I typically
-look for Jekyll templates. Why? Using Jekyll means that I can use markdown,
-and allow for users to easily contribute, and build automatically just by
-way of pushing to a master branch (or general GitHub pages).
-I found Docsy, a beautiful Hugo template, but it requires hugo with GoLang
-which doesn't render natively on GitHub pages. For this reason, I've spent
-some time creating a custom Jekyll template that is (almost) as beautiful,
-and includes all the features that I might want.
+ESGI demultiplexes single-cell data by assigning reads to their cell of origin and counting them per cell. The input is a file specifying the mapping pattern, which can be written quickly and makes running ESGI straightforward.
 
 ## Features
 
-What are these features? You should see the {% include doc.html name="Getting Started" path="getting-started" %}
-guide for a complete summary. Briefly:
+ESGI works on any multiplexed single-cell data. Its generic input pattern allows you to demultiplex almost any barcoded single-cell data.
+Here are some features and use-cases that ESGI can handle:
 
- - *User interaction* including consistent permalinks, links to ask questions via GitHub issues, and edit the file on GitHub directly.
- - *Search* across posts, documentation, and other site pages, with an ability to exclude from search.
- - *External Search* meaning an ability to link any page tag to trigger an external search.
- - *Documentation* A documentation collection that was easy to organize on the filesystem, render with nested headings for the user, and refer to in markdown.
- - *Pages* A separate folder for more traditional pages (e.g, about).
- - *Navigation*: Control over the main navigation on the left of the page, and automatic generation of table of contents for each page on the right.
- - *News* A posts feed for news and updates, along with an archive (organized by year).
- - *Templates* or specifically, "includes" that make it easy to create an alert, documentation link, or other content.
- - *Continuous Integration* recipes to preview the site
+ - ESGI can demultiplex barcoded data like 10X, Combinatorial-indexing experiments, spatial sequencing data, etc.
+ - ESGI takes a pattern as input, which encodes the barcode-structure. It allows barcodes with fixed bases, variable barcodes that can be given by a file, RNA sequences or UMIs (15X for 15 nucleotide long UMI), e.g.: [GACGCATACGT][15X][SINGLE_CELL_BARCODES_FILE.txt][PROTEIN_BARCODES_FILE.txt]
+ - ESGI can map the RNA part in the read, but can also count other modalities, like CITE-seq or intra-cellular protein measurement technologies.
+ - For RNA mapping we recommend to run ESGI (together with a mapper like STAR) on a server
+ - For simpler experiments (like counting protein tags) ou can easily run the App on your local laptop
+ - ESGI allows also barcodes on different length
+ - For flexability ESGI can also take several patterns at once as input, in case you pooled different modalities, or read-structures
 
 
 For features, getting started with development, see the {% include doc.html name="Getting Started" path="getting-started" %} page. Would you like to request a feature or contribute?
