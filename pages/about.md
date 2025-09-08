@@ -5,11 +5,10 @@ permalink: /about/
 
 # About
 
-This is a [starter template](https://vsoch.github.io/docsy-jekyll/) for a Docsy jekyll theme, based
-on the Beautiful [Docsy](https://github.com/google/docsy) that renders with Hugo. This version is intended for
-native deployment on GitHub pages. See the [repository]({{ site.repo }}) for more details.
+The software is distributed free of charge for academic and research purposes under GPL-3.0. For commercial use, please contact us.
+We welcome contributions! If you’d like to report issues, suggest features, or contribute code, please reach out — for example via our [GitHub repository]({{ site.github_repo }}).
 
 ## Support
 
-If you need help, please don't hesitate to [open an issue](https://www.github.com/{{ site.github_user }}/{{ site.github_repo }}).
+If you need help, please don't hesitate to [open an issue]({{ site.github_repo }}).
 
