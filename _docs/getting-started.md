@@ -25,7 +25,7 @@ Go to latest release, find the assets for your operating system, then download a
 Instructions on how to  install
 
 
-## Prepare Reference Genome and Annotation
+## Reference Genome and Annotation
 
 STAR is used to map RNA-sequence reads to the reference genome.  
 First, download the reference genome and annotation files
