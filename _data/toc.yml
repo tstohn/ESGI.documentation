@@ -10,8 +10,15 @@
           url: "docs/getting-started#development"
         - title: Customization
           url: "docs/getting-started#customization"
-    - title: Versioning
-      url: "docs/versioning"
+    - title: Software Overview
+      url: "docs/software-overview"
+      children:
+        - title: Demultiplex
+          url: "docs/software-overview#demultiplex"
+        - title: Count
+          url: "docs/software-overview#count"
+        - title: ESGI
+          url: "docs/software-overview#esgi"
     - title: "About"
       url: "about"
     - title: "News"
