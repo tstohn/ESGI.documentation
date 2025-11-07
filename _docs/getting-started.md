@@ -7,36 +7,48 @@ description: Getting started with Docsy Jekyll
 ---
 
 # Getting Started
-lalal
-## Features
-
-### User Interaction
 
 
-On the right side of any page, you'll notice links to edit the page, or
-open an issue. This ensures that any time you have a question or want to 
-suggest or request a change, you can do so immediately and link directly
-to the section of interest. The sections on the page also have permalinks so
-you can link directly to them.
+## Getting the Tool
 
-### Search
+The tool can either be downloaded or build from scratch
 
-The entire site, including posts and documentation, is indexed and then available
-for search at the top or side of the page. Give it a try! The content is rendered
-into window data that is used by lunr.js to generate the search results.
-If you want to exclude any file from search, add this to its front end matter:
+### Download Tool
+
+The compiled tool can be downloaded from the GitHub page: 
+[https://github.com/tstohn/ESGI/releases/tag/v1.0.0](https://github.com/tstohn/ESGI/releases/tag/v1.0.0) 
+
+Go to latest release, find the assets for your operating system, then download and extract the ZIP file. 
+
+### Build Tool
+
+Instructions on how to  install
+
+
+## Prepare reference genome and annotation
+
+STAR is used to map the RNA-sequence to the reference genome.  
+First, download the reference genome
 
 ```
 ---
-layout: null
-excluded_in_search: true
+mkdir GRCh38
+mkdir -p GRCh38_STAR_index
+cd GRCh38
+
+wget ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_43/GRCh38.primary_assembly.genome.fa.gz
+wget ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_43/gencode.v43.annotation.gtf.gz
+gunzip *.gz
+
+STAR --runThreadN 70 \
+     --runMode genomeGenerate \
+     --genomeDir GRCh38_STAR_index \
+     --genomeFastaFiles GRCh38.primary_assembly.genome.fa \
+     --sjdbGTFfile gencode.v43.annotation.gtf \
+     --sjdbOverhang 73
 ---
 ```
 
-The example above is for a javascript file in the assets folder that is used as a template,
-but should not be included in search.
-
-### External Search
 
 If you have an external site with a search GET endpoint (meaning one that ends
 in `?q=<term>`, then you can automatically link page tags to search this endpoint.
