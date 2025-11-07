@@ -15,7 +15,7 @@ The tool can either be downloaded or build from scratch
 
 ### Download Tool
 
-The compiled tool can be downloaded from the GitHub page: 
+The precompiled binaries are available on the GitHub releases: 
 [https://github.com/tstohn/ESGI/releases/tag/v1.0.0](https://github.com/tstohn/ESGI/releases/tag/v1.0.0) 
 
 Go to latest release, find the assets for your operating system, then download and extract the ZIP file. 
@@ -25,21 +25,28 @@ Go to latest release, find the assets for your operating system, then download a
 Instructions on how to  install
 
 
-## Prepare reference genome and annotation
+## Prepare Reference Genome and Annotation
 
-STAR is used to map the RNA-sequence to the reference genome.  
-First, download the reference genome
+STAR is used to map RNA-sequence reads to the reference genome.  
+First, download the reference genome and annotation files
 
+Note: for compatibility with zUMI, also install STAR (v2.7.a) from Bioconda.
+
+### Download the Reference genome:
 ```
 ---
 mkdir GRCh38
-mkdir -p GRCh38_STAR_index
 cd GRCh38
 
 wget ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_43/GRCh38.primary_assembly.genome.fa.gz
 wget ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_43/gencode.v43.annotation.gtf.gz
 gunzip *.gz
+---
+```
 
+### Generate STAR Genome Index:
+```
+---
 STAR --runThreadN 70 \
      --runMode genomeGenerate \
      --genomeDir GRCh38_STAR_index \
@@ -49,12 +56,23 @@ STAR --runThreadN 70 \
 ---
 ```
 
+### Covert GFT to bed for annotation:
+STAR provides chromosome locations, which can be annotated using bedtools.
+To do this, you need a .bed file instead of a .gtf file.
+```
+---
+# Convert GTF to BED (filtering by gene_name)
+gtf2bed --attribute-key=gene_name < gencode.v43.annotation.gtf > genes.bed
 
-If you have an external site with a search GET endpoint (meaning one that ends
-in `?q=<term>`, then you can automatically link page tags to search this endpoint.
-For example, on an HPC site I'd want a tag like "mpi" to do a search on 
-[http://ask.cyberinfrastructure.org](http://ask.cyberinfrastructure.org) for mpi.
-See the [tags](#tags) section below for how to configure this.
+# Keep only relevant columns and remove duplicates
+cut -f1-4 genes.bed | sort -u > genesFiltered.bed
+
+# Create a simplified BED file with chr, start, end, and gene_id
+awk '{match($0, /gene_id "([^"]+)"/, arr); print $1"\t"$2"\t"$3"\t"arr[1];}' genes.bed > genes_simple.bed
+---
+```
+
+
 
 ### Documentation
 
