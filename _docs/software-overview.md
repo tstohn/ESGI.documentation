@@ -4,21 +4,17 @@ description: How to turn on and use versioning
 ---
 
 # Software Overview
+Below.. 
 
-Versioning documentation is a useful feature that can be achieved using Docsy Jekyll. It allows you to take snapshots of your documentation that may align with a specific version of a product or service, or you may wish to just keep a historical view of the changes that have been made to your documents over time.
+## Demultiplex
+Split reads by barcode and assign reads to cells or antibodies. 
 
-{% include alert.html type="info" title="Note: This only allows you to version documents inside the _docs folder, it does not allow you to version any files outside of that, such as Pages, Posts etc." %}
+## Count
+Count how many reads belong to each barcode. 
 
-The following information will take you through the detailed setup of versioning your documentation but in summary there will be four tasks that need to be completed to version your documents.
+## ESGI
 
-1. Copy the current _docs content into a subfolder of _docs/Archive (e.g., within a folder named by the version)
-2. Add a corresponding table of contents to _data/versions
-3. Update the _data/toc-mapping.yml file to point the new table of contents
-4. Test your site locally to ensure it works as expected!
 
-## Implementation
-
-The way in which versioning is achieved is by duplicating your whole document directory and placing it inside an 'archive' subdirectory with the name of that version. The following illustrates what the base document root looks like *without* another version for this Docsy Jekyll site.
 
 ```
 document root
