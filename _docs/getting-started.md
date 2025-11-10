@@ -11,7 +11,7 @@ description: Getting started with Docsy Jekyll
 
 ## Getting the Tool
 
-The tool can either be downloaded or build from scratch
+The tool can either be downloaded or build from scratch. 
 
 ### Download Tool
 
@@ -22,13 +22,26 @@ Go to latest release, find the assets for your operating system, then download a
 
 ### Build Tool
 
-Instructions on how to  install
+To compile the tool on your own system, clone the GitHub repository, install the dependencies, and build the tools using: 
+
+```
+---
+make install
+
+make demultiplex
+make count
+make annotate
+make esgi
+---
+```
+
+After building, the executables demultiplex, count, annotate and esgi, will be available in the bin/ directory. You can run each component individually, or use esgi to execute the complete workflow. 
 
 
 ## Reference Genome and Annotation
 
 STAR is used to map RNA-sequence reads to the reference genome.  
-First, download the reference genome and annotation files
+First, download the reference genome and annotation files.
 
 Note: for compatibility with zUMI, also install STAR (v2.7.a) from Bioconda.
 
