@@ -26,8 +26,14 @@ To compile the tool on your own system, clone the GitHub repository, install the
 
 ```
 ---
+# Clone repository
+git clone https://github.com/tstohn/ESGI.git
+cd ESGI/
+
+# Install dependencies
 make install
 
+# Build components
 make demultiplex
 make count
 make annotate
