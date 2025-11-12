@@ -19,8 +19,15 @@
           url: "docs/software-overview#count"
         - title: ESGI
           url: "docs/software-overview#esgi"
-    - title: "About"
-      url: "about"
+    - title: Application
+      url: "docs/application"
+      childeren:
+        - title: Multimodal
+          url: "docs/application#multimodal"
+        - title: Count
+          url: "docs/application#spatial"
+        - title: ESGI
+          url: "docs/application#multipattern"
     - title: "News"
       url: "news"
 - title: "Extras"
