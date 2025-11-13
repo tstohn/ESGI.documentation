@@ -30,6 +30,51 @@ wget "https://ftp.sra.ebi.ac.uk/vol1/fastq/SRR280/028/SRR28056728/SRR28056728_2.
 ---
 ```
 
+Remove length=XX from header lines
+```
+---
+# For SRR28056728
+zcat SRR28056728_1.fastq.gz | sed '1~4 s/ length=[0-9]*//' | gzip > SRR28056728_1b.fastq.gz
+zcat SRR28056728_2.fastq.gz | sed '1~4 s/ length=[0-9]*//' | gzip > SRR28056728_2b.fastq.gz
+
+# For SRR28056729
+zcat SRR28056729_1.fastq.gz | sed '1~4 s/ length=[0-9]*//' | gzip > SRR28056729_1b.fastq.gz
+zcat SRR28056729_2.fastq.gz | sed '1~4 s/ length=[0-9]*//' | gzip > SRR28056729_2b.fastq.gz
+---
+```
+
+Set up required folders and files:
+
+```
+---
+# Set paths to raw data, tools, and analyses
+Path_data = "/path/to/raw_data"
+Path_tool= "/path/to/tools"
+Path_analyses = "/path/to/analyses"
+
+# Define log file
+LOGFILE_AB="${"Path_analyses"}/output/ESGI_Protein/ESGI_PROTEIN_LOG.txt"
+# Remove old log file 
+rm -f $LOGFILE
+
+#RUN WITH 1MM in SC-BARCODE and 1MM in AB-BARCODE: results have prefix A_
+/usr/bin/time -v "${Path_tool"/bin/demultiplex" \
+                -i "${Path_data}/SRR28056728_1.fastq" \
+                -r "${Path_data}/SRR28056728_2.fastq" \
+                -o "${Path_analyses}/output/ESGI_Protein" \
+                -p "${Path_analyses}/background_data/ESGI_files/pattern_PROTEIN.txt" \
+                -m "${Path_analyses}/background_data/ESGI_files/mismatches_PROTEIN_1MM.txt" \
+                -n A \
+                -t 70 -f 1 -q 1 2>> $LOGFILE_AB
+
+/usr/bin/time -v "${Path_tool}/bin/count" \
+                -i "${Path_analyses}/output/ESGI_Protein/A_PROTEIN.tsv" \
+                -o "${Path_analyses}/output/ESGI_Protein/A_PROTEIN_Counts.tsv" \
+                -t 70 -d "${Path_analyses}/background_data/ESGI_files" \
+                -a "${Path_analyses}/background_data/ESGI_files/antibody_names_as_in_KITE.txt" \
+                -c 1,3,5 -x 0 -u 6 -m 0 -s 1 2>> $LOGFILE_AB
+---
+```
 
 ## Spatial
 
