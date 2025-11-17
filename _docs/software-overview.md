@@ -8,7 +8,7 @@ description: How to turn on and use versioning
 ESGI is a debarcoding tool with features allowing for insertions, deletions, barcodes of varying length, and simultaneous alignment.
 
 ## Demultiplex
-Identify generic barcodes within sequencing reads and assign each read to its corresponding category - such as individual cells or modality specific features. 
+Identify generic barcodes within sequencing reads and assign each read to its corresponding category - like individual cells or modality specific features. 
 After demultiplexing all barcodes, with allowing for mismatches, RNA sequencing reads are passed to the STAR alignment tool, and annotate appends STAR-derived genomic-information to the output. 
 
 To run demultiplex with generic barcode sequences, you need the following input files:
