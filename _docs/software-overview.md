@@ -22,15 +22,20 @@ Example with an architecture of six sequence substrings:
 # Six sequence patterns, each consisting of a list of barcodes
 [][-][][10X][][]
 | |    └─── 10 random bases 
-| └─── separates forward and reverse read
+| └─── separates forward and reverse reads
 └─── AAGGCA,GGCTG,CGTCC
 
 # Mismatchfile
 1,0,1,0,1,0
 ```
 
+output: 
+
+
 ## Count
-Count how many reads belong to each barcode and create single- cell feature matrix. 
+Reads are sorted by cell and feature, and identical entries are collapsed, creating the final single-cell feature matrix. 
+
+input is the output of demultiplex 
 
 ## ESGI
 
