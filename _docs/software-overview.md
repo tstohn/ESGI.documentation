@@ -4,30 +4,39 @@ description: How to turn on and use versioning
 ---
 
 # Software Overview
-Below.. 
+
+ESGI is a debarcoding tool with features allowing for insertions, deletions, barcodes of varying length, and simultaneous alignment.
 
 ## Demultiplex
-Split reads by barcode and assign reads to cells or antibodies. 
+Identify generic barcodes within sequencing reads and assign each read to its corresponding category - such as individual cells or modality specific features. 
+After demultiplexing all barcodes, with allowing for mismatches, RNA sequencing reads are passed to the STAR alignment tool, and annotate appends STAR-derived genomic-information to the output. 
+
+To run demultiplex with generic barcode sequences, you need the following input files:
+**- input (fastq.gz):** single-end or forward read FASTQ file
+**- reverse (fastq.gz):** reverse read FASTQ file
+**- bardcodePatternsFile (.txt):** A text file describing the barcode architecture of your reads. It uses bracket-enclodes sequence substrings to define where barcodes appear in the read. each bracket contains a comma separated list of possible barcodes for that position, and these barcodes may vary in length.
+**- mismatchfile (.txt):** A text file specifying the number of allowed mismatches for each bracket-enclosed substring. Provide a comma-separated list of integers, one for each substring in the barcode pattern. 
+
+Example with an architecture of six sequence substrings:
+```
+# Six sequence patterns, each consisting of a list of barcodes
+[][-][][10X][][]
+| |    └─── 10 random bases 
+| └─── separates forward and reverse read
+└─── AAGGCA,GGCTG,CGTCC
+
+# Mismatchfile
+1,0,1,0,1,0
+```
 
 ## Count
-Count how many reads belong to each barcode. 
+Count how many reads belong to each barcode and create single- cell feature matrix. 
 
 ## ESGI
 
 
 
-```
-document root
-│      
-└─── _data
-└─── _docs
-        └─── extras
-        └─── subfolder
-        example-page.md
-        getting-started.md
-        subfolder.md
-        versioning.md
-```
+
 To create a version of this documentation we first create a folder with the version name we want to use inside of the 'archive' folder and copy all the files and folders from our root _docs folder into that new folder. You could use the following commands to achieve this:
 
 ```shell
