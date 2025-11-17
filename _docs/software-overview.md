@@ -12,10 +12,10 @@ Identify generic barcodes within sequencing reads and assign each read to its co
 After demultiplexing all barcodes, with allowing for mismatches, RNA sequencing reads are passed to the STAR alignment tool, and annotate appends STAR-derived genomic-information to the output. 
 
 To run demultiplex with generic barcode sequences, you need the following input files:
-**- input (fastq.gz):** single-end or forward read FASTQ file
-**- reverse (fastq.gz):** reverse read FASTQ file
-**- bardcodePatternsFile (.txt):** A text file describing the barcode architecture of your reads. It uses bracket-enclodes sequence substrings to define where barcodes appear in the read. each bracket contains a comma separated list of possible barcodes for that position, and these barcodes may vary in length.
-**- mismatchfile (.txt):** A text file specifying the number of allowed mismatches for each bracket-enclosed substring. Provide a comma-separated list of integers, one for each substring in the barcode pattern. 
+- **input (fastq.gz):** single-end or forward read FASTQ file
+- **reverse (fastq.gz):** reverse read FASTQ file
+- **bardcodePatternsFile (.txt):** A text file describing the barcode architecture of your reads. It uses bracket-enclodes sequence substrings to define where barcodes appear in the read. each bracket contains a comma separated list of possible barcodes for that position, and these barcodes may vary in length.
+- **mismatchfile (.txt):** A text file specifying the number of allowed mismatches for each bracket-enclosed substring. Provide a comma-separated list of integers, one for each substring in the barcode pattern. 
 
 Example with an architecture of six sequence substrings:
 ```
