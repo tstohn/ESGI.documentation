@@ -5,16 +5,16 @@ description: How to turn on and use versioning
 
 # Software Overview
 
-ESGI is a debarcoding tool with features allowing for insertions, deletions, barcodes of varying length, and simultaneous alignment.
+ESGI is a debarcoding tool for single cell data consisting of two components: **demultiplex** and **count**. Demultiplex assigns reads to their barcode encoded cell and feature of origin and count is used to generate the final single-cell feature count matrix. These tools can be runned separately or together as **ESGI**. 
 
 ## Demultiplex
-Identify generic barcodes within sequencing reads and assign each read to its corresponding category - like individual cells or modality specific features. After demultiplexing all barcodes, with allowing for mismatches, RNA sequencing reads can be passed to the **STAR** alignment tool, and **annotate** appends STAR-derived genomic-information to the output. 
+Demultiplex is used to identify generic barcodes within sequencing reads and assigns each read to its corresponding category - such as individual cells or modality specific features. As input is requires a file specifying the barcode structure, consisting of multiple barcode patterns, and the number of mismatches allowed for per pattern. The tool also allows for demultiplexing of RNA sequencing reads, which are passed to the **STAR** alignment tool, after which **annotatte** appends STAR-derived genomic-information to the output. 
 
-## Input:
-To run demultiplex with generic barcode sequences, you need the following input files:
+## Generic barcode sequences:
+To demultiplex generic barcode sequences, you need the following input files:
 - **input (fastq.gz):** single-end or forward read FASTQ file
 - **reverse (fastq.gz):** reverse read FASTQ file
-- **bardcodePatternsFile (.txt):** A text file describing the barcode architecture of your reads. It uses bracket-enclodes sequence substrings to define where barcodes appear in the read. each bracket contains a comma separated list of possible barcodes for that position, and these barcodes may vary in length.
+- **bardcodePatternsFile (.txt):** A text file describing the barcode- structure of your reads. It uses bracket-enclodes sequence substrings to define where barcodes appear in the read. Each bracket contains a comma separated list of possible barcodes for that position, and these barcodes may vary in length.
 - **mismatchfile (.txt):** A text file specifying the number of allowed mismatches for each bracket-enclosed substring. Provide a comma-separated list of integers, one for each substring in the barcode pattern. 
 
 Example with an architecture of six sequence substrings:
@@ -29,12 +29,10 @@ Example with an architecture of six sequence substrings:
 1,0,1,0,1,0
 ```
 
-To run demultiplex for RNA-sequencing reads:
+### RNA-sequencing reads:
 
 ### Output: 
-The output of demultiplex is a A_PROTEIN.tsv file with the first line being the barcode architecture that you defined, followed by all alignments from the fastq file. This file is needed as input for **count**.
-
-antibodies.txt  BC1.txt 22X     BC2.txt 30X     BC2.txt 10X
+All files including failed lines and statistics will be saved to the output directory. Most important is the **A_PROTEIN.tsv** file containing the demultiplexed reads per category, so modality specific feature in a single cell. The firts line contains the barcode structure, followed by all alignments from the FASTQ input file. This file is needed as input for **count**.
 
 ## Count
 Reads are sorted by cell and feature, and identical entries are collapsed to generate the final single-cell feature matrix. 
