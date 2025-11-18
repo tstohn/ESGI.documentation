@@ -8,9 +8,9 @@ description: How to turn on and use versioning
 ESGI is a debarcoding tool with features allowing for insertions, deletions, barcodes of varying length, and simultaneous alignment.
 
 ## Demultiplex
-Identify generic barcodes within sequencing reads and assign each read to its corresponding category - like individual cells or modality specific features. 
-After demultiplexing all barcodes, with allowing for mismatches, RNA sequencing reads are passed to the STAR alignment tool, and annotate appends STAR-derived genomic-information to the output. 
+Identify generic barcodes within sequencing reads and assign each read to its corresponding category - like individual cells or modality specific features. After demultiplexing all barcodes, with allowing for mismatches, RNA sequencing reads can be passed to the **STAR** alignment tool, and **annotate** appends STAR-derived genomic-information to the output. 
 
+## Input:
 To run demultiplex with generic barcode sequences, you need the following input files:
 - **input (fastq.gz):** single-end or forward read FASTQ file
 - **reverse (fastq.gz):** reverse read FASTQ file
@@ -29,13 +29,23 @@ Example with an architecture of six sequence substrings:
 1,0,1,0,1,0
 ```
 
-output: 
+To run demultiplex for RNA-sequencing reads:
 
+### Output: 
+The output of demultiplex is a A_PROTEIN.tsv file with the first line being the barcode architecture that you defined, followed by all alignments from the fastq file. This file is needed as input for **count**.
+
+antibodies.txt  BC1.txt 22X     BC2.txt 30X     BC2.txt 10X
 
 ## Count
-Reads are sorted by cell and feature, and identical entries are collapsed, creating the final single-cell feature matrix. 
+Reads are sorted by cell and feature, and identical entries are collapsed to generate the final single-cell feature matrix. 
 
-input is the output of demultiplex 
+### Input:
+To run **count**, you need the A_PROTEIN.tsv file, output file of **demultiplex**, which contains all barcode- aligned reads in the correct order.
+In addition, you must specify:
+- **SingleCellIndices:** A comma separated list of indices refering to the positions of the barcode patterns that encode the single cell IDs. 
+- **umiIndex:** A comma separated list of indices refering to the positions of the barcode patterns that encode the unique molecule identifiers (UMIs).
+
+### Output
 
 ## ESGI
 
