@@ -22,8 +22,8 @@ Go to latest release, find the assets for your operating system, then download a
 
 ### Build Tool
 
-To compile the tool on your own system, clone the GitHub repository, install the dependencies, and build the tools using. 
-Afterward, run make test to verify that all components were correctly installed, built, and executed. 
+To compile the tool on your own system, clone the GitHub repository, install the dependencies, and build the tools. 
+Afterward, verify that all components were correctly installed, built, and executed. 
 ```
 ---
 # Clone repository
