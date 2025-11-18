@@ -22,8 +22,8 @@ Go to latest release, find the assets for your operating system, then download a
 
 ### Build Tool
 
-To compile the tool on your own system, clone the GitHub repository, install the dependencies, and build the tools using: 
-
+To compile the tool on your own system, clone the GitHub repository, install the dependencies, and build the tools using. 
+Afterward, run make test to verify that all components were correctly installed, built, and executed. 
 ```
 ---
 # Clone repository
@@ -38,18 +38,19 @@ make demultiplex
 make count
 make annotate
 make esgi
+
+# Verify installation
+make test
 ---
 ```
 
-After building, the executables demultiplex, count, annotate and esgi, will be available in the bin/ directory. You can run each component individually, or use esgi to execute the complete workflow. 
+After building, the executables **demultiplex**, **count**, **annotate** and **esgi**, will be available in the bin/ directory. You can run each component individually, or use **esgi** to execute the complete workflow. 
 
 
-## Reference Genome and Annotation
+## Reference Genome
 
-STAR is used to map RNA-sequence reads to the reference genome.  
+The STAR alignment tool is used to map RNA-sequence reads to the reference genome.  
 First, download the reference genome and annotation files.
-
-Note: for compatibility with zUMI, also install STAR (v2.7.a) from Bioconda.
 
 ### Download the Reference genome:
 ```
