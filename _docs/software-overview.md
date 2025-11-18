@@ -42,8 +42,8 @@ Reads are sorted by cell and feature, and identical entries are collapsed to gen
 ### Input:
 To run **count**, you need the A_PROTEIN.tsv file, output file of **demultiplex**, which contains all barcode- aligned reads in the correct order.
 In addition, you must specify:
-- **SingleCellIndices:** A comma separated list of indices refering to the positions of the barcode patterns that encode the single cell IDs. 
-- **umiIndex:** A comma separated list of indices refering to the positions of the barcode patterns that encode the unique molecule identifiers (UMIs).
+- **SingleCellIndices:** A comma separated list of indices referring to the positions of the barcode patterns that encode the single cell IDs. 
+- **umiIndex:** A comma separated list of indices referring to the positions of the barcode patterns that encode the unique molecule identifiers (UMIs).
 
 ### Output
 
