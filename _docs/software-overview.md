@@ -5,34 +5,40 @@ description: How to turn on and use versioning
 
 # Software Overview
 
-ESGI is a debarcoding tool for single cell data consisting of two components: **demultiplex** and **count**. Demultiplex assigns reads to their barcode encoded cell and feature of origin and count is used to generate the final single-cell feature count matrix. These tools can be runned separately or together as **ESGI**. 
+ESGI is a debarcoding tool for single-cell sequencing data consisting of two components: **demultiplex** and **count**. These tools can be runned separately or together as **ESGI** to generate a single-cell feature count matrix.
 
 ## Demultiplex
-Demultiplex is used to identify generic barcodes within sequencing reads and assigns each read to its corresponding category - such as individual cells or modality specific features. As input is requires a file specifying the barcode structure, consisting of multiple barcode patterns, and the number of mismatches allowed for per pattern. The tool also allows for demultiplexing of RNA sequencing reads, which are passed to the **STAR** alignment tool, after which **annotatte** appends STAR-derived genomic-information to the output. 
+Demultiplex assigns reads to their barcode-encoded cell and feature of origin. It supports a wide range of barcode designs within the same experiment, including insertions, deletions, substitutions, and barcodes of varying lengths or modality-specific patterns. If the barcode sequences contain DNA or RNA, **ESGI** calls the **STAR** aligner to map reads to a reference genome, and then uses **annotate** to add STAR-derived genomic-information to the output. For generic barcode sequences that encode cell and feature identifiers, you must specify the barcode structure. This structure consists of positional barcode patterns, including information on the number of mismatches allowed for per pattern. 
 
 ### Generic barcode sequences:
 To demultiplex generic barcode sequences, you need the following input files:
 - **input (fastq.gz):** single-end or forward read FASTQ file
 - **reverse (fastq.gz):** reverse read FASTQ file
 - **bardcodePatternsFile (.txt):** A text file describing the barcode- structure of your reads. It uses bracket-enclodes sequence substrings to define where barcodes appear in the read. Each bracket contains a comma separated list of possible barcodes for that position, and these barcodes may vary in length.
-- **mismatchfile (.txt):** A text file specifying the number of allowed mismatches for each bracket-enclosed substring. Provide a comma-separated list of integers, one for each substring in the barcode pattern. 
+- **mismatchfile (.txt):** A comma-separated list of integers, one for each substring in the barcode pattern, specifying the number of mismatches allowed for in each bracket-enclosed substring. 
 
-Example with an architecture of six sequence substrings:
+Example with an barcode structure consisting of four sequence patterns:
 ```
-# Six sequence patterns, each consisting of a list of barcodes
-[][-][][10X][][]
-| |    └─── 10 random bases 
-| └─── separates forward and reverse reads
-└─── AAGGCA,GGCTG,CGTCC
+# Barcode Patterns
+[BC1.txt][10X][AGCTCATCGAC][BC2.txt]
+|        |    └─── Constant barcode
+|        └─── Sequence of ten random bases 
+└─── List of possible sequences
 
 # Mismatchfile
-1,0,1,0,1,0
+1,0,1,2
 ```
 
 ### RNA-sequencing reads:
 
 ### Output: 
-All files including failed lines and statistics will be saved to the output directory. Most important is the **A_PROTEIN.tsv** file containing the demultiplexed reads per category, so modality specific feature in a single cell. The first line contains the barcode structure, followed by all alignments from the FASTQ input file. This file is needed as input for **count**.
+percentage of perfect, moderate and mismatches 
+
+All files including failed lines and statistics will be saved to the output directory. 
+
+Most important is the **A_PROTEIN.tsv** file containing the demultiplexed reads per category, so modality specific feature in a single cell. The first line contains the barcode structure, followed by all alignments from the FASTQ input file. This file is needed as input for 
+
+**count**.
 
 ## Count
 Reads are sorted by cell and feature, and identical entries are collapsed to generate the final single-cell feature matrix. 
