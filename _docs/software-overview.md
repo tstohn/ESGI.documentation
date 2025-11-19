@@ -10,7 +10,7 @@ ESGI is a debarcoding tool for single cell data consisting of two components: **
 ## Demultiplex
 Demultiplex is used to identify generic barcodes within sequencing reads and assigns each read to its corresponding category - such as individual cells or modality specific features. As input is requires a file specifying the barcode structure, consisting of multiple barcode patterns, and the number of mismatches allowed for per pattern. The tool also allows for demultiplexing of RNA sequencing reads, which are passed to the **STAR** alignment tool, after which **annotatte** appends STAR-derived genomic-information to the output. 
 
-## Generic barcode sequences:
+### Generic barcode sequences:
 To demultiplex generic barcode sequences, you need the following input files:
 - **input (fastq.gz):** single-end or forward read FASTQ file
 - **reverse (fastq.gz):** reverse read FASTQ file
