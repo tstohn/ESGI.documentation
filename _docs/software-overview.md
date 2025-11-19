@@ -10,8 +10,8 @@ ESGI is a debarcoding tool for single-cell sequencing data consisting of two sub
 ## Demultiplex
 Demultiplex assigns reads to their barcode-encoded cell and feature of origin. It supports a wide range of barcode designs within the same experiment, including insertions, deletions, substitutions, and barcodes of varying lengths or modality-specific patterns. If the barcode sequences contain DNA or RNA, **ESGI** calls the **STAR** aligner to map reads to a reference genome, and then uses **annotate** to add STAR-derived genomic-information to the output. For generic barcode sequences that encode cell and feature identifiers, you must specify the barcode structure. This structure consists of positional barcode patterns, including information on the number of mismatches allowed for per pattern. 
 
-### Generic barcode sequences:
-To demultiplex generic barcode sequences, you need the following input files:
+### Input:
+To demultiplex barcode sequences, you need the following input files:
 - **input (fastq.gz):** single-end or forward read FASTQ file
 - **reverse (fastq.gz):** reverse read FASTQ file
 - **bardcodePatternsFile (.txt):** A text file describing the barcode- structure of your reads. It uses bracket-enclodes sequence substrings to define where barcodes appear in the read. Each bracket contains a comma separated list of possible barcodes for that position, and these barcodes may vary in length.
@@ -29,8 +29,6 @@ Example with an barcode structure consisting of four sequence patterns:
 1,0,1,2
 ```
 
-### RNA-sequencing reads:
-
 ### Output: 
 After demultiplex completes, it reports in percentages the read-to-barcode matches:
 - Perfect match: reads whose barcodes match completely
@@ -39,7 +37,10 @@ After demultiplex completes, it reports in percentages the read-to-barcode match
 
 All output files including failed lines and statistics are written to the output directory. 
 
-The most important output file is **A_PROTEIN.tsv**, which contains all demultiplexed reads. The first line specifies the barcode structure, followed by all read alignments from the FASTQ input file. This file serves as input for **count**. 
+The final output differs depending on the content of the input being generic barcodes or DNA/RNA sequences. For generic barcode sequences, the output file is TSV file containing all demultiplexed reads. The first line specifies the barcode structure, followed by all read alignments from the FASTQ input file. This file serves as input for **count**. For DNA/RNA sequences, the output file is instead a FASTQ file, which serves as input for the **STAR** aligner. 
+
+### STAR
+After completing demultiplex for DNA/RNA sequencing data, the FASTQ output file can be passed to the **STAR** aligner, which is used to map the sequence reads to the reference genome. Instructions on how to download the reference genome and annotations can be found in the Getting Started folder. 
 
 **count**.
 
