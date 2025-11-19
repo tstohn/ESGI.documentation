@@ -32,7 +32,7 @@ Example with an architecture of six sequence substrings:
 ### RNA-sequencing reads:
 
 ### Output: 
-All files including failed lines and statistics will be saved to the output directory. Most important is the **A_PROTEIN.tsv** file containing the demultiplexed reads per category, so modality specific feature in a single cell. The firts line contains the barcode structure, followed by all alignments from the FASTQ input file. This file is needed as input for **count**.
+All files including failed lines and statistics will be saved to the output directory. Most important is the **A_PROTEIN.tsv** file containing the demultiplexed reads per category, so modality specific feature in a single cell. The first line contains the barcode structure, followed by all alignments from the FASTQ input file. This file is needed as input for **count**.
 
 ## Count
 Reads are sorted by cell and feature, and identical entries are collapsed to generate the final single-cell feature matrix. 
