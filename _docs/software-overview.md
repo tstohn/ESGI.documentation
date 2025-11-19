@@ -5,7 +5,7 @@ description: How to turn on and use versioning
 
 # Software Overview
 
-ESGI is a debarcoding tool for single-cell sequencing data consisting of two components: **demultiplex** and **count**. These tools can be runned separately or together as **ESGI** to generate a single-cell feature count matrix.
+ESGI is a debarcoding tool for single-cell sequencing data consisting of two submodules: **demultiplex** and **count**. These submodules can be runned separately or together as **ESGI** to generate a single-cell feature count matrix.
 
 ## Demultiplex
 Demultiplex assigns reads to their barcode-encoded cell and feature of origin. It supports a wide range of barcode designs within the same experiment, including insertions, deletions, substitutions, and barcodes of varying lengths or modality-specific patterns. If the barcode sequences contain DNA or RNA, **ESGI** calls the **STAR** aligner to map reads to a reference genome, and then uses **annotate** to add STAR-derived genomic-information to the output. For generic barcode sequences that encode cell and feature identifiers, you must specify the barcode structure. This structure consists of positional barcode patterns, including information on the number of mismatches allowed for per pattern. 
@@ -32,11 +32,14 @@ Example with an barcode structure consisting of four sequence patterns:
 ### RNA-sequencing reads:
 
 ### Output: 
-percentage of perfect, moderate and mismatches 
+After demultiplex completes, it reports in percentages the read-to-barcode matches:
+- Perfect match: reads whose barcodes match completely
+- Moderate match: reads that match within the allowed number of mismatches
+- Mismatch: reads that cannot be matched given the number of allowed mismatches
 
-All files including failed lines and statistics will be saved to the output directory. 
+All output files including failed lines and statistics are written to the output directory. 
 
-Most important is the **A_PROTEIN.tsv** file containing the demultiplexed reads per category, so modality specific feature in a single cell. The first line contains the barcode structure, followed by all alignments from the FASTQ input file. This file is needed as input for 
+The most important output file is **A_PROTEIN.tsv**, which contains all demultiplexed reads. The first line specifies the barcode structure, followed by all read alignments from the FASTQ input file. This file serves as input for **count**. 
 
 **count**.
 
