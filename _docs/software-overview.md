@@ -40,10 +40,12 @@ All output files including failed lines and statistics are written to the output
 The final output differs depending on the content of the input being generic barcodes or DNA/RNA sequences. For generic barcode sequences, the output file is TSV file containing all demultiplexed reads. The first line specifies the barcode structure, followed by all read alignments from the FASTQ input file. This file serves as input for **count**. For DNA/RNA sequences, the output file is instead a FASTQ file, which serves as input for the **STAR** aligner. 
 
 ### STAR
-After completing demultiplex for DNA/RNA sequencing data, the FASTQ output file can be passed to the **STAR** aligner, which is used to map the sequence reads to the reference genome. Instructions on how to download the reference genome and annotations can be found in [Reference Genome](getting-started#reference-genome). This creates the GRCh38/GRCh38_STAR_index directory and gencode.v43.annotate.gtf file. 
+After completing demultiplex for DNA/RNA sequencing data, the resulting FASTQ file is passed to the **STAR** aligner, which maps the sequence reads to the reference genome. Before running STAR, the reference genome and GTF annotations must be downloaded as described in [Reference Genome](getting-started#reference-genome). Running STAR on the FASTQ file produces two key output files:
+- **Aligned.out.bam:** contains reads aligned to reference genome
+- **TSV file:** contains information on detected splice junctions and exon-intron boundaries
 
 ### Annottate
-
+The output files from **STAR** are passed to **annotate**, to integrate the genomic coordinates with the barcodes encoding individual cells and prepare the final TSV file for **count**.
 
 ## Count
 Reads are sorted by cell and feature, and identical entries are collapsed to generate the final single-cell feature matrix. 
