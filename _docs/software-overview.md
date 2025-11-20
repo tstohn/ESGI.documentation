@@ -5,7 +5,7 @@ description: How to turn on and use versioning
 
 # Software Overview
 
-ESGI is a debarcoding tool for single-cell sequencing data consisting of two submodules: **demultiplex** and **count**. These submodules can be runned separately or together as **ESGI** to generate a single-cell feature count matrix.
+ESGI is a debarcoding tool for single-cell sequencing data consisting of two submodules: **demultiplex** and **count**. These submodules can be run separately or together as **ESGI** to generate a single-cell feature count matrix.
 
 ## Demultiplex
 Demultiplex assigns reads to their barcode-encoded cell and feature of origin. It supports a wide range of barcode designs within the same experiment, including insertions, deletions, substitutions, and barcodes of varying lengths or modality-specific patterns. If the barcode sequences contain DNA or RNA, **ESGI** calls the **STAR** aligner to map reads to a reference genome, and then uses **annotate** to add STAR-derived genomic-information to the output. For generic barcode sequences that encode cell and feature identifiers, you must specify the barcode structure. This structure consists of positional barcode patterns, including information on the number of mismatches allowed for per pattern. 
