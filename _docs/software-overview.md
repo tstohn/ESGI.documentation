@@ -44,7 +44,7 @@ After completing demultiplex for DNA/RNA sequencing data, the resulting FASTQ fi
 - **Aligned.out.bam:** contains reads aligned to reference genome
 - **TSV file:** contains information on detected splice junctions and exon-intron boundaries
 
-### Annottate
+### Annotate
 The output files from **STAR** are passed to **annotate**, to integrate the genomic coordinates with the barcodes encoding individual cells and prepare the final TSV file for **count**.
 
 ## Count
