@@ -5,7 +5,7 @@ description: How to turn on and use versioning
 
 # Software Overview
 
-ESGI is a debarcoding tool for single-cell sequencing data consisting of two submodules: **demultiplex** and **count**. These submodules can be run separately or together as **ESGI** to generate a single-cell feature count matrix.
+**ESGI** is a debarcoding tool for single-cell sequencing data, consisting of two submodules: **demultiplex** and **count**. You can run these submodules separately or execute **ESGI** to run both steps and generate a single-cell feature count matrix. For more details, run **demultiplex**, **count**, or **ESGI** with the --help flag. 
 
 ## Demultiplex
 Demultiplex assigns reads to their barcode-encoded cell and feature of origin. It supports a wide range of barcode designs within the same experiment, including insertions, deletions, substitutions, and barcodes of varying lengths or modality-specific patterns. If the barcode sequences contain DNA or RNA, **ESGI** calls the **STAR** aligner to map reads to a reference genome, and then uses **annotate** to add STAR-derived genomic-information to the output. For generic barcode sequences that encode cell and feature identifiers, you must specify the barcode structure. This structure consists of positional barcode patterns, including information on the number of mismatches allowed for per pattern. 
@@ -60,70 +60,40 @@ To run **count**, you must provide the barcode-aligned reads, a TSV file generat
 
 
 ## ESGI
-Instead of running **demultiplex** and **count** sequentially, you can also run them together as **ESGI**. 
+Instead of running **demultiplex** and **count** separately, you can execute them together using **ESGI**. To run **ESGI**, you need to provide an initialization-file (.ini) that specifies all required inputs, including paths to the barcode pattern and mismatches files, as well as indexing information. Optionally, you can also include feature names and additional annotation. 
 
+Below an example:
+```
+# Input directory (FASTQ or TXT; raw or gzipped)
+forward="/path/to/forward_reads.fastq.gz"
+# Reverse reads are optional
+reverse="/path/to/reverse_reads.fastq.gz"
 
+# Output directory
+output="/path/to/output"
 
+# Paths to barcode structure and mismatch settings (.txt files)
+pattern="/path/to/barcode_pattern.txt"
+mismatches="/path/to/mismatches.txt"
 
-To create a version of this documentation we first create a folder with the version name we want to use inside of the 'archive' folder and copy all the files and folders from our root _docs folder into that new folder. You could use the following commands to achieve this:
+# Index positions for single-cell, feature, and UMI assignment in pattern.txt. 
+# Counting begins at 0 and includes every pattern element defined within square brackets
+SC_ID=1,5
+FEATURE_ID=3
+UMI_ID=4
 
-```shell
-# Our last release is version "Previous" (could also be 1.0.0 or semver), we are pinning the docs to this version`
-mkdir -p _docs/Archive/Previous
-# copy all content under _docs except Archive into this new folder.`
-cp -r _docs/!(Archive) _docs/Archive/Previous
+# Optional: assign feature names to barcode patterns corresponding to FEATURE_ID
+FEATURE_NAMES="/path/to/feature_names.txt"
+
+# Additional barcode files for naming annotated barcode patterns, like experimental conditions
+ANNOTATION_IDs="/path/to/annotation_ID.txt"
+ANNOTATION_NAMES="/path/to/annotation_names.txt"
+
+threads=10
+prefix=MYEXPERIMENT
 ```
 
-After we do this, we end up with a structure shown below - the older documentation is moved into the folder 'Previous'. This step effectively takes a snapshot of our documents at a point in time and the expectation is that we will no longer maintain these pages. If you look at the structure of this site you will see the 'Previous' folder, which now holds our previous documentation, does not contain the versioning.md markdown file as this is new in the current release. This means that if you look at this page on the current site and then choose "Previous" from the version dropdown, you will get a 404 error (not found).
 
-<pre><code>
-document root
-│      
-└─── _data
-└─── _docs
-        └─── extras
-        └─── subfolder
-        └─── Archive
-              └─── <span style="color:blue;"><b>Previous</b></span>
-                  └─── extras
-                  └─── subfolder
-                  example-page.md
-                  getting-started.md
-                  subfolder.md
-        example-page.md
-        getting-started.md
-        subfolder.md
-        versioning.md
-</code></pre>
-
-You would now continue to add, update or remove markdown files from the main _docs directory in order to work on the current version of your documentation. 
-
-Once the versioning has been correctly configured and you have created a snapshot, you can access those documents by adding the version to the url to access that archived version (e.g. /docs/Archive/Previous/getting-started). 
-
-To enable the users to interact with these versioned documents through the UI there needs to be some updates to the _config.yml file to setup and enable it. The following is a snippet from the _config.yml file specific to the versioning options that are available.
-
-```yml
-version_params:
-  version_menu: "Release"
-  version_dir: Archive
-  tocversion_dir: versions
-  versioning: true
-  latest: current
-  allow_search: true  
-  search_versions:
-    - main
-    - current
-    - beta
-  versions:
-    - main
-    - current
-    - beta
-    - v3.1
-    - v3.0.1
-    - v3.0
-    - v2.4.5
-    - v2.4.4
-```
 
 ### Versioning Options
 
