@@ -13,7 +13,7 @@ description: Getting started with Docsy Jekyll
 
 Application example for multimodal data using **SIGNALseq**, which contains sequencing reads for both RNA and protein generated through combinatorial indexing. In this method, protein measurements are obtained using DNA barcoded antibodies that target the protein of interest. The DNA barcodes are sequenced alongside with the RNA, enabling simultaneous profiling of gene expression and protein abundances. 
 
-Each modality has its own seperate FASTQ files for both the forward and reverse reads. See below the instructions to download the HELA data:
+Each modality has its own separate FASTQ files for both the forward and reverse reads. See below the instructions to download the HELA data:
 ```
 ---
 wget "https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR28056729/SRR28056729" -O SRR28056729.sra # Transcripts
@@ -23,22 +23,22 @@ fastq-dump --split-files --gzip SRR28056729.sra
 fastq-dump --split-files --gzip SRR28056728.sra
 ---
 ```
-First we need to define the barcode structure. Here, the barcode structure consist of ten barcode patterns. 
 
+For each modality, we need to define the barcode structure, with it's possible barcode patterns for each location. Both modalities have a barcode structure consisting of ten barcode patterns. 
 ```
 ---
-[Antibodies][-][BC1][22X][BC2][30X][BC2][10X]
-|           |  |    |    |    |    |    | Sequence for ten random bases  
-|           |  |    |    |    |    |    
-|           |  |    |    |    | Sequence for thirty random bases     
-|           |  |    |    |    
-|           |  |    | Sequence for twenty two random bases      
-|           |  |  
-|           |
-| Sequence for the antibodies
+# Barcode structure for protein modality:
+[Antibodies][*][BC1][22X][BC2][30X][BC2][10X]
+|           |  |    └─── Sequence for twenty two random bases      
+|           |  └─── List of possible sequences
+|           └─── 
+└─── Antibody specific sequence
 
-
-
+# Barcode structure for RNA modality:
+[RNA][-][BC1][CCACAGTCTCAAGCACGTGGAT][BC2][AGTCGTACGCCGATGCGAAACATCGGCCAC][BC2][10X]
+|     |      └─── Constant barcode
+|     └───              
+└─── Sequence of the transcripts
 ---
 ```
 
