@@ -24,20 +24,23 @@ fastq-dump --split-files --gzip SRR28056728.sra
 ---
 ```
 
-For each modality, we need to define the barcode structure, with it's possible barcode patterns for each location. Both modalities have a barcode structure consisting of ten barcode patterns. 
+For each modality, we need to define the barcode structure, with it's possible barcode patterns for each location. Both modalities use a ten-pattern barcode desing, where the first pattern encoses the feature identity. In the protein modality, this feature identifying sequence is DNA, whereas in the RNA modality is it RNA. The remaining nine barcode patterns are DNA sequences in both modalities. 
+
 ```
 ---
 # Barcode structure for protein modality:
+------------> <------------------------------ 
 [Antibodies][*][BC1][22X][BC2][30X][BC2][10X]
 |           |  |    └─── Sequence for twenty two random bases      
 |           |  └─── List of possible sequences
-|           └─── 
-└─── Antibody specific sequence
+|           └─── Read stops here but forward and reverse do overlap
+└─── Antibody identity sequence
 
 # Barcode structure for RNA modality:
+-----> <----------------------------------------------------------------------------
 [RNA][-][BC1][CCACAGTCTCAAGCACGTGGAT][BC2][AGTCGTACGCCGATGCGAAACATCGGCCAC][BC2][10X]
 |     |      └─── Constant barcode
-|     └───              
+|     └─── Hard stop for forward and reverse read without overlap            
 └─── Sequence of the transcripts
 ---
 ```
