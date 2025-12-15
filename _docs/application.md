@@ -24,8 +24,11 @@ fastq-dump --split-files --gzip SRR28056728.sra
 ---
 ```
 
-For each modality, we need to define the barcode structure, with it's possible barcode patterns for each location. Both modalities use a ten-pattern barcode desing, where the first pattern encoses the feature identity. In the protein modality, this feature identifying sequence is DNA, whereas in the RNA modality is it RNA. The remaining nine barcode patterns are DNA sequences in both modalities. 
+For each modality, we need to define the barcode structure, with it's possible barcode patterns for each position. Both modalities use a ten-pattern barcode design, where the first pattern encodes the feature identity. In the protein modality, this feature identifying sequence is DNA, whereas in the RNA modality is it RNA. The remaining nine barcode patterns are DNA sequences in both modalities, where the BC barcode patterns encode for the single-cell identity with either constant or random base sequences separating them. 
 
+In both modalities, the forward read includes the feature encoding barcode, while the reverse read extends up to this barcode. In the protein modality, a polyA tail follows the feature-encoding barcode, causing overlap between the forward and reverse read. In contrast, in the RNA modality the forward read terminates at the end of the RNA sequence, and there is no overlap with the reverse read. 
+
+Below are the barcode structures for the protein and RNA modalities, shown as ten bracket-enclosed sequence substrings. Each of the brackets corresponds to a specific position in the barcode and contains a comma-separates list of possible barcode sequences for that position. 
 ```
 ---
 # Barcode structure for protein modality:
@@ -33,17 +36,31 @@ For each modality, we need to define the barcode structure, with it's possible b
 [Antibodies][*][BC1][22X][BC2][30X][BC2][10X]
 |           |  |    └─── Sequence for twenty two random bases      
 |           |  └─── List of possible sequences
-|           └─── Read stops here but forward and reverse do overlap
+|           └─── End of forward and reverse reads with overlap
 └─── Antibody identity sequence
 
 # Barcode structure for RNA modality:
 -----> <----------------------------------------------------------------------------
 [RNA][-][BC1][CCACAGTCTCAAGCACGTGGAT][BC2][AGTCGTACGCCGATGCGAAACATCGGCCAC][BC2][10X]
-|     |      └─── Constant barcode
-|     └─── Hard stop for forward and reverse read without overlap            
+|    |       └─── Constant barcode
+|    └─── End of forward and reverse reads without overlap            
 └─── Sequence of the transcripts
 ---
 ```
+
+For each barcode pattern, the allowed number of mismatches must be defined. The protein modality allows one mismatch in the feature-encoding barcode, whereas the RNA modality allows none. Both modalities accept one mismatch in each of the single-cell encoding barcodes (BC) and zero mismatches in the constant and random base sequences. 
+```
+---
+# Mismatches protein modality
+1,0,1,0,1,0,1,0
+
+# Mismatches RNA modality
+0,0,1,0,1,0,1,0
+---
+```
+
+
+
 
 Set up required paths to run demultiplex and count for protein and RNA: 
 
