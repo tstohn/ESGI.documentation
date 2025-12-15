@@ -59,39 +59,102 @@ For each barcode pattern, the allowed number of mismatches must be defined. The 
 ---
 ```
 
-
-
-
-Set up required paths to run demultiplex and count for protein and RNA: 
-
+Finally, we need to specify which barcode patterns encode the single-cell identity, feature identity and Unique molecule Identifier (UMI). This is done by providing a list of indices matching to their positions, with counting starting at 0. In both modalities, the feature-encoding barcode is located at the start,the single-cell identifiers are located at position 2, 4 and 6, and the UMI is located at the end. These indices are required to execute **count** and can be specified using the command-line options listed below.  
 ```
 ---
-# Set paths to raw data, tools, and analyses
-Path_data = "/path/to/raw_data"
-Path_tool= "/path/to/tools"
-Path_analyses = "/path/to/analyses"
+# Single-cell indices (-c)
+2, 4, 6, 
 
-# Define log file
-LOGFILE_AB="${"Path_analyses"}/output/ESGI_Protein/ESGI_PROTEIN_LOG.txt"
-# Remove old log file 
+# Feature index (-x)
+0
+
+# UMI index (-u)
+7
+---
+```
+
+Now we can set up the required paths to execute the full workflow: 
+```
+---
+Path_data = "/path/to/raw_data"
+- Includes FASTQ files of forward and reverse reads
+
+Path_background_data = "/path/to/background_data"
+- .txt files for barcode pattern, mismatches, annotation
+
+Path_STAR = "/path/to/star"
+Path_reference_genome = "/path/to/reference_genome"
+
+Path_tool= "/path/to/tools"
+
+Path_output = "/path/to/output"
+---
+```
+
+Run the workflow for the protein modality:
+**demultiplex** --> **count** 
+```
+---
+LOGFILE_AB="${"Path_output"}/ESGI_PROTEIN_LOG.txt"
 rm -f $LOGFILE
 
-#RUN WITH 1MM in SC-BARCODE and 1MM in AB-BARCODE: results have prefix A_
 /usr/bin/time -v "${Path_tool"/bin/demultiplex" \
                 -i "${Path_data}/SRR28056728_1.fastq.gz" \
                 -r "${Path_data}/SRR28056728_2.fastq.gz" \
-                -o "${Path_analyses}/output/ESGI_Protein" \
-                -p "${Path_analyses}/background_data/ESGI_files/pattern_PROTEIN.txt" \
-                -m "${Path_analyses}/background_data/ESGI_files/mismatches_PROTEIN_1MM.txt" \
+                -o "${Path_output}/ESGI_Protein" \
+                -p "${Path_background_data}/pattern_PROTEIN.txt" \
+                -m "${Path_background_data}/mismatches_PROTEIN.txt" \
                 -n A \
                 -t 70 -f 1 -q 1 2>> $LOGFILE_AB
 
 /usr/bin/time -v "${Path_tool}/bin/count" \
-                -i "${Path_analyses}/output/ESGI_Protein/A_PROTEIN.tsv" \
-                -o "${Path_analyses}/output/ESGI_Protein/A_PROTEIN_Counts.tsv" \
-                -t 70 -d "${Path_analyses}/background_data/ESGI_files" \
-                -a "${Path_analyses}/background_data/ESGI_files/antibody_names_as_in_KITE.txt" \
-                -c 1,3,5 -x 0 -u 6 -m 0 -s 1 2>> $LOGFILE_AB
+                -i "${Path_output}/A_PROTEIN.tsv" \
+                -o "${Path_output}/A_PROTEIN_Counts.tsv" \
+                -t 70 -d "${Path_background_data}/background_data/ESGI_files" \
+                -a "${Path_background_data}/background_data/ESGI_files/antibody_names_as_in_KITE.txt" \
+                -c 2,4,6 -x 0 -u 7 -m 0 -s 1 2>> $LOGFILE_AB
+---
+```
+
+Run the workflow for the RNA modality:
+**demultiplex** --> **STAR** --> **annotate** --> **count** 
+```
+---
+LOGFILE="${"Path_output"}/ESGI_RNA_LOG.txt"
+rm $LOGFILE
+
+/usr/bin/time -v "${Path_data}/SRR28056729_1.fastq" \
+              -r "${Path_data}/SRR28056729_2.fastq" \
+              -o "${Path_output}/ESGI_RNA" \
+              -p "${Path_background_data}/pattern_RNA.txt" \
+              -m "${Path_background_data}/mismatches_RNA.txt" \
+              -t 70 -f 1 -q 1 2>> $LOGFILE
+              
+/usr/bin/time -v STAR --runThreadN 70 \
+     --genomeDir "${Path_reference_genome}/GRCh38/GRCh38_STAR_index" \
+     --readFilesIn "${Path_output}/RNA.fastq" \
+     --outFileNamePrefix "${Path_output}/RNA_" \
+     --sjdbGTFfile "${Path_reference_genome}/GRCh38/gencode.v43.annotation.gtf" \
+     --sjdbOverhang 73 \
+     --outSAMtype BAM Unsorted \
+     --outSAMattributes NH HI AS nM GX GN \
+     --quantMode TranscriptomeSAM \
+     --outFilterMultimapNmax 50 \
+     --outSAMmultNmax 1 --outSAMunmapped Within \
+     --limitOutSJcollapsed 2000000 \
+     --twopassMode Basic 2>> $LOGFILE
+     
+/usr/bin/time -v "${Path_tool}/bin/annotate \
+              -i "${Path_output}/ESGI_RNA/RNA.tsv" \
+              -b "${Path_output}/RNA_Aligned.out.bam" \
+              -f GX 2>> $LOGFILE
+
+/usr/bin/time -v "${Path_tool}/bin/count
+              -i "${Path_output}/RNA_annotated.tsv" \
+              -o "${Path_output}/RNA_Counts_umi0.tsv" -t 70 \
+              -d "${Path_background_data}/" \
+              -c 2,4,6 -x 0 -u 7 -m 1 -s 1 \
+              -w "${Path_background_data}/bc_sharing_revComp.tsv" 2>> $LOGFILE
 ---
 ```
 
