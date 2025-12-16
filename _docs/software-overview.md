@@ -27,7 +27,9 @@ Optional parameters:
 | `--independent`, `-d` | Treat the forward read as two separate sequences in the 5'-->3' direction. Use together with the read separator [-] in the `--BarcodePatternsFile` to indicate where one read ends and the other begins.  | Disabled |
 |  `--hamming`, `-H` | Use Hamming distance instead of Levenshtein for variable barcodes. Only supported when allowing for one mismatch per barcode pattern. | Levenshtein |
 
-Example of a barcode structure consisting of six sequence patterns, including the number of mismatches allowed per per pattern. 
+The output directory can be set using `--output`, `-o`.
+
+Example of a barcode structure consisting of six sequence patterns, including the number of mismatches allowed for per pattern. 
 ```
 # Structure with six barcode patterns
 -----> <---------------------------------
