@@ -13,10 +13,10 @@ Demultiplex assigns sequencing reads to their barcode-encoded single-cell and fe
 ### Input:
 | Option | Description | File Type |
 | ------ | ----------- | --------- | 
-| *--input*, *-i* | Single-end or forward read file | fastq(.gz) 
-| *--reverse*, *-r* | Reverse read file (optional) | fastq(.gz)
-| *--BarcodePatternsFile*, *-p* | Description of the barcode- structure, using bracket-enclosed sequence substrings to define where barcode patterns appear in the read. Each bracket contains a comma separated list of possible barcodes for that position, and these barcodes may vary in length | (.txt)
-| *--mismatchFile**, *-m* | A comma-separated list of integers, one for each substring in the barcode pattern, specifying the number of mismatches allowed for in each bracket-enclosed substring | (.txt)
+| --input, -i | Single-end or forward read file | fastq(.gz) |
+| --reverse, -r | Reverse read file (optional) | fastq(.gz) |
+| --BarcodePatternsFile, -p | Description of the barcode- structure, using bracket-enclosed sequence substrings to define where barcode patterns appear in the read. Each bracket contains a comma separated list of possible barcodes for that position, and these barcodes may vary in length | (.txt) |
+| --mismatchFile, -m | A comma-separated list of integers, one for each substring in the barcode pattern, specifying the number of mismatches allowed for in each bracket-enclosed substring | (.txt) |
 
 | Parameter | Description | Values |
 | --------- | ----------- | ------ | 
