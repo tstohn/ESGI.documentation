@@ -88,8 +88,6 @@ The following parameters must be specified:
 | `--singleCellIndices`, `-c` | Indices referring to the positions of the barcode patterns that encode the single-cell identifiers | Comma-separated list
 | `--umiIndex`, `-u` | Indices referring to the positions of the barcode patterns that encode the unique molecule identifiers (UMIs) | Comma-separated list
 
----
-
 Optional parameters (annotation and metadata)
 
 | Option | Description | File type | Default |
@@ -97,8 +95,6 @@ Optional parameters (annotation and metadata)
 | `--featureNames`, `-a` | List of all feature names, in same order as the feature-barcodes in the barcode file | (.txt) | Nucleotide sequences
 |  `--annotationFiles`, `-g` | List of paths to files, where every file contains a list of single-cell annotations (like conditions). Should be in same order as the barcodes for annotation  | (.txt) | None
 |  `--annotationIdxs`, `-y` | List of space separated indices used to annotate cells  | (.txt) | None
-
----
 
 Optional parameters (UMI handling and collapsing)
 
@@ -111,7 +107,11 @@ Optional parameters (UMI handling and collapsing)
 |  `--umiRemoval`, `-z` | UMIs are collapsed | 1
 
 ### Output
-**count** creates TSV file containing the final single cell matrix, providing the feature ID, single-cell ID, and corresponding count. 
+When **count** completes, it creates a *LOG_COUNTS.tsv* file summarizing the total number of reads and the number of detected UMI mismatches. 
+
+Count outputs two count matrices *(.tsv)*: 
+- **UMI uncollapsed** : 
+- **UMI collapsed**: 
 
 ## ESGI
 Instead of running **demultiplex** and **count** separately, you can execute them together using **ESGI**. To run **ESGI**, you need to provide an initialization-file (.ini) that specifies all required inputs, including paths to the barcode pattern and mismatches files, as well as indexing information. Optionally, you can also include feature names and additional annotation. 
