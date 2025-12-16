@@ -10,7 +10,7 @@ description: How to turn on and use versioning
 ## Demultiplex
 Demultiplex assigns sequencing reads to their barcode-encoded single-cell and feature of origin. It supports a wide range of barcode designs within a single experiment, including  barcodes of varying lengths and modality-specific patterns. The tool also allows for mismatches in the barcode patterns arising from insertions, deletions, and substitutions. For generic barcode sequences that encode cell and feature identities, the barcode structure must be specified. This structure is defined by positional barcode patterns, including the number of mismatches allowed for per pattern. When the barcode pattern encodes a gene or transcripts, **ESGI** calls the **STAR** aligner to map these reads to a reference genome, after which **annotate** is used to add the STAR-derived genomic informatiom to the output. 
 
-### Input:
+### Set up:
 To demultiplex barcode sequences, you need the following input files:
 
 | Option | Description | File Type |
@@ -52,17 +52,20 @@ After demultiplex completes, it reports the percentage of reads assigned to each
 
 All output files, including failed lines and statistics, are written to the specified output directory. 
 
-The final output differs depending on the content of the input being generic barcodes or DNA/RNA sequences.
+The final output and corresponding downstream step depend on the type of input:
 
 | Input type | Output format | Description | Downstream use |
 | ---------- | ------------- | ----------- | -------------- |
 | Generic barcode sequences | TSV | Demultiplexed reads in format of barcode structure| **count**
-| DNA/RNA sequences | FASTQ | Demultiplexed reads | **STAR**
+| DNA/RNA sequences | FASTQ | Demultiplexed sequence reads | **STAR**
 
 ### STAR
 After completing demultiplex for DNA/RNA sequencing data, the resulting FASTQ file is passed to the **STAR** aligner, which maps the sequence reads to the reference genome. Before running STAR, the reference genome and GTF annotations must be downloaded as described in [Reference Genome](getting-started#reference-genome). Running STAR on the FASTQ file produces two key output files:
-- **Aligned.out.bam:** contains reads aligned to reference genome
-- **TSV file:** contains information on detected splice junctions and exon-intron boundaries
+
+| File type | Description |
+| --------- | ----------- |
+| aligned.out.bam | contains reads aligned to reference genome
+| TSV | contains information on detected splice junctions and exon-intron boundaries
 
 ### Annotate
 The output files from **STAR** are passed to **annotate**, to integrate the genomic coordinates with the barcodes encoding individual cells and prepare the final TSV file for **count**.
