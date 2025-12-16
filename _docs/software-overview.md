@@ -20,15 +20,6 @@ To demultiplex barcode sequences, you need the following input files:
 | `--BarcodePatternsFile`, `-p` | Description of the barcode- structure, using bracket-enclosed sequence substrings to define where barcode patterns appear in the read. Each bracket contains a comma separated list of possible barcodes for that position, and these barcodes may vary in length | (.txt)
 |  `--mismatchFile`, `-m` |  A comma-separated list of integers, one for each substring in the barcode pattern, specifying the number of mismatches allowed for in each bracket-enclosed substring | (.txt) 
 
-Optional parameters:
-
-| Option | Description | Default |
-| --------- | ----------- | ------ | 
-| `--independent`, `-d` | Treat the forward read as two separate sequences in the 5'-->3' direction. Use together with the read separator [-] in the `--BarcodePatternsFile` to indicate where one read ends and the other begins.  | Disabled |
-|  `--hamming`, `-H` | Use Hamming distance instead of Levenshtein for variable barcodes. Only supported when allowing for one mismatch per barcode pattern. | Levenshtein |
-
-The output directory can be set using `--output`, `-o`.
-
 Example of a barcode structure consisting of six sequence patterns, including the number of mismatches allowed for per pattern. 
 ```
 # Structure with six barcode patterns
@@ -43,6 +34,15 @@ Example of a barcode structure consisting of six sequence patterns, including th
 # Allowed mismatches per barcode pattern
 1,0,1,0,1,0
 ```
+
+Optional parameters:
+
+| Option | Description | Default |
+| --------- | ----------- | ------ | 
+| `--independent`, `-d` | Treat the forward read as two separate sequences in the 5'-->3' direction. Use together with the read separator [-] in the `--BarcodePatternsFile` to indicate where one read ends and the other begins.  | Disabled |
+|  `--hamming`, `-H` | Use Hamming distance instead of Levenshtein for variable barcodes. Only supported when allowing for one mismatch per barcode pattern. | Levenshtein |
+
+The output directory can be set using `--output`, `-o`.
 
 ### Output: 
 After demultiplex completes, it reports in percentages the read-to-barcode matches:
