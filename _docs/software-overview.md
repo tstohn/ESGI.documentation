@@ -12,6 +12,7 @@ Demultiplex assigns sequencing reads to their barcode-encoded single-cell and fe
 
 ### Input:
 To demultiplex barcode sequences, you need the following input files:
+
 | Option | Description | File Type |
 | --------- | ----------- | ------ | 
 | `--input`, `-i` | Single-end or forward read file | fastq(.gz) 
@@ -20,6 +21,7 @@ To demultiplex barcode sequences, you need the following input files:
 |  `--mismatchFile`, `-m` |  A comma-separated list of integers, one for each substring in the barcode pattern, specifying the number of mismatches allowed for in each bracket-enclosed substring | (.txt) 
 
 Optional parameters:
+
 | Option | Description | Default |
 | --------- | ----------- | ------ | 
 | `--independent`, `-d` | Treat the forward read as two separate sequences in the 5'-->3' direction. Use together with the read separator [-] in the `--BarcodePatternsFile` to indicate where one read ends and the other begins.  | Disabled |
