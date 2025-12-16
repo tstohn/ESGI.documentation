@@ -22,7 +22,7 @@ Demultiplex assigns sequencing reads to their barcode-encoded single-cell and fe
 To demultiplex barcode sequences, you need the following input files:
 - **input (fastq.gz):** single-end or forward read FASTQ file
 - **reverse (fastq.gz):** reverse read FASTQ file (optional)
-- **bardcodePatternsFile (.txt):** A text file describing the barcode- structure of your reads. It uses bracket-enclodes sequence substrings to define where barcodes appear in the read. Each bracket contains a comma separated list of possible barcodes for that position, and these barcodes may vary in length.
+- **bardcodePatternsFile (.txt):** A text file describing the barcode- structure, using bracket-enclodes sequence substrings to define where barcode patterns appear in the read. Each bracket contains a comma separated list of possible barcodes for that position, and these barcodes may vary in length.
 - **mismatchfile (.txt):** A comma-separated list of integers, one for each substring in the barcode pattern, specifying the number of mismatches allowed for in each bracket-enclosed substring. 
 
 Example of a barcode structure consisting of six sequence patterns, including the number of mismatches allowed per per pattern. 
