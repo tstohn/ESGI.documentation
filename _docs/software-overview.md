@@ -11,28 +11,15 @@ description: How to turn on and use versioning
 Demultiplex assigns sequencing reads to their barcode-encoded single-cell and feature of origin. It supports a wide range of barcode designs within a single experiment, including  barcodes of varying lengths and modality-specific patterns. The tool also allows for mismatches in the barcode patterns arising from insertions, deletions, and substitutions. For generic barcode sequences that encode cell and feature identities, the barcode structure must be specified. This structure is defined by positional barcode patterns, including the number of mismatches allowed for per pattern. When the barcode pattern encodes a gene or transcripts, **ESGI** calls the **STAR** aligner to map these reads to a reference genome, after which **annotate** is used to add the STAR-derived genomic informatiom to the output. 
 
 ### Input:
+To demultiplex barcode sequences, you need the following input files:
 | Option | Description | File Type |
-| --------- | ----------- | ------ | 
-| --input, -i | Single-end or forward read file | fastq(.gz) 
-| --reverse, -r | Reverse read file (optional) | fastq(.gz) 
-| --BarcodePatternsFile, -p | Description of the barcode- structure, using bracket-enclosed sequence substrings to define where barcode patterns appear in the read. Each bracket contains a comma separated list of possible barcodes for that position, and these barcodes may vary in length | (.txt) 
-| --mismatchFile, -m | A comma-separated list of integers, one for each substring in the barcode pattern, specifying the number of mismatches allowed for in each bracket-enclosed substring | (.txt) 
-
-| Option | Description | File Type |
-| --------- | ----------- | ------ | 
+| --------- | ---------- | ------- | 
 | -i [---input] | Single-end or forward read file | fastq(.gz) 
 | -r [---reverse] | Reverse read file (optional) | fastq(.gz)
 | -p [---BarcodePatternsFile] | Description of the barcode- structure, using bracket-enclosed sequence substrings to define where barcode patterns appear in the read. Each bracket contains a comma separated list of possible barcodes for that position, and these barcodes may vary in length | (.txt)
 |  -m [---mismatchFile] |  A comma-separated list of integers, one for each substring in the barcode pattern, specifying the number of mismatches allowed for in each bracket-enclosed substring | (.txt) 
 
 
-| latest | From the list of versions this determines the one which relates to your base docs directory.<br/> Note the url for your docs will not contain a version identifier for this particular version| current \| v3.1
-| allow_search | A boolean to indicate if we should allow searching over versions. If False, only the current is displayed in results | true \| false 
-| search_version | A list of versions to include in the search. Current or latest will be tagged with the site.tag_color, the rest will be gray | current \| previous
-| versions | A list of versions you wish to display in the version dropdown <br/> Note that there are several special keywords that can be used: current, main, alpha, beta, rc and pre, see below for more details  | current \| v1.0 \| v2.1.3
-
-
-To demultiplex barcode sequences, you need the following input files:
 - **input (fastq.gz):** single-end or forward read FASTQ file
 - **reverse (fastq.gz):** reverse read FASTQ file (optional)
 - **bardcodePatternsFile (.txt):** A text file describing the barcode- structure, using bracket-enclodes sequence substrings to define where barcode patterns appear in the read. Each bracket contains a comma separated list of possible barcodes for that position, and these barcodes may vary in length.
