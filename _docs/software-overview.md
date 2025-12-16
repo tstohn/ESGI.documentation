@@ -56,7 +56,7 @@ The final output differs depending on the content of the input being generic bar
 
 | Input type | Output format | Description | Downstream use |
 | ---------- | ------------- | ----------- | -------------- |
-| Generic barcode sequences | TSV | fastq(.gz) | Demultiplexed reads in format of barcode structure| **count**
+| Generic barcode sequences | TSV | Demultiplexed reads in format of barcode structure| **count**
 | DNA/RNA sequences | FASTQ | Demultiplexed reads | **STAR**
 
 ### STAR
