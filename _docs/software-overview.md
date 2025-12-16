@@ -12,7 +12,7 @@ Demultiplex assigns sequencing reads to their barcode-encoded single-cell and fe
 
 ### Input:
 | Option | Description | File Type |
-| ------- | ----------- | --------- | 
+| ------ | ----------- | --------- | 
 | *--input*, *-i* | Single-end or forward read file | fastq(.gz) 
 | *--reverse*, *-r* | Reverse read file (optional) | fastq(.gz)
 | *--BarcodePatternsFile*, *-p* | File describing the barcode- structure of your reads. It uses bracket-enclodes sequence substrings to define where barcodes appear in the read. Each bracket contains a comma separated list of possible barcodes for that position, and these barcodes may vary in length | (.txt)
