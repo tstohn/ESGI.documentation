@@ -15,10 +15,10 @@ To demultiplex barcode sequences, you need the following input files:
 
 | Option | Description | File Type |
 | --------- | ----------- | ------ | 
-| -i [---input] | Single-end or forward read file | fastq(.gz) 
-| -r [---reverse] | Reverse read file (optional) | fastq(.gz)
-| -p [---BarcodePatternsFile] | Description of the barcode- structure, using bracket-enclosed sequence substrings to define where barcode patterns appear in the read. Each bracket contains a comma separated list of possible barcodes for that position, and these barcodes may vary in length | (.txt)
-|  -m [---mismatchFile] |  A comma-separated list of integers, one for each substring in the barcode pattern, specifying the number of mismatches allowed for in each bracket-enclosed substring | (.txt) 
+| `--input`, `-i` | Single-end or forward read file | fastq(.gz) 
+| '--reverse`, `-r` | Reverse read file (optional) | fastq(.gz)
+| '--BarcodePatternsFile, `-p` | Description of the barcode- structure, using bracket-enclosed sequence substrings to define where barcode patterns appear in the read. Each bracket contains a comma separated list of possible barcodes for that position, and these barcodes may vary in length | (.txt)
+|  `--mismatchFile`, `-m` |  A comma-separated list of integers, one for each substring in the barcode pattern, specifying the number of mismatches allowed for in each bracket-enclosed substring | (.txt) 
 
 
 - **input (fastq.gz):** single-end or forward read FASTQ file
