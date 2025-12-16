@@ -97,15 +97,14 @@ Optional parameters (annotation and metadata)
 | `--featureNames`, `-a` | List of all feature names, in same order as the feature-barcodes in the barcode file | (.txt) | Nucleotide sequences
 |  `--annotationFiles`, `-g` | List of paths to files, where every file contains a list of single-cell annotations (like conditions). Should be in same order as the barcodes for annotation  | (.txt) | None
 |  `--annotationIdxs`, `-y` | List of space separated indices used to annotate cells  | (.txt) | None
-|  `--scIdAsString`, `-s` | Stores the single-cell ID as the sequence string instead of barcode ID | 1
 
 ---
 
-Optional parameters (annotation and metadata)
+Optional parameters (UMI handling and collapsing)
 
 | Option | Description | Default |
 | ---------- | ------------- | -------------- |
-
+|  `--scIdAsString`, `-s` | Stores the single-cell ID as the sequence string instead of barcode ID | 1
 |  `--mismatches`, `-m` | Number of mismatches allowed during UMI collapsing | 1
 |  `--hamming`, `-H` | Use Hamming distance during UMI collapsing (allowing for insertions and deletions) | 0
 |  `--umiThreshold`, `-f` | Threshold to filter UMIs before collapsing | 0
