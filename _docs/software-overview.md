@@ -10,24 +10,32 @@ description: How to turn on and use versioning
 ## Demultiplex
 Demultiplex assigns sequencing reads to their barcode-encoded single-cell and feature of origin. It supports a wide range of barcode designs within a single experiment, including  barcodes of varying lengths and modality-specific patterns. The tool also allows for mismatches in the barcode patterns arising from insertions, deletions, and substitutions. For generic barcode sequences that encode cell and feature identities, the barcode structure must be specified. This structure is defined by positional barcode patterns, including the number of mismatches allowed for per pattern. When the barcode pattern encodes a gene or transcripts, **ESGI** calls the **STAR** aligner to map these reads to a reference genome, after which **annotate** is used to add the STAR-derived genomic informatiom to the output. 
 
-### Input:
+### -- Input:
 To demultiplex barcode sequences, you need the following input files:
 - **input (fastq.gz):** single-end or forward read FASTQ file
-- **reverse (fastq.gz):** reverse read FASTQ file
+- **reverse (fastq.gz):** reverse read FASTQ file (optional)
 - **bardcodePatternsFile (.txt):** A text file describing the barcode- structure of your reads. It uses bracket-enclodes sequence substrings to define where barcodes appear in the read. Each bracket contains a comma separated list of possible barcodes for that position, and these barcodes may vary in length.
 - **mismatchfile (.txt):** A comma-separated list of integers, one for each substring in the barcode pattern, specifying the number of mismatches allowed for in each bracket-enclosed substring. 
 
-Example with an barcode structure consisting of four sequence patterns:
+Example of a barcode structure consisting of six sequence patterns, including the number of mismatches allowed per per pattern. 
 ```
-# Barcode Patterns
-[BC1.txt][10X][AGCTCATCGAC][BC2.txt]
-|        |    └─── Constant barcode
-|        └─── Sequence of ten random bases 
-└─── List of possible sequences
+# Structure with six barcode patterns
+-----> <---------------------------------
+[RNA][-][BC1.txt][AGCTCATC][BC2.txt][10X]
+|    |  |        |                  └─── Sequence for ten random bases
+|    |  |        └─── Constant barcode
+|    |  └─── List of possible sequences
+|    └─── Read separator for forward and reverse read
+└─── Sequence of transcript
 
-# Mismatchfile
-1,0,1,2
+# Allowed mismatches per barcode pattern
+1,0,1,0,1,0
 ```
+
+Options of the tool:
+- If the forward read consists of two separate reads in the 5'->3' direction, use the -- independent (-d) option together with the read separator [-] in the **bardcodePatternsFile** to indicate where one read ends and the other begins.
+
+
 
 ### Output: 
 After demultiplex completes, it reports in percentages the read-to-barcode matches:
