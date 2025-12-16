@@ -10,7 +10,7 @@ description: How to turn on and use versioning
 ## Demultiplex
 Demultiplex assigns sequencing reads to their barcode-encoded single-cell and feature of origin. It supports a wide range of barcode designs within a single experiment, including  barcodes of varying lengths and modality-specific patterns. The tool also allows for mismatches in the barcode patterns arising from insertions, deletions, and substitutions. For generic barcode sequences that encode cell and feature identities, the barcode structure must be specified. This structure is defined by positional barcode patterns, including the number of mismatches allowed for per pattern. When the barcode pattern encodes a gene or transcripts, **ESGI** calls the **STAR** aligner to map these reads to a reference genome, after which **annotate** is used to add the STAR-derived genomic informatiom to the output. 
 
-### -- Input:
+### Input:
 To demultiplex barcode sequences, you need the following input files:
 - **input (fastq.gz):** single-end or forward read FASTQ file
 - **reverse (fastq.gz):** reverse read FASTQ file (optional)
@@ -33,7 +33,7 @@ Example of a barcode structure consisting of six sequence patterns, including th
 ```
 
 Options of the tool:
-- If the forward read consists of two separate reads in the 5'->3' direction, use the -- independent (-d) option together with the read separator [-] in the **bardcodePatternsFile** to indicate where one read ends and the other begins.
+- If the forward read consists of two separate reads in the 5'-->3' direction, use the *-- independent* (-d) option together with the read separator [-] in the **bardcodePatternsFile** to indicate where one read ends and the other begins.
 
 
 
