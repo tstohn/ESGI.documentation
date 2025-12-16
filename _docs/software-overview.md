@@ -45,14 +45,19 @@ Optional parameters:
 The output directory can be set using `--output`, `-o`.
 
 ### Output: 
-After demultiplex completes, it reports in percentages the read-to-barcode matches:
+After demultiplex completes, it reports the percentages of the read-to-barcode match categories:
 - Perfect match: reads whose barcodes match completely
 - Moderate match: reads that match within the allowed number of mismatches
 - Mismatch: reads that cannot be matched given the number of allowed mismatches
 
-All output files including failed lines and statistics are written to the output directory. 
+All output files, including failed lines and statistics, are written to the specified output directory. 
 
-The final output differs depending on the content of the input being generic barcodes or DNA/RNA sequences. For generic barcode sequences, the output file is TSV file containing all demultiplexed reads. The first line specifies the barcode structure, followed by all read alignments from the FASTQ input file. This file serves as input for **count**. For DNA/RNA sequences, the output file is instead a FASTQ file, which serves as input for the **STAR** aligner. 
+The final output differs depending on the content of the input being generic barcodes or DNA/RNA sequences.
+
+| Input type | Output format | Description | Downstream use |
+| ---------- | ------------- | ----------- | -------------- |
+| Generic barcode sequences | TSV | fastq(.gz) | Demultiplexed reads in format of barcode structure| **count**
+| DNA/RNA sequences | FASTQ | Demultiplexed reads | **STAR**
 
 ### STAR
 After completing demultiplex for DNA/RNA sequencing data, the resulting FASTQ file is passed to the **STAR** aligner, which maps the sequence reads to the reference genome. Before running STAR, the reference genome and GTF annotations must be downloaded as described in [Reference Genome](getting-started#reference-genome). Running STAR on the FASTQ file produces two key output files:
