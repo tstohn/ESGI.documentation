@@ -45,7 +45,7 @@ Optional parameters:
 The output directory can be set using `--output`, `-o`.
 
 ### Output: 
-After demultiplex completes, it reports the percentages of the read-to-barcode match categories:
+After demultiplex completes, it reports the percentage of reads assigned to each match category:
 - Perfect match: reads whose barcodes match completely
 - Moderate match: reads that match within the allowed number of mismatches
 - Mismatch: reads that cannot be matched given the number of allowed mismatches
