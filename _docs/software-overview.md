@@ -10,10 +10,6 @@ description: How to turn on and use versioning
 ## Demultiplex
 Demultiplex assigns sequencing reads to their barcode-encoded single-cell and feature of origin. It supports a wide range of barcode designs within a single experiment, including  barcodes of varying lengths and modality-specific patterns. The tool also allows for mismatches in the barcode patterns arising from insertions, deletions, and substitutions. For generic barcode sequences that encode cell and feature identities, the barcode structure must be specified. This structure is defined by positional barcode patterns, including the number of mismatches allowed for per pattern. When the barcode pattern encodes a gene or transcripts, **ESGI** calls the **STAR** aligner to map these reads to a reference genome, after which **annotate** is used to add the STAR-derived genomic informatiom to the output. 
 
-{% include alert.html type="info" title="Workflow Generic barcode sequences: **demultiplex** --> **count**" %}
-
-{% include alert.html type="info" title="Workflow DNA/RNA sequences: **demultiplex** --> **STAR** --> **annotate** --> **count**" %}
-
 ### Set up:
 To demultiplex barcode sequences, you need the following input files:
 
@@ -60,6 +56,8 @@ The final output and corresponding downstream step depend on the type of input:
 | ---------- | ------------- | ----------- | -------------- |
 | Generic barcode sequences | TSV | Demultiplexed reads in format of barcode structure| **count**
 | DNA/RNA sequences | FASTQ | Demultiplexed sequence reads | **STAR**
+
+{% include alert.html type="info" title=" Note: Workflow differs depending on the input type. For generic barcode sequences: demultiplex - count, while for DNA/RNA sequences: demultiplex - STAR - annotate - count" %}
 
 ### STAR
 After demultiplexing DNA/RNA sequencing data, the resulting FASTQ file is passed to the **STAR** aligner, which maps sequencing reads to a reference genome. Before running STAR, the reference genome and GTF annotation files must be downloaded as described in [Reference Genome](getting-started#reference-genome). 
