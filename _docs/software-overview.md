@@ -117,7 +117,7 @@ When **count** finishes, it creates a *LOG_COUNTS.tsv* file summarizing the tota
 
 The key output are two count matrices *(.tsv)*: 
 - **UMI uncollapsed** : Reports the number of reads per UMI, providing insight into UMI amplification during the PCR experiment.
-- **UMI collapsed**: All reads sharing the same UMI are collapsed to create the final count matrix for each unqiue single-cell and feature combination
+- **UMI collapsed**: All reads sharing the same UMI are collapsed to create the final count matrix for each unique single-cell and feature combination.
 
 ## ESGI
 Instead of running **demultiplex** and **count** separately, you can execute them together using **ESGI**. To run **ESGI**, you need to provide an *initialization-file (.ini)* that specifies all required inputs, including paths to all barcode-related files, as well as indexing information. Optionally, you can also include feature names and additional annotation. 
