@@ -22,8 +22,8 @@ Go to latest release, find the assets for your operating system, then download a
 
 ### Build Tool
 
-To compile the tool on your own system, clone the GitHub repository, install the dependencies, and build the tools. 
-Afterward, verify that all components were correctly installed, built, and executed. 
+To compile the tool on your own system, clone the GitHub repository, install the dependencies, and build **ESGI**. 
+
 ```
 ---
 # Clone repository
@@ -33,26 +33,20 @@ cd ESGI/
 # Install dependencies
 make install
 
-# Build components
-make demultiplex
-make count
-make annotate
+# Build ESGI
 make esgi
-
-# Verify installation
-make test
 ---
 ```
 
-After building, the executables **demultiplex**, **count**, **annotate** and **esgi**, will be available in the bin/ directory. You can run each component individually, or use **esgi** to execute the complete workflow. 
+After building, the executables **demultiplex**, **count**, **annotate** and **ESGI**, will be available in the *bin/ directory*. You can run each submodule individually, or use **ESGI** to execute the complete workflow. 
 
 
 ## Reference Genome
 
-The STAR alignment tool is used to map RNA-sequence reads to the reference genome.  
+The STAR alignment tool is used to map genes or transcripts to the reference genome.  
 First, download the reference genome and annotation files.
 
-### Download the Reference genome:
+#### Download the Reference genome:
 ```
 ---
 mkdir GRCh38
@@ -64,7 +58,7 @@ gunzip *.gz
 ---
 ```
 
-### Generate STAR Genome Index:
+#### Generate STAR Genome Index:
 ```
 ---
 STAR --runThreadN 70 \
@@ -76,7 +70,7 @@ STAR --runThreadN 70 \
 ---
 ```
 
-### Covert GFT to bed for annotation:
+#### Covert GFT to bed for annotation:
 STAR provides chromosome locations, which can be annotated using bedtools.
 To do this, you need a .bed file instead of a .gtf file.
 ```
