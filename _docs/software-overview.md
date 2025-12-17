@@ -97,14 +97,16 @@ Optional parameters for annotation:
 | `--featureNames`, `-a` | List of all feature names, in same order as the feature-barcodes in the barcode file | (.txt) | Nucleotide sequences
 |  `--annotationFiles`, `-g` | List of paths to files, where every file contains a list of single-cell annotations | (.txt) | None
 |  `--annotationIdxs`, `-y` | List of space separated indices used to annotate cells  | (.txt) | None
+|  `--scIdAsString`, `-s` | Stores the single-cell ID as the sequence string instead of barcode ID | None | 1
 
-Optional parameters for UMI handling and collapsing:
+By default, UMI collapsing is enabled using Hamming distance, allowing a single mismatch. Using the parameters below, you can disable UMI collapsing or change the distance measure and the number of allowed mismatches.
+
+Optional parameters for UMI collapsing:
 
 | Option | Description | Default |
 | ---------- | ------------- | -------------- |
-|  `--scIdAsString`, `-s` | Stores the single-cell ID as the sequence string instead of barcode ID | 1
 |  `--mismatches`, `-m` | Number of mismatches allowed during UMI collapsing | 1
-|  `--hamming`, `-H` | Use Hamming distance during UMI collapsing (allowing for insertions and deletions) | 0
+|  `--hamming`, `-H` | Use Hamming instead of Levenshtein distance during UMI collapsing (allowing for insertions and deletions) | 0
 |  `--umiThreshold`, `-f` | Threshold to filter UMIs before collapsing | 0
 |  `--umiRemoval`, `-z` | UMIs are collapsed | 1
 
