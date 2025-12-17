@@ -78,7 +78,7 @@ The **count** submodule groups the aligned reads by single-cell and feature barc
 ### Input and set up:
 To run **count**, you must provide barcode-aligned reads as input. These are generated as a TSV file either by **demultiplex** (for generic barcode data) or by **demultiplex** → **STAR** → **annotate** (for DNA/RNA sequence data). 
 
-Next, by including all barcode information and specifying the indices of barcodes patterns that encode the Unique Molecule Identifier (UMI), single cell ID, and feature ID, the count matrices can de generated. In case, a single cell ID is encoded by a combination of variable barcode patterns, you can give a list of indices.
+Next, by including all barcode information and specifying the indices of barcodes patterns that encode the Unique Molecule Identifier (UMI), single cell ID, and feature ID, the count matrices can be generated. In case, a single cell ID is encoded by a combination of variable barcode patterns, you can give a list of indices.
 
 The following parameters must be specified:
 
