@@ -38,7 +38,7 @@ make esgi
 ---
 ```
 
-After building, the executables **demultiplex**, **count**, **annotate** and **ESGI**, will be available in the *bin/ directory*. You can run each submodule individually, or use **ESGI** to execute the complete workflow. 
+After building, the executables **demultiplex**, **count**, **annotate** and **ESGI**, will be available in the *bin/ directory*. You can run each submodule individually, or use ESGI to execute the complete workflow. 
 
 
 ## Reference Genome
