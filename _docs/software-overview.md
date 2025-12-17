@@ -90,7 +90,7 @@ The following parameters must be specified:
 | `--singleCellIndices`, `-c` | Indices referring to the positions of the barcode patterns that encode the single-cell identifiers | Comma-separated list
 | `--umiIndex`, `-u` | Indices referring to the positions of the barcode patterns that encode the UMI | Comma-separated list
 
-Optionally, feature names and single-cell annotations, like experimental conditions, can be added by providing them in the same order as corresponding barcodes in the barcode files. 
+Optionally, feature names and single-cell annotations, like experimental conditions, can be added by providing them in the same order as corresponding barcodes in the barcode pattern files. 
 
 Optional parameters for annotation:
 
@@ -113,14 +113,14 @@ Optional parameters for UMI collapsing:
 |  `--umiRemoval`, `-z` | UMIs are collapsed | 1
 
 ### Output
-When **count** completes, it creates a *LOG_COUNTS.tsv* file summarizing the total number of reads and the number of detected UMI mismatches. 
+When **count** finishes, it creates a *LOG_COUNTS.tsv* file summarizing the total number of processed reads and the number of detected UMI mismatches. 
 
-Count outputs two count matrices *(.tsv)*: 
-- **UMI uncollapsed** : 
-- **UMI collapsed**: 
+The key output are two count matrices *(.tsv)*: 
+- **UMI uncollapsed** : Reports the number of reads per UMI, providing insight into UMI amplification during the PCR experiment.
+- **UMI collapsed**: All reads sharing the same UMI are collapsed to create the final count matrix for each unqiue single-cell and feature combination
 
 ## ESGI
-Instead of running **demultiplex** and **count** separately, you can execute them together using **ESGI**. To run **ESGI**, you need to provide an initialization-file (.ini) that specifies all required inputs, including paths to the barcode pattern and mismatches files, as well as indexing information. Optionally, you can also include feature names and additional annotation. 
+Instead of running **demultiplex** and **count** separately, you can execute them together using **ESGI**. To run **ESGI**, you need to provide an *initialization-file (.ini)* that specifies all required inputs, including paths to all barcode-related files, as well as indexing information. Optionally, you can also include feature names and additional annotation. 
 
 Below an example:
 ```
