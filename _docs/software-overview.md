@@ -57,7 +57,7 @@ The final output and corresponding downstream step depend on the type of input:
 | Generic barcode sequences | TSV | Demultiplexed reads in format of barcode structure| **count**
 | DNA/RNA sequences | FASTQ | Demultiplexed sequence reads | **STAR**
 
-{% include alert.html type="info" title=" Workflow depends on the input type. Generic barcode sequences follow demultiplex → count, whereas DNA/RNA sequences follow demultiplex → STAR → annotate → count." %}
+{% include alert.html type="warning" title=" Workflow depends on the input type. Generic barcode sequences follow demultiplex → count, whereas DNA/RNA sequences follow demultiplex → STAR → annotate → count." %}
 
 ### STAR
 After demultiplexing DNA/RNA sequencing data, the resulting FASTQ file is passed to the **STAR** aligner, which maps sequencing reads to a reference genome. Before running STAR, the reference genome and GTF annotation files must be downloaded as described in [Reference Genome](getting-started#reference-genome). 
