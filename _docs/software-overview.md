@@ -42,7 +42,7 @@ Optional parameters:
 | `--independent`, `-d` | Treat the forward read as two separate sequences in the 5'-->3' direction. Use together with the read separator [-] in the `--BarcodePatternsFile` to indicate where one read ends and the other begins.  | Disabled |
 |  `--hamming`, `-H` | Use Hamming distance instead of Levenshtein for variable barcodes. Only supported when allowing for one mismatch per barcode pattern. | Levenshtein |
 
-The output directory can be set using `--output`, `-o`. All output files, including failed lines and statistics, are written to the specified output directory.
+The output directory can be set using `--output`, `-o`. All output files, including failed lines and statistics, are written to this output directory.
 
 ### Output: 
 After demultiplex completes, it reports the percentage of reads assigned to each match category:
