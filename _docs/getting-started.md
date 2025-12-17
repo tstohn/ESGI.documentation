@@ -43,8 +43,8 @@ After building, the executables **demultiplex**, **count**, **annotate** and **E
 
 ## Reference Genome
 
-The STAR alignment tool is used to map genes or transcripts to the reference genome.  
-First, download the reference genome and annotation files.
+The **STAR** alignment tool is used to map barcode patterns that contain gene or transcript sequences to a reference genome.  
+Below are the instructions for downloading the reference genome and annotation files.
 
 #### Download the Reference genome:
 ```
@@ -58,7 +58,7 @@ gunzip *.gz
 ---
 ```
 
-#### Generate STAR Genome Index:
+#### Generate STAR genome index and annotation file:
 ```
 ---
 STAR --runThreadN 70 \
@@ -70,9 +70,7 @@ STAR --runThreadN 70 \
 ---
 ```
 
-#### Covert GFT to bed for annotation:
-STAR provides chromosome locations, which can be annotated using bedtools.
-To do this, you need a .bed file instead of a .gtf file.
+STAR outputs genomic coordinates for aligned reads, which can be annotated using bedtools. To enable this, the gene annotation file must first be converted from *.gtf* format to *.bed* format.
 ```
 ---
 # Convert GTF to BED (filtering by gene_name)
