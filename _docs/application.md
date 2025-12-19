@@ -33,16 +33,15 @@ Below are the barcode structures for the protein and RNA modalities, shown as te
 ---
 # Barcode structure for protein modality:
 ------------> <------------------------------ 
-[Antibodies][*][BC1][22X][BC2][30X][BC2][10X]
-|           |  |    └─── Sequence for twenty two random bases      
+[Antibodies][*][BC1][CCACAGTCTCAAGCACGTGGAT][BC2][AGTCGTACGCCGATGCGAAACATCGGCCAC][BC2][10X]
+|           |  |    └─── Constant barcode     
 |           |  └─── List of possible sequences
-|           └─── End of forward and reverse reads with overlap
+|           └─── End of forward/ reverse reads with overlap
 └─── Antibody identity sequence
 
 # Barcode structure for RNA modality:
 -----> <----------------------------------------------------------------------------
 [RNA][-][BC1][CCACAGTCTCAAGCACGTGGAT][BC2][AGTCGTACGCCGATGCGAAACATCGGCCAC][BC2][10X]
-|    |       └─── Constant barcode
 |    └─── End of forward and reverse reads without overlap            
 └─── Sequence of the transcripts
 ---
@@ -59,11 +58,11 @@ For each barcode pattern, the allowed number of mismatches must be defined. The 
 ---
 ```
 
-Finally, we need to specify which barcode patterns encode the single-cell identity, feature identity and Unique molecule Identifier (UMI). This is done by providing a list of indices matching to their positions, with counting starting at 0. In both modalities, the feature-encoding barcode is located at the start,the single-cell identifiers are located at position 2, 4 and 6, and the UMI is located at the end. These indices are required to execute **count** and can be specified using the command-line options listed below.  
+Next, we need to specify which barcode patterns encode the single-cell identity, feature identity and Unique molecule Identifier (UMI). This is done by providing a list of indices matching to their positions in the barcode structure, with counting starting at 0. Here, indices are derived from the output *TSV* file of **demultiplex**, in which the first column is  the readname followed by a column for each barcode pattern. In both modalities, the first barcode pattern encodes the feature identity, followed by pattern 3, 5, and 7 encoding the single-cell identity, and the last pattern the UMI.
 ```
 ---
 # Single-cell indices (-c)
-2, 4, 6, 
+2, 4, 6 
 
 # Feature index (-x)
 0
@@ -98,7 +97,7 @@ Run the workflow for the protein modality:
 LOGFILE_AB="${"Path_output"}/ESGI_PROTEIN_LOG.txt"
 rm -f $LOGFILE
 
-/usr/bin/time -v "${Path_tool"/bin/demultiplex" \
+/usr/bin/time -v "${Path_tool"/bin/**demultiplex**" \
                 -i "${Path_data}/SRR28056728_1.fastq.gz" \
                 -r "${Path_data}/SRR28056728_2.fastq.gz" \
                 -o "${Path_output}/ESGI_Protein" \
@@ -107,7 +106,7 @@ rm -f $LOGFILE
                 -n A \
                 -t 70 -f 1 -q 1 2>> $LOGFILE_AB
 
-/usr/bin/time -v "${Path_tool}/bin/count" \
+/usr/bin/time -v "${Path_tool}/bin/**count**" \
                 -i "${Path_output}/A_PROTEIN.tsv" \
                 -o "${Path_output}/A_PROTEIN_Counts.tsv" \
                 -t 70 -d "${Path_background_data}/background_data/ESGI_files" \
