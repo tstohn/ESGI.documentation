@@ -120,19 +120,21 @@ The key output are two count matrices *(TSV)*:
 - **UMI collapsed**: All reads sharing the same UMI are collapsed to create the final count matrix for each unique single-cell and feature combination.
 
 ## ESGI
-Instead of running **demultiplex** and **count** separately, you can execute them together using **ESGI**. To run **ESGI**, you need to provide an *initialization-file (.ini)* that specifies all required inputs, including paths to all barcode-related files, as well as indexing information. Optionally, you can also include feature names and additional annotation. 
+Instead of running **demultiplex** and **count** separately, you can execute them together using **ESGI**. 
 
-Below an example:
-```
+To run **ESGI**, you need to provide an *initialization-file (.ini)* that specifies all required inputs, including paths to all barcode-related files, as well as indexing information. Optionally, you can also include feature names and additional annotation. 
+
+Example of ESGI Initialization-file:
+```shell
 # Input directory (FASTQ or TXT; raw or gzipped)
 forward="/path/to/forward_reads.fastq.gz"
-# Reverse reads are optional
+# Reverse reads (optional)
 reverse="/path/to/reverse_reads.fastq.gz"
 
 # Output directory
 output="/path/to/output"
 
-# Paths to barcode structure and mismatch settings (.txt files)
+# Paths to barcode scheme and mismatch settings (.txt files)
 pattern="/path/to/barcode_pattern.txt"
 mismatches="/path/to/mismatches.txt"
 
