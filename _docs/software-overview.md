@@ -82,9 +82,7 @@ Finally, both workflows output one *TSV* file per barcode scheme. These files co
 The **count** submodule groups the aligned reads by single-cell and feature barcode. By default, identical UMI-tagged entries are collapsed to produce the final counts for each cell- feature combination. 
 
 ### Input & set up:
-As input, **count** takes barcode-aligned reads *(TSV-file)* along with the barcode information, including barcode scheme, patterns and allowed mismatches. It also requires indices of the barcode patterns encoding the single-cell, feature, and UMI identities. Note that when defining these indexes, the **demultiplex** output *TSV* file lists the read name in de first column, followed by the positional barcode patterns. Also, when an identity is encoded by a combination of variable barcode patterns, a list of indices can be provided.
-
-Counting begins at 0 and includes every pattern element defined within square brackets
+As input, **count** takes barcode-aligned reads *(TSV-file)* along with the barcode information, including barcode scheme, patterns and allowed mismatches. It also requires indices of the barcode patterns encoding the single-cell, feature, and UMI identities. Counting starts at zero and includes every pattern element defined within square brackets. Note when defining these indexes, the TSV output file of **demultiplex** lists the read name in de first column, followed by the positional barcode patterns. 
 
 Required parameters:
 
