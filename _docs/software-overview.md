@@ -46,9 +46,9 @@ The output directory can be set using `--output`, `-o`. All output files, includ
 
 ### Output: 
 After demultiplex completes, it reports how well the sequencing reads were mapped to the barcode scheme(s):
-- Perfect match: reads whose barcodes match completely
-- Moderate match: reads that match within the allowed number of mismatches
-- Mismatch: reads that cannot be matched given the number of allowed mismatches
+* Perfect match: reads whose barcodes match completely
+* Moderate match: reads that match within the allowed number of mismatches
+* Mismatch: reads that cannot be matched given the number of allowed mismatches
 
 The final output and corresponding downstream step(s) depend on the type of input, specifically the barcode pattern encoding the feature modality: 
 
@@ -78,7 +78,9 @@ Finally, both workflows output one *TSV* file per barcode scheme. These files co
 The **count** submodule groups the aligned reads by single-cell and feature barcode. By default, identical UMI-tagged entries are collapsed to produce the final counts for each cell- feature combination. 
 
 ### Input & set up:
-As input, **count** takes barcode-aligned reads *(TSV file)* along with the barcode information, including barcode scheme, patterns and allowed mismatches. It also requires indices of the barcode patterns encoding the single-cell, feature, and UMI identities. Note that when defining these indexes, the **demultiplex** output *TSV* file lists the read name in de first column, followed by the positional barcode patterns. Also, when an identity is encoded by a combination of variable barcode patterns, a list of indices can be provided.
+As input, **count** takes barcode-aligned reads *(TSV-file)* along with the barcode information, including barcode scheme, patterns and allowed mismatches. It also requires indices of the barcode patterns encoding the single-cell, feature, and UMI identities. Note that when defining these indexes, the **demultiplex** output *TSV* file lists the read name in de first column, followed by the positional barcode patterns. Also, when an identity is encoded by a combination of variable barcode patterns, a list of indices can be provided.
+
+Counting begins at 0 and includes every pattern element defined within square brackets
 
 Required parameters:
 
@@ -122,11 +124,11 @@ The key output are two count matrices *(TSV)*:
 ## ESGI
 Instead of running **demultiplex** and **count** separately, you can execute them together using **ESGI**. 
 
-To run **ESGI**, you need to provide an *initialization-file (.ini)* that specifies all required inputs, including paths to all barcode-related files, as well as indexing information. Optionally, you can also include feature names and additional annotation. 
+To run **ESGI**, you need to provide an *initialization-file (.ini)* that specifies the required input, including paths to all barcode-related files, as well as indexing information. For indexing, counting starts at zero and includes every pattern element defined within square brackets. Optionally, you can also include feature names and additional annotation.
 
 Example of ESGI Initialization-file:
 ```shell
-# Input directory (FASTQ or TXT; raw or gzipped)
+# Input directory
 forward="/path/to/forward_reads.fastq.gz"
 # Reverse reads (optional)
 reverse="/path/to/reverse_reads.fastq.gz"
@@ -134,12 +136,11 @@ reverse="/path/to/reverse_reads.fastq.gz"
 # Output directory
 output="/path/to/output"
 
-# Paths to barcode scheme and mismatch settings (.txt files)
+# Paths to barcode scheme and mismatch settings
 pattern="/path/to/barcode_pattern.txt"
 mismatches="/path/to/mismatches.txt"
 
-# Index positions for single-cell, feature, and UMI assignment in pattern.txt. 
-# Counting begins at 0 and includes every pattern element defined within square brackets
+# Indexes for single-cell, feature, and UMI assignment
 SC_ID=1,5
 FEATURE_ID=3
 UMI_ID=4
