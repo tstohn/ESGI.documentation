@@ -8,7 +8,7 @@ description: How to turn on and use versioning
 **ESGI** is a debarcoding tool for single-cell sequencing data, consisting of two submodules: **demultiplex** and **count**. You can run these submodules separately or execute ESGI to run both steps and generate a single-cell feature count matrix. For more details, run demultiplex, count, or ESGI with the  `--help` flag. 
 
 ## Demultiplex
-Demultiplex assigns sequencing reads to their barcode-encoded single-cell and feature of origin. It supports a wide range of barcode designs within a single experiment, including  barcodes of varying lengths and modality-specific patterns. The tool also allows for mismatches in the barcode patterns arising from insertions, deletions, and substitutions. For generic barcode sequences that encode cell and feature identities, the barcode structure must be specified. This structure is defined by positional barcode patterns, including the number of mismatches allowed for per pattern. When the barcode pattern encodes a gene or transcripts, **ESGI** calls the **STAR** aligner to map these reads to a reference genome, after which **annotate** is used to add the STAR-derived genomic informatiom to the output. 
+Demultiplexing maps sequencing reads to barcode schemes, where positional barcode patterns are used to encode experiment-specific information, like cell identities, molecular modalities, and experimental conditions. The tool handles simultaneous mapping to multiple barcode schemes, supports positional barcode patterns of varying lengths, and allows for mismatches in the barcode patterns arising from insertions, deletions, and substitutions. 
 
 ### Set up:
 To demultiplex barcode sequences, you need the following input files:
@@ -17,12 +17,12 @@ To demultiplex barcode sequences, you need the following input files:
 | --------- | ----------- | ------ | 
 | `--input`, `-i` | Single-end or forward read file | fastq(.gz) 
 | `--reverse`, `-r` | Reverse read file (optional) | fastq(.gz)
-| `--BarcodePatternsFile`, `-p` | Description of the barcode- structure, using bracket-enclosed sequence substrings to define where barcode patterns appear in the read. Each bracket contains a comma separated list of possible barcodes for that position, and these barcodes may vary in length | (.txt)
-|  `--mismatchFile`, `-m` |  A comma-separated list of integers, one for each substring in the barcode pattern, specifying the number of mismatches allowed for in each bracket-enclosed substring | (.txt) 
+| `--BarcodePatternsFile`, `-p` | Description of the barcode scheme, using bracket-enclosed sequence substrings to define the position of barcode patterns. Each bracket contains a comma separated list of possible barcode sequences for that position, and these barcodes may vary in length | (.txt)
+|  `--mismatchFile`, `-m` |  A comma-separated list of integers, one for each pattern in the barcode scheme, specifying the number of mismatches allowed for in each bracket-enclosed substring | (.txt) 
 
-Example of a barcode structure consisting of six sequence patterns, including the number of mismatches allowed for per pattern. 
-```yaml
-# Structure with six barcode patterns
+Example of a barcode scheme consisting of six positional barcode patterns, including the number of mismatches allowed for per pattern. 
+```
+# Barcode scheme with six positional patterns
 -----> <---------------------------------
 [RNA][-][BC1.txt][AGCTCATC][BC2.txt][10X]
 |    |  |        |                  └─── Sequence for ten random bases
@@ -45,22 +45,22 @@ Optional parameters:
 The output directory can be set using `--output`, `-o`. All output files, including failed lines and statistics, are written to this output directory.
 
 ### Output: 
-After demultiplex completes, it reports the percentage of reads assigned to each match category:
+After demultiplex completes, it reports how well the sequencing reads were mapped to the barcode scheme(s):
 - Perfect match: reads whose barcodes match completely
 - Moderate match: reads that match within the allowed number of mismatches
 - Mismatch: reads that cannot be matched given the number of allowed mismatches
 
-The final output and corresponding downstream step depend on the type of input, specifically the sequence pattern encoding the feature modality:
+The final output and corresponding downstream step(s) depend on the type of input, specifically the barcode pattern encoding the feature modality: 
 
 | Input type | Output format | Description | Downstream use |
 | ---------- | ------------- | ----------- | -------------- |
-| Generic barcode sequences | TSV | Demultiplexed reads in format of barcode structure| **count**
+| Generic barcode sequences | TSV | Demultiplexed sequencing reads in format of barcode scheme | **count**
 | DNA/RNA sequences | FASTQ | Demultiplexed sequence reads | **STAR**
 
 {% include alert.html type="info" title=" Workflow depends on the input type. Generic barcode sequences follow demultiplex → count, whereas DNA/RNA sequences follow demultiplex → STAR → annotate → count." %}
 
 ### STAR
-For DNA/RNA sequence reads, where a barcode pattern encodes for a gene or transcript, **demultiplex** outputs a FASTQ file containing demultiplexed sequence reads. This FASTQ file is passed to the **STAR** aligner, which maps sequencing reads to a reference genome. Before running STAR, the reference genome and GTF annotation files must be downloaded as described in [Reference Genome](getting-started#reference-genome). 
+For DNA/RNA sequence reads, where a barcode pattern encodes for a gene or transcript, **demultiplex** outputs a FASTQ file containing demultiplexed sequence reads. This *FASTQ* file is passed to the **STAR** aligner, which maps sequencing reads to a reference genome. Before running STAR, the reference genome and GTF annotation files must be downloaded as described in [Reference Genome](getting-started#reference-genome). 
 
 Running STAR produces the following key output files:
 
@@ -70,15 +70,17 @@ Running STAR produces the following key output files:
 | TSV | Detected splice junctions and exon-intron boundaries
 
 ### Annotate
-The output files generated by **STAR** are passed to **annotate**, which integrates genomic coordinates with the barcodes encoding individual cells and produces the final TSV file as input for **count**.
+The output files generated by **STAR** are passed to **annotate**, which integrates genomic coordinates with the barcodes encoding individual cells and produces the final *TSV* file.
+
+Finally, both workflows output one *TSV* file per barcode scheme. These files contain all barcode-scheme-aligned sequencing reads, with the read name in the first column and positional barcode patterns in the subsequent columns.
 
 ## Count
 The **count** submodule groups the aligned reads by single-cell and feature barcode. Identical UMI-tagged entries are collapsed to produce the final counts for each cell- feature combination. 
 
 ### Input and set up:
-To run **count**, you must provide barcode-aligned reads as input. These are generated as a TSV file either by **demultiplex** (for generic barcode data) or by **demultiplex** → **STAR** → **annotate** (for DNA/RNA sequence data). 
+To run **count**, you must provide barcode-aligned reads as input. These are generated as a TSV file either by **demultiplex** (for generic barcode data) or by **demultiplex** → **STAR** → **annotate** (for DNA/RNA sequence data). Note, the first column of this TSV file contains the readname, followed by the mapped barcode patterns.
 
-Next, by including all barcode information and specifying the indices of barcodes patterns that encode the Unique Molecule Identifier (UMI), single cell ID, and feature ID, the count matrices can be generated. In case, a single cell ID is encoded by a combination of variable barcode patterns, you can give a list of indices.
+Next, by including all barcode information and specifying the column indices of barcodes patterns that encode the Unique Molecule Identifier (UMI), single cell ID, and feature ID, the count matrices can be generated. In case, a single cell ID is encoded by a combination of variable barcode patterns, you can give a list of indices.
 
 The following parameters must be specified:
 
