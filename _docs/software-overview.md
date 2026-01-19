@@ -46,16 +46,16 @@ The output directory can be set using `--output`, `-o`. All output files, includ
 
 ### Output: 
 After demultiplex completes, it reports how well the sequencing reads were aligned to the patterns within the barcode scheme(s):
-| Match type | Description |
-| ---------- | ------------- |
-| Perfect match | Reads whose barcodes match completely | 
-| Moderate match | Reads that match within the allowed number of mismatches | 
-| Mismatch | Reads that cannot be matched given the number of allowed mismatches | 
+| Match Type | Description |
+| --------- | ----------- |
+| Perfect Match | Reads whose barcodes match completely
+| Moderate Match | Reads that match within the allowed number of mismatches
+| Mismatch | Reads that cannot be matched given the number of allowed mismatches
 
 The output type and corresponding downstream step(s) depend on the barcode sequence encoding the feature modality.  
-* **Generic barcode sequence**: Produces a *TSV-file* of reads split and aligned to the barcode scheme. The first column contains the read name, followed by the barcode patterns. This file is used directly as input for **count**.
+* **Generic barcode sequence**: Produces a *TSV* file of reads split and aligned to the barcode scheme. The first column contains the read name, followed by the barcode patterns. This file is used directly as input for **count**.
 
-* **Genomic sequence**, Extracts gene or transcript sequences into a *FASTQ-file* for alignment with **STAR** and subsequent annotation. The remaining read elements are aligned to the barcode scheme and saved in a *TSV-file* for use in downstream steps.
+* **Genomic sequence**, Extracts gene or transcript sequences into a *FASTQ* file for alignment with **STAR** and subsequent annotation. The remaining read elements are aligned to the barcode scheme and saved in a *TSV* file for use in downstream steps.
 
 {% include alert.html type="info" title="Generic barcode sequences follow demultiplex → count, whereas genomic sequences follow demultiplex → STAR → annotate → count." %}
 
