@@ -21,7 +21,7 @@ To demultiplex barcode sequences, you need the following input files:
 |  `--mismatchFile`, `-m` |  A comma-separated list of integers, one for each substring in the barcode pattern, specifying the number of mismatches allowed for in each bracket-enclosed substring | (.txt) 
 
 Example of a barcode structure consisting of six sequence patterns, including the number of mismatches allowed for per pattern. 
-```
+```yaml
 # Structure with six barcode patterns
 -----> <---------------------------------
 [RNA][-][BC1.txt][AGCTCATC][BC2.txt][10X]
