@@ -11,11 +11,11 @@ description: Getting started with Docsy Jekyll
 
 ## Multimodal
 
-Application example for multimodal data using **SIGNALseq**, which contains sequencing reads for both RNA and protein generated through combinatorial indexing. In this method, protein measurements are obtained using DNA barcoded antibodies that target the protein of interest. The DNA barcodes are sequenced alongside with the RNA, enabling simultaneous profiling of gene expression and protein abundances. 
+Application example for multimodal data using **SIGNALseq**, which contains sequencing reads for both RNA and protein generated through combinatorial indexing. In this method, protein measurements are obtained using DNA barcoded antibodies that target the protein of interest. These DNA barcodes are sequenced alongside with the RNA, enabling simultaneous profiling of protein abundances and gene expression. 
 
 Each modality has its own separate FASTQ files for both the forward and reverse reads. See below the instructions to download the HELA data:
 ```
----
+---shell
 wget "https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR28056729/SRR28056729" -O SRR28056729.sra # Transcripts
 wget "https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR28056728/SRR28056728" -O SRR28056728.sra # Proteins
 
