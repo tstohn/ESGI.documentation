@@ -46,6 +46,12 @@ The output directory can be set using `--output`, `-o`. All output files, includ
 
 ### Output: 
 After demultiplex completes, it reports how well the sequencing reads were aligned to the patterns within the barcode scheme(s):
+
+| Match type | Description |
+| --------- | ----------- |
+| aligned.out.bam | Reads aligned to the reference genome
+| TSV | Detected splice junctions and exon-intron boundaries
+
 | Match Type | Description |
 | --------- | ----------- |
 | Perfect Match | Reads whose barcodes match completely
