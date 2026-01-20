@@ -20,7 +20,7 @@ To demultiplex barcode sequences, you need the following input files:
 | `--BarcodePatternsFile`, `-p` | Description of the barcode scheme, using bracket-enclosed sequence substrings to define the position of barcode patterns. Each bracket contains a comma separated list of possible barcode sequences for that position, and these barcodes may vary in length | (.txt)
 |  `--mismatchFile`, `-m` |  A comma-separated list of integers, one for each pattern in the barcode scheme, specifying the number of mismatches allowed for in each bracket-enclosed substring | (.txt) 
 
-Example of a barcode scheme consisting of six positional barcode patterns, including the number of mismatches allowed for per pattern. 
+> Example of a barcode scheme consisting of six positional barcode patterns, including the number of mismatches allowed for per pattern. 
 ```
 # Barcode scheme with six positional patterns
 -----> <---------------------------------
@@ -59,8 +59,6 @@ The output type and corresponding downstream step(s) depend on the barcode seque
 * **Genomic sequence**, Extracts gene or transcript sequences into a FASTQ file for alignment with **STAR** and subsequent annotation. The remaining read elements are aligned to the barcode scheme and saved in a TSV file for use in downstream steps.
 
 {% include alert.html type="info" title="Generic barcode sequences follow demultiplex → count, whereas genomic sequences follow demultiplex → STAR → annotate → count." %}
-
-> Generic barcode sequences follow demultiplex → count, whereas genomic sequences follow demultiplex → STAR → annotate → count.
 
 ### STAR
 For genomic sequences, demultiplexed FASTQ reads are aligned to a reference genome using the **STAR** aligner. 
