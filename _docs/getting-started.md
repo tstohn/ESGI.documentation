@@ -84,7 +84,7 @@ awk '{match($0, /gene_id "([^"]+)"/, arr); print $1"\t"$2"\t"$3"\t"arr[1];}' gen
 ---
 ```
 
-
+Next, read about **ESGI** and it's submodules in [Software Overview](software-overview#demultiplex)
 
 ### Documentation
 
@@ -103,13 +103,13 @@ And the page you are reading now renders from `_docs/getting-started.md`
 
 The url that will render is based on the path. For example, if we had the following structure:
 
-```
-docs/
-  getting-started.md
-  clusters/
-     sherlock/
-         getting-started.md
-```
+>```
+>docs/
+>  getting-started.md
+>  clusters/
+>     sherlock/
+>         getting-started.md
+>```
 
 The first page (akin to the one you are reading) would render at it's path,
 `/docs/getting-started/`.
