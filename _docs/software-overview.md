@@ -123,9 +123,7 @@ The key output are two count matrices *(TSV)*:
 - **UMI collapsed**: All reads sharing the same UMI are collapsed to create the final count matrix for each unique single-cell and feature combination.
 
 ## ESGI
-Instead of running **demultiplex** and **count** separately, you can execute them together using **ESGI**. 
-
-To run ESGI, you need to provide an *initialization-file (.ini)* that specifies the required input, including paths to all barcode-related files, as well as indexing information.
+Instead of running **demultiplex** and **count** separately, you can execute them together using **ESGI**. To do this, you must provide an *initialization-file (.ini)* containing the essential input, including paths to all barcode files, as well as indexing information. Annotation files are optional. 
 
 Example of ESGI Initialization-file:
 ```
@@ -146,10 +144,9 @@ SC_ID=1,5
 FEATURE_ID=3
 UMI_ID=4
 
-# Optional: assign feature names to barcode patterns corresponding to FEATURE_ID
+# Optional:
 FEATURE_NAMES="/path/to/feature_names.txt"
 
-# Additional barcode files for naming annotated barcode patterns, like experimental conditions
 ANNOTATION_IDs="/path/to/annotation_ID.txt"
 ANNOTATION_NAMES="/path/to/annotation_names.txt"
 
