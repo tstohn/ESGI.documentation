@@ -127,7 +127,7 @@ The key output are two count matrices (TSV):
 Instead of running **demultiplex** and **count** separately, you can execute them together using **ESGI**. To do this, you must provide an *initialization-file (.ini)* containing the essential input, including paths to all barcode files, as well as indexing information. Including feature names and single-cell annotations is optional.
 
 > Example of ESGI Initialization-file:
-> 
+
 ```
 # Input directory
 forward="/path/to/forward_reads.fastq.gz"
