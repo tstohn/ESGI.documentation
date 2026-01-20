@@ -75,7 +75,7 @@ Key output files:
 ### Annotate
 The **annotate** step uses the **STAR**-derived genomic coordinates to assign gene annotations to the reads and merges this information with the final demultiplexed TSV output file. 
 
-{% include alert.html type="warning" title="Finally, both workflows output one TSV file per barcode scheme; containing all barcode-scheme-aligned reads" %}
+{% include alert.html type="warning" title="Finally, both workflows output one TSV file per barcode scheme; containing all barcode-scheme-aligned reads." %}
 
 ## Count
 The **count** submodule groups the demultiplexed reads by single-cell and feature barcode. By default, identical UMI-tagged entries are collapsed to produce the final counts for each unique cell- feature combination. 
@@ -118,9 +118,9 @@ Optional parameters for UMI collapsing:
 ### Output
 When **count** finishes, it creates a *LOG_COUNTS.tsv* file summarizing the total number of processed reads and the number of detected UMI mismatches. 
 
-The key output are two count matrices *(TSV)*: 
+The key output are two count matrices (TSV): 
 - **UMI uncollapsed** : Reports the number of reads per UMI, providing insight into UMI amplification during the PCR experiment.
-- **UMI collapsed**: All reads sharing the same UMI are collapsed to create the final count matrix for each unique single-cell and feature combination.
+- **UMI collapsed**: All reads sharing the same UMI are collapsed to create the final count matrix for each unique cell- feature combination.
 
 ## ESGI
 Instead of running **demultiplex** and **count** separately, you can execute them together using **ESGI**. To do this, you must provide an *initialization-file (.ini)* containing the essential input, including paths to all barcode files, as well as indexing information. Annotation files are optional. 
@@ -144,7 +144,7 @@ SC_ID=1,5
 FEATURE_ID=3
 UMI_ID=4
 
-# Optional:
+# Optional: feature names and single-cell annotations
 FEATURE_NAMES="/path/to/feature_names.txt"
 
 ANNOTATION_IDs="/path/to/annotation_ID.txt"
