@@ -60,6 +60,8 @@ The output type and corresponding downstream step(s) depend on the barcode seque
 
 {% include alert.html type="info" title="Generic barcode sequences follow demultiplex → count, whereas genomic sequences follow demultiplex → STAR → annotate → count." %}
 
+> Generic barcode sequences follow demultiplex → count, whereas genomic sequences follow demultiplex → STAR → annotate → count.
+
 ### STAR
 For genomic sequences, demultiplexed FASTQ reads are aligned to a reference genome using the **STAR** aligner. 
 
