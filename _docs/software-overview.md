@@ -47,7 +47,7 @@ The output directory can be set using `--output`, `-o`. All output files, includ
 ### Output: 
 After demultiplex completes, it reports how well the sequencing reads were aligned to the patterns within the barcode scheme(s):
 | Match Type | Description |
-| ---------- | ----------- |
+| --------- | ----------- |
 | Perfect Match | Reads whose barcodes match completely
 | Moderate Match | Reads that match within the allowed number of mismatches
 | Mismatch | Reads that cannot be matched given the number of allowed mismatches
