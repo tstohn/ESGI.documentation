@@ -78,7 +78,7 @@ The **annotate** step uses the **STAR**-derived genomic coordinates to assign ge
 {% include alert.html type="warning" title="Finally, both workflows output one TSV file per barcode scheme; containing all barcode-scheme-aligned reads" %}
 
 ## Count
-The **count** submodule groups the aligned reads by single-cell and feature barcode. By default, identical UMI-tagged entries are collapsed to produce the final counts for each cell- feature combination. 
+The **count** submodule groups the demultiplexed reads by single-cell and feature barcode. By default, identical UMI-tagged entries are collapsed to produce the final counts for each unique cell- feature combination. 
 
 ### Input & set up:
 As input, **count** takes barcode-aligned reads *(TSV-file)* along with the barcode information, including barcode scheme, patterns and allowed mismatches. It also requires indices of the barcode patterns encoding the single-cell, feature, and UMI identities. Counting starts at zero and includes every pattern element defined within square brackets. Note when defining these indexes, the TSV output file of **demultiplex** lists the read name in de first column, followed by the positional barcode patterns. 
@@ -128,7 +128,7 @@ Instead of running **demultiplex** and **count** separately, you can execute the
 To run **ESGI**, you need to provide an *initialization-file (.ini)* that specifies the required input, including paths to all barcode-related files, as well as indexing information. For indexing, counting starts at zero and includes every pattern element defined within square brackets. Optionally, you can also include feature names and additional annotation.
 
 Example of ESGI Initialization-file:
-```shell
+```
 # Input directory
 forward="/path/to/forward_reads.fastq.gz"
 # Reverse reads (optional)
