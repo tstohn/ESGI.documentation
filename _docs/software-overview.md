@@ -21,6 +21,7 @@ To demultiplex barcode sequences, you need the following input files:
 |  `--mismatchFile`, `-m` |  A comma-separated list of integers, one for each pattern in the barcode scheme, specifying the number of mismatches allowed for in each bracket-enclosed substring | (.txt) 
 
 > Example of a barcode scheme consisting of six positional barcode patterns, including the number of mismatches allowed for per pattern. 
+
 ```
 # Barcode scheme with six positional patterns
 -----> <---------------------------------
