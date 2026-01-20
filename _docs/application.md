@@ -91,7 +91,7 @@ Path_output = "/path/to/output"
 ```
 
 Run the workflow for the protein modality:
-**demultiplex** --> **count** 
+**demultiplex** → **count** 
 ```
 ---
 LOGFILE_AB="${"Path_output"}/ESGI_PROTEIN_LOG.txt"
@@ -116,7 +116,7 @@ rm -f $LOGFILE
 ```
 
 Run the workflow for the RNA modality:
-**demultiplex** --> **STAR** --> **annotate** --> **count** 
+**demultiplex** → **STAR** → **annotate** → **count** 
 ```
 ---
 LOGFILE="${"Path_output"}/ESGI_RNA_LOG.txt"
