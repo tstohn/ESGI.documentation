@@ -84,7 +84,7 @@ awk '{match($0, /gene_id "([^"]+)"/, arr); print $1"\t"$2"\t"$3"\t"arr[1];}' gen
 ---
 ```
 
-Next, read about **ESGI** and it's submodules in [Software Overview](software-overview#demultiplex)
+{% include alert.html type="warning" title="Next, read about **ESGI** and it's submodules in [Software Overview](software-overview#demultiplex)" %}
 
 ### Documentation
 
