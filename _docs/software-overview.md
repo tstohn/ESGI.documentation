@@ -75,7 +75,7 @@ Key output files:
 ### Annotate
 The **annotate** step uses the **STAR**-derived genomic coordinates to assign gene annotations to the reads and merges this information with the final demultiplexed TSV output file. 
 
-{% include alert.html type="warning" title="Finally, both workflows output one TSV file per barcode scheme; containing all barcode-scheme-aligned reads." %}
+{% include alert.html type="info" title="Finally, both workflows output one TSV file per barcode scheme; containing all barcode-scheme-aligned reads." %}
 
 ## Count
 The **count** submodule groups the demultiplexed reads by single-cell and feature barcode. By default, identical UMI-tagged entries are collapsed to produce the final counts for each unique cell- feature combination. 
