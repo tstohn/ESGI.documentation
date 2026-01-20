@@ -20,21 +20,21 @@ To demultiplex barcode sequences, you need the following input files:
 | `--BarcodePatternsFile`, `-p` | Description of the barcode scheme, using bracket-enclosed sequence substrings to define the position of barcode patterns. Each bracket contains a comma separated list of possible barcode sequences for that position, and these barcodes may vary in length | (.txt)
 |  `--mismatchFile`, `-m` |  A comma-separated list of integers, one for each pattern in the barcode scheme, specifying the number of mismatches allowed for in each bracket-enclosed substring | (.txt) 
 
-> Example of a barcode scheme consisting of six positional barcode patterns, including the number of mismatches allowed for per pattern. 
+Example of a barcode scheme consisting of six positional barcode patterns, including the number of mismatches allowed for per pattern. 
 
-```
-# Barcode scheme with six positional patterns
------> <---------------------------------
-[RNA][-][BC1.txt][AGCTCATC][BC2.txt][10X]
-|    |  |        |                  └─── Sequence for ten random bases
-|    |  |        └─── Constant barcode
-|    |  └─── List of possible sequences
-|    └─── Read separator for forward and reverse read
-└─── Sequence of transcript
-
-# Allowed mismatches per barcode pattern
-1,0,1,0,1,0
-```
+>```
+># Barcode scheme with six positional patterns
+>-----> <---------------------------------
+>[RNA][-][BC1.txt][AGCTCATC][BC2.txt][10X]
+>|    |  |        |                  └─── Sequence for ten random bases
+>|    |  |        └─── Constant barcode
+>|    |  └─── List of possible sequences
+>|    └─── Read separator for forward and reverse read
+>└─── Sequence of transcript
+>
+># Allowed mismatches per barcode pattern
+>1,0,1,0,1,0
+>```
 
 Optional parameters:
 
@@ -126,35 +126,35 @@ The key output are two count matrices (TSV):
 ## ESGI
 Instead of running **demultiplex** and **count** separately, you can execute them together using **ESGI**. To do this, you must provide an *initialization-file (.ini)* containing the essential input, including paths to all barcode files, as well as indexing information. Including feature names and single-cell annotations is optional.
 
-> Example of ESGI Initialization-file:
+Example of ESGI Initialization-file:
 
-```
-# Input directory
-forward="/path/to/forward_reads.fastq.gz"
-# Reverse reads (optional)
-reverse="/path/to/reverse_reads.fastq.gz"
-
-# Output directory
-output="/path/to/output"
-
-# Paths to barcode scheme and mismatch settings
-pattern="/path/to/barcode_pattern.txt"
-mismatches="/path/to/mismatches.txt"
-
-# Indexes for single-cell, feature, and UMI assignment
-SC_ID=1,5
-FEATURE_ID=3
-UMI_ID=4
-
-# Optional: feature names and single-cell annotations
-FEATURE_NAMES="/path/to/feature_names.txt"
-
-ANNOTATION_IDs="/path/to/annotation_ID.txt"
-ANNOTATION_NAMES="/path/to/annotation_names.txt"
-
-threads=10
-prefix=MYEXPERIMENT
-```
+>```
+># Input directory
+>forward="/path/to/forward_reads.fastq.gz"
+># Reverse reads (optional)
+>reverse="/path/to/reverse_reads.fastq.gz"
+>
+># Output directory
+>output="/path/to/output"
+>
+># Paths to barcode scheme and mismatch settings
+>pattern="/path/to/barcode_pattern.txt"
+>mismatches="/path/to/mismatches.txt"
+>
+># Indexes for single-cell, feature, and UMI assignment
+>SC_ID=1,5
+>FEATURE_ID=3
+>UMI_ID=4
+>
+># Optional: feature names and single-cell annotations
+>FEATURE_NAMES="/path/to/feature_names.txt"
+>
+>ANNOTATION_IDs="/path/to/annotation_ID.txt"
+>ANNOTATION_NAMES="/path/to/annotation_names.txt"
+>
+>threads=10
+>prefix=MYEXPERIMENT
+>```
 
 
 
