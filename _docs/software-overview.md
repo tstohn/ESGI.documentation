@@ -81,7 +81,7 @@ The **annotate** step uses the **STAR**-derived genomic coordinates to assign ge
 The **count** submodule groups the demultiplexed reads by single-cell and feature barcode. By default, identical UMI-tagged entries are collapsed to produce the final counts for each unique cell- feature combination. 
 
 ### Input & set up:
-As input, **count** takes barcode-aligned reads *(TSV-file)* along with the barcode information, including barcode scheme, patterns and allowed mismatches. It also requires indices of the barcode patterns encoding the single-cell, feature, and UMI identities. Counting starts at zero and includes every pattern element defined within square brackets. Note when defining these indexes, the TSV output file of **demultiplex** lists the read name in de first column, followed by the positional barcode patterns. 
+As input, **count** takes barcode-aligned reads (TSV-file) along with the barcode information, including barcode scheme, patterns and allowed mismatches. It also requires indices of the barcode patterns encoding the single-cell, feature, and UMI identities. Counting starts at zero and includes every pattern element defined within square brackets. Note when defining these indexes, the TSV output file of **demultiplex** lists the read name in de first column, followed by the positional barcode patterns. 
 
 Required parameters:
 
