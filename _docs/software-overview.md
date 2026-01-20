@@ -10,7 +10,7 @@ description: How to turn on and use versioning
 ## Demultiplex
 Demultiplexing maps sequencing reads to barcode schemes, where positional barcode patterns are used to encode experiment-specific information, like cell identities, molecular modalities, and experimental conditions. The tool handles simultaneous mapping to multiple barcode schemes, supports positional barcode patterns of varying lengths, and allows for mismatches in the barcode patterns arising from insertions, deletions, and substitutions. 
 
-### Set up:
+### Input:
 To demultiplex barcode sequences, you need the following input files:
 
 | Option | Description | File Type |
@@ -80,7 +80,7 @@ The **annotate** step uses the **STAR**-derived genomic coordinates to assign ge
 ## Count
 The **count** submodule groups the demultiplexed reads by single-cell and feature barcode. By default, identical UMI-tagged entries are collapsed to produce the final counts for each unique cell- feature combination. 
 
-### Input & set up:
+### Input:
 As input, **count** takes barcode-aligned reads (TSV-file) along with the barcode information, including barcode scheme, patterns and allowed mismatches. It also requires indices of the barcode patterns encoding the single-cell, feature, and UMI identities. Counting starts at zero and includes every pattern element defined within square brackets. Note when defining these indexes, the TSV output file of **demultiplex** lists the read name in de first column, followed by the positional barcode patterns. 
 
 Required parameters:
