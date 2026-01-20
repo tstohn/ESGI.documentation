@@ -76,5 +76,5 @@ STAR outputs genomic coordinates for aligned reads, which can be annotated using
 >awk '{match($0, /gene_id "([^"]+)"/, arr); print $1"\t"$2"\t"$3"\t"arr[1];}' genes.bed > genes_simple.bed
 >```
 
-#### Next, read how to execute **ESGI** and its submodules in the [Software Overview](software-overview#demultiplex)
+##### Next, read how to execute **ESGI** and its submodules in the [Software Overview](software-overview#demultiplex)
 
