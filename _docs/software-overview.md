@@ -5,35 +5,44 @@ description: How to turn on and use versioning
 
 # Software Overview
 
-**ESGI** is a debarcoding tool for single-cell sequencing data, consisting of two submodules: **demultiplex** and **count**. You can run these submodules separately or execute ESGI to run both steps and generate a single-cell feature count matrix. For more details, run demultiplex, count, or ESGI with the  `--help` flag. 
+**ESGI** is a debarcoding tool for single-cell sequencing data, consisting of two submodules: **demultiplex** and **count**. They can be executed directly via **ESGI** or called individually. For more details, run demultiplex, count, or ESGI with the  `--help` flag. 
 
 ## Demultiplex
-Demultiplexing maps sequencing reads to barcode schemes, where positional barcode patterns are used to encode experiment-specific information, like cell identities, molecular modalities, and experimental conditions. The tool handles simultaneous mapping to multiple barcode schemes, supports positional barcode patterns of varying lengths, and allows for mismatches in the barcode patterns arising from insertions, deletions, and substitutions. 
+Demultiplexing maps sequencing reads to barcode patterns, where positional pattern elements are used to encode experiment-specific information, like cell identities, molecular modalities, and experimental conditions. The tool handles simultaneous mapping to multiple barcode patterns, supports pattern elements of varying lengths, and allows for mismatches in the pattern elements arising from insertions, deletions, and substitutions. 
 
 ### Input:
-To demultiplex barcode sequences, you need the following input files:
+To demultiplex barcode sequences, provide the experimental FASTQ files along with text files defining the barcode patterns and elements. Also, you must specify the number of allowed mismatches for each pattern element. 
 
-| Option | Description | File Type |
+Required input parameters:
+
+| Option | Description | Type |
 | --------- | ----------- | ------ | 
 | `--input`, `-i` | Single-end or forward read file | fastq(.gz) 
 | `--reverse`, `-r` | Reverse read file (optional) | fastq(.gz)
-| `--BarcodePatternsFile`, `-p` | Description of the barcode scheme, using bracket-enclosed sequence substrings to define the position of barcode patterns. Each bracket contains a comma separated list of possible barcode sequences for that position, and these barcodes may vary in length | (.txt)
+|  `--output`, `-o` |  Output directory | Directory 
+| `--BarcodePatternsFile`, `-p` | Description of the barcode patterns, specifiying the pattern name followed by its positional pattern elements in bracket-enclosed sequence substrings. Each bracket contains a comma separated list of possible barcode sequences for that position, and these barcodes may vary in length | (.txt)
 |  `--mismatchFile`, `-m` |  A comma-separated list of integers, one for each pattern in the barcode scheme, specifying the number of mismatches allowed for in each bracket-enclosed substring | (.txt) 
 
-Example of a barcode scheme consisting of six positional barcode patterns, including the number of mismatches allowed for per pattern. 
+Example of a barcode pattern called PATTERN consisting of five positional pattern elements:
 
 >```
-># Barcode scheme with six positional patterns
->-----> <---------------------------------
->[RNA][-][BC1.txt][AGCTCATC][BC2.txt][10X]
->|    |  |        |                  └─── Sequence for ten random bases
->|    |  |        └─── Constant barcode
->|    |  └─── List of possible sequences
->|    └─── Read separator for forward and reverse read
->└─── Sequence of transcript
->
-># Allowed mismatches per barcode pattern
->1,0,1,0,1,0
+>         ----------------> <------------------------
+>PATTERN:[Ab_barcodes.txt][-][BC1.txt][AGCTCATC][10X]
+>        |                |  |        |         └─── Random pattern element
+>        |                |  |        └─── Constant pattern element
+>        |                |  └─── Variable barcode element encoding single-cell identity
+>        |                └─── Read separator for forward and reverse read
+>        └─── Variable barcode element encoding feature identity
+>```
+
+Variable barcode pattern elements contain a list of possible barcode sequences for that position
+>```
+>CTGATC,CGTTGA,GTAGCG,CATCGT
+>```
+
+Define the number of allowed mismatched per pattern element as a comma-separated list.
+>``` 
+>1,0,1,1,0
 >```
 
 Optional parameters:
@@ -41,9 +50,11 @@ Optional parameters:
 | Option | Description | Default |
 | --------- | ----------- | ------ | 
 | `--independent`, `-d` | Treat the forward read as two separate sequences in the 5'-->3' direction. Use together with the read separator [-] in the `--BarcodePatternsFile` to indicate where one read ends and the other begins.  | Disabled |
+|  `--namePrefix`, `-n` | Prefix for file names. | None |
+|  `--writeStats`, `-q` | Creates output files of statistics of pattern element alignment. | Disabled |
+|  `--writeFailedLined`, `-f` | Generate output file of reads with failed pattern alignment | 0 |
 |  `--hamming`, `-H` | Use Hamming distance instead of Levenshtein for variable barcodes. Only supported when allowing for one mismatch per barcode pattern. | Levenshtein |
 
-The output directory can be set using `--output`, `-o`. All output files, including failed lines and statistics, are written to this output directory.
 
 ### Output: 
 After demultiplex completes, it reports how well the sequencing reads were aligned to the patterns within the barcode scheme(s):
