@@ -35,7 +35,7 @@ Example of a barcode pattern called PATTERN consisting of five positional patter
 >        └─── Variable barcode element encoding feature identity
 >```
 
-Variable barcode pattern elements contain a list of possible barcode sequences for that position
+Variable barcode elements contain a list of possible barcode sequences for that position
 >```
 >CTGATC,CGTTGA,GTAGCG,CATCGT
 >```
