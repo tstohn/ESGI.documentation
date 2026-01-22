@@ -28,11 +28,11 @@ Example of a barcode pattern called PATTERN consisting of five positional patter
 >```
 >         ----------------> <------------------------
 >PATTERN:[Ab_barcodes.txt][-][BC1.txt][AGCTCATC][10X]
->        |                |  |        |         └─── Random pattern element
->        |                |  |        └─── Constant pattern element
->        |                |  └─── Variable barcode element encoding single-cell identity
->        |                └─── Read separator for forward and reverse read
->        └─── Variable barcode element encoding feature identity
+>         |                |  |        |         └─── Random pattern element
+>         |                |  |        └─── Constant pattern element
+>         |                |  └─── Variable barcode element encoding single-cell identity
+>         |                └─── Read separator for forward and reverse read
+>         └─── Variable barcode element encoding feature identity
 >```
 
 Variable barcode elements contain a list of possible barcode sequences for that position
