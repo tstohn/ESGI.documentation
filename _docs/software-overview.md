@@ -51,9 +51,9 @@ Optional parameters:
 | --------- | ----------- | ------ | 
 | `--independent`, `-d` | Treat the forward read as two separate sequences in the 5'-->3' direction. Use together with the read separator [-] in the `--BarcodePatternsFile` to indicate where one read ends and the other begins.  | Disabled |
 |  `--namePrefix`, `-n` | Prefix for file names. | None |
-|  `--writeStats`, `-q` | Creates output files of statistics of pattern element alignment. | Disabled |
-|  `--writeFailedLined`, `-f` | Generate output file of reads with failed pattern alignment | 0 |
-|  `--hamming`, `-H` | Use Hamming distance instead of Levenshtein for variable barcodes. Only supported when allowing for one mismatch per barcode pattern. | Levenshtein |
+|  `--writeStats`, `-q` | Creates output files for statistics of pattern element alignment. | Disabled |
+|  `--writeFailedLined`, `-f` | Generate output file for reads with failed pattern alignment | 0 |
+|  `--hamming`, `-H` | Use Hamming distance instead of Levenshtein for variable barcodes. Only supported when allowing for one mismatch per pattern element. | Levenshtein |
 
 
 ### Output: 
