@@ -20,7 +20,7 @@ Required input parameters:
 | `--input`, `-i` | Single-end or forward read file | fastq(.gz) 
 | `--reverse`, `-r` | Reverse read file (optional) | fastq(.gz)
 |  `--output`, `-o` |  Output directory | Directory 
-| `--BarcodePatternsFile`, `-p` | Description of the barcode patterns, specifiying the pattern name followed by its positional pattern elements in bracket-enclosed sequence substrings. Each bracket contains a comma separated list of possible barcode sequences for that position, and these barcodes may vary in length | (.txt)
+| `--BarcodePatternsFile`, `-p` | Description of the barcode patterns, specifying the pattern name followed by its positional pattern elements in bracket-enclosed sequence substrings. Each bracket contains a comma separated list of possible barcode sequences for that position, and these barcodes may vary in length | (.txt)
 |  `--mismatchFile`, `-m` |  A comma-separated list of integers, one for each pattern in the barcode scheme, specifying the number of mismatches allowed for in each bracket-enclosed substring | (.txt) 
 
 Example of a barcode pattern called PATTERN consisting of five positional pattern elements:
