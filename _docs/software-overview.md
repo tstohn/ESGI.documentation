@@ -26,7 +26,7 @@ Required input parameters:
 Example of a barcode pattern called PATTERN consisting of five positional pattern elements:
 
 >```
->         ----------------> <------------------------
+>         -----------------> <-----------------------
 >PATTERN:[Ab_barcodes.txt][-][BC1.txt][AGCTCATC][10X]
 >         |                |  |        |         └─── Random pattern element
 >         |                |  |        └─── Constant pattern element
