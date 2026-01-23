@@ -63,7 +63,7 @@ When **demultiplex** completes, it generates output files containing demultiplex
 
 | Name | Description | File type | 
 | ---------- | ------------- | ----------- |
-| `Quality_numberMM`| Reports the frequence of mismatches (0, 1, 2) per pattern element. |TXT 
+| `Quality_numberMM`| Reports the frequency of mismatches (0, 1, 2) per pattern element. |TXT 
 | `Quality_typeMM` | Counts per pattern element the according type of mismatch; insertion, deletion or subsitution. | TXT
 | `FailedLines` | Contains all reads that were not aligned to a pattern | TXT
 | `PATTERN`  | For every barcode pattern, a TSV file is created with split and aligned reads. The first column contains the read name, followed by the pattern elements. | TSV 
