@@ -65,16 +65,16 @@ When **demultiplex** completes, it generates output files containing demultiplex
 | ---------- | ------------- | ----------- |
 | `Quality_numberMM`| Reports the frequence of mismatches (0, 1, 2) per pattern element. |TXT 
 | `Quality_typeMM` | Counts per pattern element the according type of mismatch; insertion, deletion or subsitution. | TXT
-| `FailedLines` | Contains all reads that were not alligned to a pattern | TXT
+| `FailedLines` | Contains all reads that were not aligned to a pattern | TXT
 | `PATTERN`  | For every barcode pattern, a TSV file is created with split and aligned reads. The first column contains the read name, followed by the pattern elements. | TSV 
 | `Genomic Sequence` | Extracted gene of transcript sequences | FASTQ 
-
-{% include alert.html type="info" title="Generic barcode sequences follow demultiplex → count, whereas genomic sequences follow demultiplex → STAR → annotate → count." %}
 
 Also, it reports the alignment performance into three match type categories, expressed as percentages of the total sequencing reads:
 * **Perfect matches:** Reads whose barcodes match completely
 * **Moderate matches:** Reads that match within the allowed number of mismatches
 * **Mismatches:** Reads that cannot be matched given the number of allowed mismatches
+
+{% include alert.html type="info" title="Generic barcode sequences follow demultiplex → count, whereas genomic sequences follow demultiplex → STAR → annotate → count." %}
 
 ### STAR
 For genomic sequences, demultiplexed FASTQ reads are aligned to a reference genome using the **STAR** aligner. 
