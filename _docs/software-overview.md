@@ -100,12 +100,12 @@ Next, generate a STAR genome index:
 >     --sjdbOverhang 73
 >```
 
-After the alignement completes, **STAR** generates two output files required for annotation. 
+Once the index is build, run **STAR** for alignment to produce the output files required for annotation.
 
 | File type | Description |
 | --------- | ----------- |
-| aligned.out.bam | Reads aligned to the reference genome
-| TSV | Detected splice junctions and exon-intron boundaries
+| aligned.out.bam | Sequence reads aligned to the reference genome.
+| TSV | Table of detected splice junctions and exon-intron boundaries.
 
 ### Annotate
 The **annotate** step uses the **STAR**-derived genomic coordinates to assign gene annotations to the reads and merges this information with the final demultiplexed TSV output file. 
