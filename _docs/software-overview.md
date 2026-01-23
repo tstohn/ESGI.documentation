@@ -57,7 +57,7 @@ Optional parameters:
 
 
 ### Output: 
-When **demultiplex** completes, it generates output files containing demultiplexed reads and quality metrices. The output type and subsequence downstream steps depend on the feature modality encoded by the pattern element. 
+When **demultiplex** completes, it generates output files containing demultiplexed reads and quality metrics. The output type and subsequent downstream steps depend on the feature modality encoded by the pattern element. 
 * **Generic barcode sequence**: Reads are split and aligned to the barcode pattern and saved as a TSV file.
 * **Genomic sequence**, Gene or transcript sequences are extracted into a FASTQ file for alignment with **STAR** and subsequent annotation. Remaining read elements are aligned to the pattern and saved in a TSV file.
 
