@@ -77,11 +77,30 @@ Also, it reports the alignment performance into three match type categories, exp
 {% include alert.html type="info" title="Generic barcode sequences follow demultiplex → count, whereas genomic sequences follow demultiplex → STAR → annotate → count." %}
 
 ### STAR
-For genomic sequences, demultiplexed FASTQ reads are aligned to a reference genome using the **STAR** aligner. 
+For genomic sequences, demultiplexed FASTQ reads are aligned to a reference genome using the **STAR** (Spliced Transcripts Alignment to a Reference) aligner. 
 
-Before running STAR, the reference genome and GTF annotation files must be downloaded as described in [Reference Genome](getting-started#reference-genome). 
+Use the commands below to download the human reference genome (GRCh38) and the corresponding annotation files.
 
-Key output files:
+>```
+>mkdir GRCh38
+>cd GRCh38
+>
+>wget ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_43/GRCh38.primary_assembly.genome.fa.gz
+>wget ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_43/gencode.v43.annotation.gtf.gz
+>gunzip *.gz
+>```
+
+Next, generate a STAR genome index: 
+>```
+>STAR --runThreadN 70 \
+>     --runMode genomeGenerate \
+>     --genomeDir GRCh38_STAR_index \
+>     --genomeFastaFiles GRCh38.primary_assembly.genome.fa \
+>     --sjdbGTFfile gencode.v43.annotation.gtf \
+>     --sjdbOverhang 73
+>```
+
+After the alignement completes, **STAR** generates two output files required for annotation. 
 
 | File type | Description |
 | --------- | ----------- |
