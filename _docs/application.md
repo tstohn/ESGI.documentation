@@ -26,17 +26,18 @@ fastq-dump --split-files --gzip SRR28056728.sra
 
 To execute **ESGI** on both modalities, we must create two separate ESGI-initialization files. Both modalities use a barcode pattern consisting of eight positional elements, though they differ in how the forward read encodes feature identity. 
 
-### Forward read: positional element 0
+#### Forward read: positional element 0
 The forward read contains the first pattern element and encodes the feature identity. 
 * **Protein modality**: The first pattern element is a variable DNA barcode. A polyA tail follows this barcode, resulting in an overlap betweem the forward and reverse reads. 
 * **RNA modality**: The first pattern element is a transcript sequence. The forward read terminates at the end of the RNA sequence, resulting in no overlap with the reverse read.
 
-### Read Transition: positional element 1
-* Protein Modality uses `*` to indicate overlapping sequences.
+#### Read transition: positional element 1
+* Protein modality uses `*` to indicate overlapping sequences.
 * RNA modality uses `-` to indicate no overlap.
 
-### Reverse read: positional elements 2-7
+#### Reverse read: positional elements 2-7
 For both modalities, the reverse read contains the remaining six pattern elements. These DNA-sequences are structured as following: 
+
 | Positional element | Type | Encoding |
 | --------- | ----------- | ------ | 
 | 2, 4, 6 | Variable barcode element | Single-cell identities
