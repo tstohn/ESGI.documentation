@@ -45,24 +45,14 @@ For both modalities, the reverse read contains the remaining six pattern element
 |  7 |  Random pattern element | Unique Molecule Identifier (UMI)
 
 
-Below are the barcode structures for the protein and RNA modalities, shown as ten bracket-enclosed sequence substrings. Each of the brackets corresponds to a specific position in the barcode and contains a comma-separates list of possible barcode sequences for that position. 
-```
----
-# Barcode structure for protein modality:
-------------> <------------------------------ 
-[Antibodies][*][BC1][CCACAGTCTCAAGCACGTGGAT][BC2][AGTCGTACGCCGATGCGAAACATCGGCCAC][BC2][10X]
-|           |  |    └─── Constant barcode     
-|           |  └─── List of possible sequences
-|           └─── End of forward/ reverse reads with overlap
-└─── Antibody identity sequence
-
-# Barcode structure for RNA modality:
------> <----------------------------------------------------------------------------
-[RNA][-][BC1][CCACAGTCTCAAGCACGTGGAT][BC2][AGTCGTACGCCGATGCGAAACATCGGCCAC][BC2][10X]
-|    └─── End of forward and reverse reads without overlap            
-└─── Sequence of the transcripts
----
-```
+Below an illustration of the barcode patterns for the two modalities shown as eight bracket-enclosed sequence substrings. Each bracket corresponds to a pattern element containing a comma-separated list of possible barcode sequences for that position. 
+>```
+>         -----------> <---------------------------------------------------------------------------
+>PROTEIN:[Antibodies][*][BC1][CCACAGTCTCAAGCACGTGGAT][BC2][AGTCGTACGCCGATGCGAAACATCGGCCAC][BC2][10X]
+>
+>     ----> <---------------------------------------------------------------------------
+>RNA:[RNA][-][BC1][CCACAGTCTCAAGCACGTGGAT][BC2][AGTCGTACGCCGATGCGAAACATCGGCCAC][BC2][10X]
+>```
 
 For each barcode pattern, the allowed number of mismatches must be defined. The protein modality allows one mismatch in the feature-encoding barcode, whereas the RNA modality allows none. Both modalities accept one mismatch in each of the single-cell encoding barcodes (BC) and zero mismatches in the constant and random base sequences. 
 ```
