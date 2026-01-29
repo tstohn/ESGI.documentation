@@ -158,7 +158,7 @@ After **count** completes, it creates the following output files:
 |  `LOG` | A summary of total processed reads and the number of detected UMI mismatches.  | tsv
 |  `COUNTDATA` | The final countmatrix with counts for unique cell-feature combinations (UMI collapsed). | tsv
 |  `UMIDATA` | Matrix with counts for unique cell-feature-UMI combinations (UMI uncollapsed). | tsv
-|  `UMISTAT` | Describes UMI amplification per feature and its occurence | tsv
+|  `UMISTAT` | Describes UMI amplification per feature and its occurrence | tsv
 
 - **UMI uncollapsed** : Reports the number of reads per UMI, providing insight into UMI amplification during the PCR experiment.
 - **UMI collapsed**: All reads sharing the same UMI are collapsed to create the final count matrix for each unique cell- feature combination.
