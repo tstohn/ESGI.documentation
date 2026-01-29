@@ -15,13 +15,11 @@ Application example for multimodal data using **SIGNALseq**, which contains sequ
 
 Each modality has its own separate FASTQ files for both the forward and reverse reads. See below the instructions to download the HELA data:
 ```
----shell
 wget "https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR28056729/SRR28056729" -O SRR28056729.sra # Transcripts
 wget "https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR28056728/SRR28056728" -O SRR28056728.sra # Proteins
 
 fastq-dump --split-files --gzip SRR28056729.sra
 fastq-dump --split-files --gzip SRR28056728.sra
----
 ```
 
 To execute **ESGI** on both modalities, we must create two separate ESGI-initialization files. Both modalities use a barcode pattern consisting of eight positional elements, though they differ in how the forward read encodes feature identity. 
