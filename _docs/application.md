@@ -1,9 +1,10 @@
 ---
-title: Getting Started
+title: Application
 tags: 
- - jekyll
- - github
-description: Getting started with Docsy Jekyll
+ - Multimodal
+ - Multipattern
+ - Spatial
+description: Application examples for different types of data.
 ---
 
 # Application
