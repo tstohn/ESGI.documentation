@@ -47,10 +47,10 @@ For both modalities, the reverse read contains the remaining six pattern element
 
 Below an illustration of the barcode patterns for the two modalities shown as eight bracket-enclosed sequence substrings. Each bracket corresponds to a pattern element containing a comma-separated list of possible barcode sequences for that position. 
 >```
->         -----------> <---------------------------------------------------------------------------
+>          -----------> <---------------------------------------------------------------------------
 >PROTEIN:[Antibodies][*][BC1][CCACAGTCTCAAGCACGTGGAT][BC2][AGTCGTACGCCGATGCGAAACATCGGCCAC][BC2][10X]
 >
->     ----> <---------------------------------------------------------------------------
+>      ----> <---------------------------------------------------------------------------
 >RNA:[RNA][-][BC1][CCACAGTCTCAAGCACGTGGAT][BC2][AGTCGTACGCCGATGCGAAACATCGGCCAC][BC2][10X]
 >```
 
