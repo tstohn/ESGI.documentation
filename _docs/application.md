@@ -37,7 +37,7 @@ The forward read contains the first pattern element and encodes the feature iden
 #### Reverse read: positional elements 2-7
 For both modalities, the reverse read contains the remaining six pattern elements. These DNA-sequences are structured as following: 
 
-| Positional element | Type | Encoding |
+| Element Index | Type | Encoding |
 | --------- | ----------- | ------ | 
 | 2, 4, 6 | Variable barcode element | Single-cell identities
 | 3, 5 | Constant pattern element | anchors or linkers
@@ -53,53 +53,49 @@ Below an illustration of the barcode patterns for the two modalities shown as ei
 >RNA:[RNA][-][BC1.txt][CCACAGTCTCAAGCACGTGGAT][BC2.txt][AGTCGTACGCCGATGCGAAACATCGGCCAC][BC2.txt][10X]
 >```
 
-| Element name | Sequence length | Number subsequences | Sequence example |
+| File name | Element length (bases) | Number of subsequences | Sequence example |
 | --------- | ----------- | ------ | ------ |  
 | Antibodies.txt | 15 | 23 | AAGGCAGACGGTGCA,GGCTGCGCACCGCCT,CGTCCTAGGACATAT 
 | BC1.txt | 8 | 96 | TTACGAGT,TATCGTTT,CGAGGTAA
 | BC2.txt | 8 | 96 | ATCACGTT,CGATGTTT,TTAGGCAT
 
 Next, for each pattern element, we define the allowed number of mismatches. The protein modality allows one mismatch in the feature-encoding barcode, whereas the RNA modality allows none. Both modalities accept one mismatch for the variable barcode elements and zero for the constant and pattern elements mismatches in the constant and random base sequences. 
+
 ```
----
 # Mismatches protein modality
-1,0,1,0,1,0,1,0
+1,0,1,3,1,5,1,0
 
 # Mismatches RNA modality
 0,0,1,0,1,0,1,0
----
 ```
 
-Next, we need to specify which barcode patterns encode the single-cell identity, feature identity and Unique molecule Identifier (UMI). This is done by providing a list of indices matching to their positions in the barcode structure, with counting starting at 0. Here, indices are derived from the output *TSV* file of **demultiplex**, in which the first column is  the readname followed by a column for each barcode pattern. In both modalities, the first barcode pattern encodes the feature identity, followed by pattern 3, 5, and 7 encoding the single-cell identity, and the last pattern the UMI.
+Now we have all information to create the ESGI-initialization files:
 ```
----
-# Single-cell indices (-c)
-2, 4, 6 
-
-# Feature index (-x)
-0
-
-# UMI index (-u)
-7
----
-```
-
-Now we can set up the required paths to execute the full workflow: 
-```
----
 Path_data = "/path/to/raw_data"
-- Includes FASTQ files of forward and reverse reads
+# Includes FASTQ files of forward and reverse reads
 
 Path_background_data = "/path/to/background_data"
-- .txt files for barcode pattern, mismatches, annotation
-
-Path_STAR = "/path/to/star"
-Path_reference_genome = "/path/to/reference_genome"
-
-Path_tool= "/path/to/tools"
+# .txt files for barcode pattern, mismatches, annotation
 
 Path_output = "/path/to/output"
----
+
+# Forward and reverse reads:
+forward="${Path_data}/SRR28056728_1.fastq.gz"
+reverse="${Path_data}/SRR28056728_2.fastq.gz"
+
+pattern="${Path_background_data}/pattern_PROTEIN.txt"
+mismatches="${Path_background_data}/mismatches_PROTEIN_1MM.txt"
+
+# Indexing for elements encoding: feature, single-cell ID and UMI:
+FEATURE_ID=0
+SC_ID=2,4,6
+UMI_ID=7
+
+FEATURE_NAMES=/home/n.vd.brug/Projects/Analysis-EZGI/SIGNALseq_Analysis/background_data/ESGI_files/antibody_names_as_in_KITE.txt
+ANNOTATION_IDs=/home/n.vd.brug/Projects/Analysis-EZGI/SIGNALseq_Analysis/background_data/ESGI_files/BC1.txt
+
+threads=10
+prefix=MYEXPERIMENT
 ```
 
 Run the workflow for the protein modality:
@@ -124,6 +120,7 @@ rm -f $LOGFILE
                 -t 70 -d "${Path_background_data}/background_data/ESGI_files" \
                 -a "${Path_background_data}/background_data/ESGI_files/antibody_names_as_in_KITE.txt" \
                 -c 2,4,6 -x 0 -u 7 -m 0 -s 1 2>> $LOGFILE_AB
+
 ---
 ```
 
