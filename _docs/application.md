@@ -22,8 +22,10 @@ wget "https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR28056728/SRR28056728" -O S
 fastq-dump --split-files --gzip SRR28056729.sra
 fastq-dump --split-files --gzip SRR28056728.sra
 ```
-For the RNA-modality, specifically, you need to download the reference genome as described in [Reference Genome](software-overview#demultiplex)
 
+Also, download the GRCh38 human reference genome and annotation files as described in the [STAR](software-overview#demultiplex) software overview.
+
+### Set up:
 To execute **ESGI** on both modalities, we must create two separate ESGI-initialization files. Both modalities use a barcode pattern consisting of eight positional elements, though they differ in how the forward read encodes feature identity. 
 
 #### Forward read: positional element 0
