@@ -151,7 +151,9 @@ Optional parameters for UMI collapsing:
 |  `--umiRemoval`, `-z` | UMIs are collapsed | 1
 
 ### Output
-After **count** completes, it creates the following output files: 
+After **count** completes, it creates several output files. The most important are the collapsed and uncollapsed count matrices. 
+- **UMI uncollapsed** : Reports the total number of reads per UMI, providing insight into UMI amplification during the PCR experiment.
+- **UMI collapsed**: All reads sharing the same UMI are collapsed to create the final count matrix for each unique cell- feature combination.
 
 | File name | Description | Type |
 | ---------- | ------------- | -------------- |
@@ -159,9 +161,6 @@ After **count** completes, it creates the following output files:
 |  `COUNTDATA` | The final countmatrix with counts for unique cell-feature combinations (UMI collapsed). | tsv
 |  `UMIDATA` | Matrix with counts for unique cell-feature-UMI combinations (UMI uncollapsed). | tsv
 |  `UMISTAT` | Describes UMI amplification per feature and its occurrence | tsv
-
-- **UMI uncollapsed** : Reports the number of reads per UMI, providing insight into UMI amplification during the PCR experiment.
-- **UMI collapsed**: All reads sharing the same UMI are collapsed to create the final count matrix for each unique cell- feature combination.
 
 ## ESGI
 Instead of running **demultiplex** and **count** separately, you can execute them together using **ESGI**. To do this, you must provide an *initialization-file (.ini)* containing the essential input, including paths to all barcode files, as well as indexing information. Including feature names and single-cell annotations is optional.
