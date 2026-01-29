@@ -53,7 +53,13 @@ Below an illustration of the barcode patterns for the two modalities shown as ei
 >RNA:[RNA][-][BC1.txt][CCACAGTCTCAAGCACGTGGAT][BC2.txt][AGTCGTACGCCGATGCGAAACATCGGCCAC][BC2.txt][10X]
 >```
 
-For each barcode pattern, the allowed number of mismatches must be defined. The protein modality allows one mismatch in the feature-encoding barcode, whereas the RNA modality allows none. Both modalities accept one mismatch in each of the single-cell encoding barcodes (BC) and zero mismatches in the constant and random base sequences. 
+| Element name | Sequence length | Number subsequences | Sequence example |
+| --------- | ----------- | ------ | ------ |  
+| Antibodies.txt | 15 | 15 | AAGGCAGACGGTGCA,GGCTGCGCACCGCCT,CGTCCTAGGACATAT 
+| BC1.txt | 8 | 15 | TTACGAGT,TATCGTTT,CGAGGTAA
+| BC2.txt | 8 | 15 |  ATCACGTT,CGATGTTT,TTAGGCAT
+
+Next, for each pattern element, we define the allowed number of mismatches. The protein modality allows one mismatch in the feature-encoding barcode, whereas the RNA modality allows none. Both modalities accept one mismatch for the variable barcode elements and zero for the constant and pattern elements mismatches in the constant and random base sequences. 
 ```
 ---
 # Mismatches protein modality
