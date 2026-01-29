@@ -24,19 +24,24 @@ fastq-dump --split-files --gzip SRR28056728.sra
 ---
 ```
 
-To execute **ESGI** on both modalities, we must create two separate ESGI-initialization files. Both modalities use a barcode pattern consisting of ten positional elements, though they differ in how the forward read encodes feature identity. 
+To execute **ESGI** on both modalities, we must create two separate ESGI-initialization files. Both modalities use a barcode pattern consisting of eight positional elements, though they differ in how the forward read encodes feature identity. 
 
-### Forward read: positional element 1
+### Forward read: positional element 0
 The forward read contains the first pattern element and encodes the feature identity. 
 * **Protein modality**: The first pattern element is a variable DNA barcode. A polyA tail follows this barcode, resulting in an overlap betweem the forward and reverse reads. 
 * **RNA modality**: The first pattern element is a transcript sequence. The forward read terminates at the end of the RNA sequence, resulting in no overlap with the reverse read.
 
-### Reverse read: positional elements 2-10
-For both modalities, the reverse read contains the remaining nine pattern elements. These DNA-sequences consist of: 
+### Read Transition: positional element 1
+* Protein Modality uses `*` to indicate overlapping sequences.
+* RNA modality uses `-` to indicate no overlap.
 
-* **Constant pattern elements:** anchors or linkers 
-* **Variable barcode elements:** encoding the single-cell identities
-* **Random pattern elements:** encoding the UMI (unique molecule identifier)
+### Reverse read: positional elements 2-7
+For both modalities, the reverse read contains the remaining six pattern elements. These DNA-sequences are structured as following: 
+| Positional element | Type | Encoding |
+| --------- | ----------- | ------ | 
+| 2, 4, 6 | Variable barcode element | Single-cell identities
+| 3, 5 | Constant pattern element | anchors or linkers
+|  7 |  Random pattern element | Unique Molecule Identifier (UMI)
 
 
 Below are the barcode structures for the protein and RNA modalities, shown as ten bracket-enclosed sequence substrings. Each of the brackets corresponds to a specific position in the barcode and contains a comma-separates list of possible barcode sequences for that position. 
