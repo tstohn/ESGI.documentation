@@ -151,9 +151,15 @@ Optional parameters for UMI collapsing:
 |  `--umiRemoval`, `-z` | UMIs are collapsed | 1
 
 ### Output
-When **count** finishes, it creates a *LOG_COUNTS.tsv* file summarizing the total number of processed reads and the number of detected UMI mismatches. 
+After **count** completes, it creates the following output files: 
 
-The key output are two count matrices (TSV): 
+| File name | Description | Type |
+| ---------- | ------------- | -------------- |
+|  `LOG` | A summary of total processed reads and the number of detected UMI mismatches.  | tsv
+|  `COUNTDATA` | The final countmatrix with counts for unique cell-feature combinations (UMI collapsed). | tsv
+|  `UMIDATA` | Matrix with counts for unique cell-feature-UMI combinations (UMI uncollapsed). | tsv
+|  `UMISTAT` | Describes UMI amplification per feature and its occurence | tsv
+
 - **UMI uncollapsed** : Reports the number of reads per UMI, providing insight into UMI amplification during the PCR experiment.
 - **UMI collapsed**: All reads sharing the same UMI are collapsed to create the final count matrix for each unique cell- feature combination.
 
