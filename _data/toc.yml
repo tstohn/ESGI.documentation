@@ -2,10 +2,6 @@
   url: docs
   links:
     - title: "Getting Started"
-      url: "docs/getting-started"
-      children:
-        - title: Getting the Tool
-          url: "docs/getting-started#getting-the-tool"
     - title: Software Overview
       url: "docs/software-overview"
       children:
@@ -20,10 +16,8 @@
       childeren:
         - title: Multimodal
           url: "docs/application#multimodal"
-        - title: ESGI
+        - title: Multipattern
           url: "docs/application#multipattern"
-    - title: "News"
-      url: "news"
 - title: "Extras"
   url: "docs/extras"
   links:
