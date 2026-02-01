@@ -9,7 +9,6 @@ description: Application examples for different types of data.
 
 # Application
 
-
 ## Multimodal
 
 Application example for multimodal data using **SIGNALseq**, which contains sequencing reads for both RNA and protein generated through combinatorial indexing. In this method, protein measurements are obtained using DNA barcoded antibodies that target the protein of interest. These DNA barcodes are sequenced alongside with the RNA, enabling simultaneous profiling of protein abundances and gene expression. 
@@ -176,8 +175,13 @@ rm $LOGFILE
 ---
 ```
 
-###
-
-## Spatial
-
 ## Multipattern
+Application example for multipattern data, using **single cell Immuno-Detection by sequencing (scIDseq)** data. This technology quantifies intracellular protein abundances using antibodies conjugated to unique DNA barcodes. The approach uses a multipattern design where linkers of varying lengths, in combination with variable barcode elements, encode the specific protein identity. 
+
+### Set up:
+
+
+
+
+
+
