@@ -6,10 +6,6 @@
       children:
         - title: Getting the Tool
           url: "docs/getting-started#getting-the-tool"
-        - title: Reference Genome
-          url: "docs/getting-started#reference-genome"
-        - title: Customization
-          url: "docs/getting-started#customization"
     - title: Software Overview
       url: "docs/software-overview"
       children:
@@ -24,8 +20,6 @@
       childeren:
         - title: Multimodal
           url: "docs/application#multimodal"
-        - title: Count
-          url: "docs/application#spatial"
         - title: ESGI
           url: "docs/application#multipattern"
     - title: "News"
