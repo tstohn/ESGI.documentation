@@ -13,7 +13,7 @@
           url: "docs/software-overview#esgi"
     - title: Application
       url: "docs/application"
-      childeren:
+      children:
         - title: Multimodal
           url: "docs/application#multimodal"
         - title: Multipattern
