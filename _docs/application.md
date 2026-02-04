@@ -227,7 +227,7 @@ For each pattern, the maximum number of allowed mismatches per element is define
 >1,1,1,1,1
 >```
 
-With all structural patameters defined, you can now create the ESGI-initialization file, 'myExperiment.ini'. This file links your raw forward reads to the pattern and mismatch definitions established in the previous sections. 
+With all structural patameters defined, you can now create the ESGI-initialization file, `myExperiment.ini`. This file links your raw forward reads to the pattern and mismatch definitions established in the previous sections. 
 
 The configuration uses the element indexes for feature identities, single-cell IDs, and UMIs as defined in the table, alongside the pattern and mismatch information as illustrates in the example blocks. 
 
