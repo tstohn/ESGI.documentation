@@ -47,13 +47,14 @@ For both modalities, the reverse read contains the remaining six pattern element
 
 
 Below an illustration of the barcode patterns for the two modalities shown as eight bracket-enclosed sequence substrings. Each bracket corresponds to a pattern element containing a comma-separated list of possible barcode sequences for that position. 
+
+          ---------------> <----------------------------------------
 >```
->          ---------------> <----------------------------------------
 >PROTEIN:[Antibodies.txt][*][BC1.txt][22X][BC2.txt][30X[BC2.txt][10X]
->
->      ----> <-----------------------------------------
+>```
+       ----> <-----------------------------------------
+>```
 >RNA:[RNA][-][BC1.txt][22X][BC2.txt][30X][BC2.txt][10X]
->
 >```
 
 | File name | Element length (bases) | Number of subsequences | Sequence example |
@@ -70,11 +71,13 @@ Example of a barcode-aligned sequence for the protein modality:
 
 Next, for each pattern element, we define the allowed number of mismatches. The protein modality allows one mismatch in the feature-encoding barcode, whereas the RNA modality allows none. Both modalities accept one mismatch for the variable barcode elements and zero for the constant and pattern elements mismatches in the constant and random base sequences. 
 
+Mismatches protein modality:
 >```
-># Mismatches protein modality
 >1,0,1,0,1,0,1,0
->
-># Mismatches RNA modality
+>```
+
+Mismatches RNA modality
+>```
 >0,0,1,0,1,0,1,0
 >```
 
