@@ -2,6 +2,7 @@
   url: docs
   links:
     - title: "Getting Started"
+      url: "docs/getting-started"
     - title: Software Overview
       url: "docs/software-overview"
       children:
