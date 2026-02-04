@@ -107,6 +107,11 @@ threads=10
 prefix=MYEXPERIMENT
 ```
 
+Execute **ESGI** using   
+```
+./bin/esgi myExperiment.ini
+```
+
 Run the workflow for the protein modality:
 **demultiplex** → **count** 
 ```
@@ -222,7 +227,10 @@ For each pattern, the maximum number of allowed mismatches per element is define
 >1,1,1,1,1
 >```
 
-Now we have all information to create the ESGI-initialization files:
+With all structural patameters defined, you can now create the ESGI-initialization file, 'myExperiment.ini'. This file links your raw forward reads to the pattern and mismatch definitions established in the previous sections. 
+
+The configuration uses the element indexes for feature identities, single-cell IDs, and UMIs as defined in the table, alongside the pattern and mismatch information as illustrates in the example blocks. 
+
 ```
 Path_data = "/path/to/raw_data"
 # Includes FASTQ files of forward reads for all plates
@@ -240,10 +248,15 @@ mismatches="${Path_background_data}/mismatches.txt"
 
 # Indexing for elements encoding: feature, single-cell ID and UMI:
 FEATURE_ID=2
-SC_ID=5
+SC_ID=4
 UMI_ID=1
 
 threads=10
 prefix=MYEXPERIMENT
+```
+
+Execute **ESGI** by running the following command in your terminal:  
+```
+./bin/esgi myExperiment.ini
 ```
 
