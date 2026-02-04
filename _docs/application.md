@@ -70,13 +70,13 @@ Example of a barcode-aligned sequence for the protein modality:
 
 Next, for each pattern element, we define the allowed number of mismatches. The protein modality allows one mismatch in the feature-encoding barcode, whereas the RNA modality allows none. Both modalities accept one mismatch for the variable barcode elements and zero for the constant and pattern elements mismatches in the constant and random base sequences. 
 
-```
-# Mismatches protein modality
-1,0,1,0,1,0,1,0
-
-# Mismatches RNA modality
-0,0,1,0,1,0,1,0
-```
+>```
+># Mismatches protein modality
+>1,0,1,0,1,0,1,0
+>
+># Mismatches RNA modality
+>0,0,1,0,1,0,1,0
+>```
 
 Now we have all information to create the ESGI-initialization files:
 ```
@@ -211,16 +211,16 @@ Each pattern is defined by a unique name, with its pattern elements represented 
 
 For each pattern, the maximum number of allowed mismatches per element is defined using a comma-separated list. Each integer in the list corresponds to a specific positional element. Patterns 1 throug 7 require six mismatch values, while pattern 8 requires five. 
 
-```
-0,1,1,1,1,2
-0,1,1,1,1,2
-1,1,1,1,1,1
-1,1,1,1,1,1
-1,1,1,1,1,1
-1,1,1,1,1,1
-1,1,1,1,1,1
-1,1,1,1,1
-```
+>```
+>0,1,1,1,1,2
+>0,1,1,1,1,2
+>1,1,1,1,1,1
+>1,1,1,1,1,1
+>1,1,1,1,1,1
+>1,1,1,1,1,1
+>1,1,1,1,1,1
+>1,1,1,1,1
+>```
 
 Now we have all information to create the ESGI-initialization files:
 ```
