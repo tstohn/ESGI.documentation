@@ -179,9 +179,71 @@ rm $LOGFILE
 Application example for multipattern data, using **single cell Immuno-Detection by sequencing (scIDseq)** data. This technology quantifies intracellular protein abundances using antibodies conjugated to unique DNA barcodes. The approach uses a multipattern design where linkers of varying lengths, in combination with variable barcode elements, encode the specific protein identity. 
 
 ### Set up:
+**ESGI** can demultiplex reads for multiple barcode patterns simultaneously. This specific dataset includes eight barcode patterns defined by different linker lengths, ranging from one to eight bases. To maintain the same total sequence length, the final element in the six-element patterns varies inversely with the linker length. The exception is the longest linker length pattern, which contains only five elements. 
 
+The barcode patterns are contained entirely within the forward read and consist of five to six positional elements. The table below outlines the  element indexes and what they encode for. 
 
+| Element Index | Type | Encoding |
+| --------- | ----------- | ------ | 
+| 0,3,(5) | Constant pattern element | Linker or anchor
+| 1 | Random pattern element | Unique Molecule Identifier (UMI)
+| 2 | Variable pattern element | Feature identities
+| 4 | Variable pattern element | Single-cell identities
 
+Across the patterns, there are specific and shared elements: 
+* Variable pattern element 2, encoding the feature identity, consists of a defined list of barcode sequences unique to each linker.
+* Variable pattern element 4, encoding the single-cell identity, is shared across all patterns to assign well-plate positions. 
 
+Each pattern is defined by a unique name, with its pattern elements represented as a series of bracket enclosed substring. Within each set of brackets is a comma-separated list of all possible barcode sequences for that specific position. Accordingly, patterns 1 through 7 are defined by six bracketed substrings, while pattern 8 consists of five. 
 
+>```
+>---
+>PATTERN_1:[][][][][][]
+>PATTERN_2:[][][][][][]
+>PATTERN_3:[][][][][][]
+>PATTERN_4:[][][][][][]
+>PATTERN_5:[][][][][][]
+>PATTERN_6:[][][][][][]
+>PATTERN_7:[][][][][][]
+>PATTERN_8:[][][][][]
+>---
+>```
+
+For each pattern, the maximum number of allowed mismatches per element is defined using a comma-separated list. Each integer in the list corresponds to a specific positional element. Patterns 1 throug 7 require six mismatch values, while pattern 8 requires five. 
+
+```
+0,1,1,1,1,2
+0,1,1,1,1,2
+1,1,1,1,1,1
+1,1,1,1,1,1
+1,1,1,1,1,1
+1,1,1,1,1,1
+1,1,1,1,1,1
+1,1,1,1,1
+```
+
+Now we have all information to create the ESGI-initialization files:
+```
+Path_data = "/path/to/raw_data"
+# Includes FASTQ files of forward reads for all plates
+
+Path_background_data = "/path/to/background_data"
+# .txt files for barcode pattern, mismatches, annotation
+
+Path_output = "/path/to/output"
+
+# Forward read:
+forward="${Path_data}/plate.fastq.gz"
+
+pattern="${Path_background_data}/patterns.txt"
+mismatches="${Path_background_data}/mismatches.txt"
+
+# Indexing for elements encoding: feature, single-cell ID and UMI:
+FEATURE_ID=2
+SC_ID=5
+UMI_ID=1
+
+threads=10
+prefix=MYEXPERIMENT
+```
 
