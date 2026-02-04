@@ -78,7 +78,13 @@ Next, for each pattern element, we define the allowed number of mismatches. The 
 >0,0,1,0,1,0,1,0
 >```
 
-Now we have all information to create the ESGI-initialization files:
+Now, we have defined all structural parameters to create the ESGI-initialization files for both modalities:`myExperiment_PROTEIN.ini` and `myExperiment_RNA.ini`.
+
+Both configuration files use the element indexes for feature identities, single-cell IDs, and UMIs from the table, along with the patterns and mismatch information illustrated in the example blocks to define `patterns.txt` and `mismatches.txt`.
+
+While both files follow a similar structure, the RNA modality requires an additional parameter to define the directory path to the reference genome. 
+
+`myExperiment_PROTEIN.ini`:
 ```
 Path_data = "/path/to/raw_data"
 # Includes FASTQ files of forward and reverse reads
@@ -107,77 +113,44 @@ threads=10
 prefix=MYEXPERIMENT
 ```
 
-Execute **ESGI** using   
+`myExperiment_RNA.ini`:
 ```
-./bin/esgi myExperiment.ini
-```
+Path_data = "/path/to/raw_data"
+# Includes FASTQ files of forward and reverse reads
 
-Run the workflow for the protein modality:
-**demultiplex** → **count** 
-```
----
-LOGFILE_AB="${"Path_output"}/ESGI_PROTEIN_LOG.txt"
-rm -f $LOGFILE
+Path_background_data = "/path/to/background_data"
+# .txt files for barcode pattern, mismatches, annotation
 
-/usr/bin/time -v "${Path_tool"/bin/**demultiplex**" \
-                -i "${Path_data}/SRR28056728_1.fastq.gz" \
-                -r "${Path_data}/SRR28056728_2.fastq.gz" \
-                -o "${Path_output}/ESGI_Protein" \
-                -p "${Path_background_data}/pattern_PROTEIN.txt" \
-                -m "${Path_background_data}/mismatches_PROTEIN.txt" \
-                -n A \
-                -t 70 -f 1 -q 1 2>> $LOGFILE_AB
+Path_output = "/path/to/output"
 
-/usr/bin/time -v "${Path_tool}/bin/**count**" \
-                -i "${Path_output}/A_PROTEIN.tsv" \
-                -o "${Path_output}/A_PROTEIN_Counts.tsv" \
-                -t 70 -d "${Path_background_data}/background_data/ESGI_files" \
-                -a "${Path_background_data}/background_data/ESGI_files/antibody_names_as_in_KITE.txt" \
-                -c 2,4,6 -x 0 -u 7 -m 0 -s 1 2>> $LOGFILE_AB
+# Forward and reverse reads:
+forward="${Path_data}/SRR28056729_1.fastq.gz"
+reverse="${Path_data}/SRR28056729_2.fastq.gz"
 
----
+pattern="${Path_background_data}/pattern_RNA.txt"
+mismatches="${Path_background_data}/mismatches_RNA_1MM.txt"
+
+# Indexing for elements encoding: feature, single-cell ID and UMI:
+FEATURE_ID=0
+SC_ID=2,4,6
+UMI_ID=7
+
+genomeDir="/path/to/GRCh38_STAR_index"/
+
+threads=10
+prefix=MYEXPERIMENT
 ```
 
-Run the workflow for the RNA modality:
-**demultiplex** → **STAR** → **annotate** → **count** 
+Once the configuration files are ready, you can initiate the process for each modality by running **ESGI** from the terminal.
+
+For the protein modality, execute the following command:
 ```
----
-LOGFILE="${"Path_output"}/ESGI_RNA_LOG.txt"
-rm $LOGFILE
+./bin/esgi myExperiment_PROTEIN.ini
+```
 
-/usr/bin/time -v "${Path_data}/SRR28056729_1.fastq" \
-              -r "${Path_data}/SRR28056729_2.fastq" \
-              -o "${Path_output}/ESGI_RNA" \
-              -p "${Path_background_data}/pattern_RNA.txt" \
-              -m "${Path_background_data}/mismatches_RNA.txt" \
-              -t 70 -f 1 -q 1 2>> $LOGFILE
-              
-/usr/bin/time -v STAR --runThreadN 70 \
-     --genomeDir "${Path_reference_genome}/GRCh38/GRCh38_STAR_index" \
-     --readFilesIn "${Path_output}/RNA.fastq" \
-     --outFileNamePrefix "${Path_output}/RNA_" \
-     --sjdbGTFfile "${Path_reference_genome}/GRCh38/gencode.v43.annotation.gtf" \
-     --sjdbOverhang 73 \
-     --outSAMtype BAM Unsorted \
-     --outSAMattributes NH HI AS nM GX GN \
-     --quantMode TranscriptomeSAM \
-     --outFilterMultimapNmax 50 \
-     --outSAMmultNmax 1 --outSAMunmapped Within \
-     --limitOutSJcollapsed 2000000 \
-     --twopassMode Basic 2>> $LOGFILE
-     
-/usr/bin/time -v "${Path_tool}/bin/annotate \
-              -i "${Path_output}/ESGI_RNA/RNA.tsv" \
-              -b "${Path_output}/RNA_Aligned.out.bam" \
-              -f GX 2>> $LOGFILE
-
-/usr/bin/time -v "${Path_tool}/bin/count
-              -i "${Path_output}/RNA_annotated.tsv" \
-              -o "${Path_output}/RNA_Counts_umi0.tsv" -t 70 \
-              -d "${Path_background_data}/" \
-              -c 2,4,6 -x 0 -u 7 -m 1 -s 1 \
-              -w "${Path_background_data}/bc_sharing_revComp.tsv" 2>> $LOGFILE
----
+For the RNA modality, run this command:
+```
+./bin/esgi myExperiment_RNA.ini
 ```
 
 ## Multipattern
