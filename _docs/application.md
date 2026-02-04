@@ -106,8 +106,8 @@ FEATURE_ID=0
 SC_ID=2,4,6
 UMI_ID=7
 
-FEATURE_NAMES=/home/n.vd.brug/Projects/Analysis-EZGI/SIGNALseq_Analysis/background_data/ESGI_files/antibody_names_as_in_KITE.txt
-ANNOTATION_IDs=/home/n.vd.brug/Projects/Analysis-EZGI/SIGNALseq_Analysis/background_data/ESGI_files/BC1.txt
+FEATURE_NAMES="${Path_background_data}/antibody_names.txt"
+ANNOTATION_IDs="${Path_background_data}/BC1.txt"
 
 threads=10
 prefix=MYEXPERIMENT
