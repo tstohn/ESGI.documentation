@@ -11,33 +11,34 @@ description: Application examples for different types of data.
 
 ## Multimodal
 
-Application example for multimodal data using **SIGNALseq**, which contains sequencing reads for both RNA and protein generated through combinatorial indexing. In this method, protein measurements are obtained using DNA barcoded antibodies that target the protein of interest. These DNA barcodes are sequenced alongside with the RNA, enabling simultaneous profiling of protein abundances and gene expression. 
+Application example for multimodal data using **SIGNALseq**, which produces separate sequencing libraries for both RNA and protein modalities via combinatorial indexing. In this method, protein levels are captured using DNA barcoded antibodies and transcripts through mRNA reverse transcription. Both modalities are processed into distinct FASTQ files, but share a common barcode pattern: the forward read encodes the feature identity and the reverse read encodes the single-cell identity and Unique Molecular Identifier (UMI). 
 
-Each modality has its own separate FASTQ files for both the forward and reverse reads. See below the instructions to download the HELA data:
+Download the SRA files for both modalities and extract the paired-end FASTQ reads:
 ```
-wget "https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR28056729/SRR28056729" -O SRR28056729.sra # Transcripts
-wget "https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR28056728/SRR28056728" -O SRR28056728.sra # Proteins
+# Download SRA files for Protein and Transcript
+wget "https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR28056728/SRR28056728" -O SRR28056728.sra
+wget "https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR28056729/SRR28056729" -O SRR28056729.sra
 
-fastq-dump --split-files --gzip SRR28056729.sra
+# Extract paired-end FASTQ files
 fastq-dump --split-files --gzip SRR28056728.sra
+fastq-dump --split-files --gzip SRR28056729.sra
 ```
-
-Also, download the GRCh38 human reference genome and annotation files as described in the [STAR](software-overview#demultiplex) software overview.
 
 ### Set up:
-To execute **ESGI** on both modalities, we must create two separate ESGI-initialization files. Both modalities use a barcode pattern consisting of eight positional elements, though they differ in how the forward read encodes feature identity. 
+To process both modalities, separate ESGI-initialization files must be created. Both modalities share a pattern structure consisting of eight positional elements, but they differ in how the feature identity is encoded in the forward read.
 
 #### Forward read: positional element 0
 The forward read contains the first pattern element and encodes the feature identity. 
-* **Protein modality**: The first pattern element is a variable DNA barcode. A polyA tail follows this barcode, resulting in an overlap betweem the forward and reverse reads. 
-* **RNA modality**: The first pattern element is a transcript sequence. The forward read terminates at the end of the RNA sequence, resulting in no overlap with the reverse read.
+* **Protein modality**: The first element is a variable antibody derived DNA barcode. This is followed by a poly-A tail, which creates a sequence overlap between the forward and reverse reads. 
+* **RNA modality**: The first element is the genomic transcript sequence. The forward read terminates at the end of the RNA sequence, resulting in no overlap with the reverse read.
 
 #### Read transition: positional element 1
-* Protein modality uses `*` to indicate overlapping sequences.
-* RNA modality uses `-` to indicate no overlap.
+A specific symbol is used to define the relationship between the forward and reverse reads:
+* **Protein modality:** uses the `*` symbol to indicate overlapping sequences.
+* **RNA modality:** uses the `-` symbol to indicate no overlap.
 
 #### Reverse read: positional elements 2-7
-For both modalities, the reverse read contains the remaining six pattern elements. These DNA-sequences are structured as following: 
+For both modalities, the reverse read contains the remaining six pattern elements encoding the single-cell identity and UMI.
 
 | Element Index | Type | Encoding |
 | --------- | ----------- | ------ | 
@@ -45,8 +46,7 @@ For both modalities, the reverse read contains the remaining six pattern element
 | 3, 5 | Constant pattern element | anchors or linkers
 |  7 |  Random pattern element | Unique Molecule Identifier (UMI)
 
-
-Below an illustration of the barcode patterns for the two modalities shown as eight bracket-enclosed sequence substrings. Each bracket corresponds to a pattern element containing a comma-separated list of possible barcode sequences for that position. 
+Below an illustration of the patterns for both modalities shown as eight bracket-enclosed sequence substrings. Each bracket corresponds to a pattern element containing a comma-separated list of possible barcode sequences for that position. 
           
 >```
 >PROTEIN:[Antibodies.txt][*][BC1.txt][22X][BC2.txt][30X[BC2.txt][10X]
@@ -68,7 +68,7 @@ Example of a barcode-aligned sequence for the protein modality:
 >AGACAGTGATGTCCG  CCGATCCC   ATCCACGTGCTTGAGACTGTGG  TTAGGCAT  GTGGCCGATGTTTCGCATCGGCGTACGACT  TAACGCTG  TAAAGGAAGT
 >```
 
-Next, for each pattern element, we define the allowed number of mismatches. The protein modality allows one mismatch in the feature-encoding barcode, whereas the RNA modality allows none. Both modalities accept one mismatch for the variable barcode elements and zero for the constant and pattern elements mismatches in the constant and random base sequences. 
+Next, for each pattern element, we define the allowed number of mismatches. The protein modality allows one mismatch in the feature-encoding barcode, whereas the RNA modality allows none. Both modalities accept one mismatch for the variable barcode elements and zero for the constant and random pattern elements. 
 
 Mismatches protein modality:
 >```
