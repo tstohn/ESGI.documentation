@@ -19,6 +19,8 @@
           url: "docs/application#multimodal"
         - title: Multipattern
           url: "docs/application#multipattern"
+        - title: Spatial
+          url: "docs/application#spatial"
 - title: "Extras"
   url: "docs/extras"
   links:
