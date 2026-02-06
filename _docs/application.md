@@ -84,8 +84,6 @@ Now, we have defined all structural parameters to create the ESGI-initialization
 
 Both configuration files use the element indexes for feature identities, single-cell IDs, and UMIs from the table, along with the patterns and mismatch information illustrated in the example blocks to define `patterns.txt` and `mismatches.txt`.
 
-While both files follow a similar structure, the RNA modality requires an additional parameter to define the directory path to the reference genome. 
-
 `myExperiment_PROTEIN.ini`:
 ```
 Path_data = "/path/to/raw_data"
@@ -114,6 +112,30 @@ ANNOTATION_IDs="${Path_background_data}/BC1.txt"
 threads=10
 prefix=MYEXPERIMENT
 ```
+
+For the RNA modality, genomic sequences are aligned to the human reference genome (GRCh38) using the **STAR** aligner. 
+
+First, download the GRCh38 primary assembly and the corresponding GENCODE annotation files.
+>```
+>mkdir GRCh38
+>cd GRCh38
+>
+>wget ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_43/GRCh38.primary_assembly.genome.fa.gz
+>wget ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_43/gencode.v43.annotation.gtf.gz
+>gunzip *.gz
+>```
+
+Next, generate the STAR genome index: 
+>```
+>STAR --runThreadN 70 \
+>     --runMode genomeGenerate \
+>     --genomeDir GRCh38_STAR_index \
+>     --genomeFastaFiles GRCh38.primary_assembly.genome.fa \
+>     --sjdbGTFfile gencode.v43.annotation.gtf \
+>     --sjdbOverhang 73
+>```
+
+To integrate the reference genome with **ESGI**, the initialization file requires an additional parameter defining the directory path to the STAR genome index. 
 
 `myExperiment_RNA.ini`:
 ```
