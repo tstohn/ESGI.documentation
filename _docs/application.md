@@ -236,11 +236,32 @@ Execute **ESGI** by running the following command in your terminal:
 ```
 
 ## Spatial
-Application example for spatial data, using **Multiplexed Deterministic Barcoding in Tissue (xDBiT)** data. This technology uses deterministic barcoding via DNA oligonucleotides to encode transcriptomes alongside their spatial coordinates for multiple tissue sections in parallel. 
+Application example for spatial data using **Multiplexed Deterministic Barcoding in Tissue (xDBiT)**. This technology uses microfluidic-based deterministic barcoding with DNA oligonucleotides to encode transcriptomes alongside their spatial coordinates for multiple tissue sections in parallel. 
 
 ### Set up:
+The **xDBiT** barcode pattern consists of seven positional pattern elements. The data is generated via paired-end sequencing, where the forward read encodes the transcript and the reverse read the $(x,y)$ spatial coordinates and UMI.
 
+#### Forward read: positional element 0
+The forward read contains the first pattern element, a genomic DNA sequence encoding the transcript. 
 
+#### Read transition: positional element 1
+Discrete transition separating the forward and reverse read without sequence overlap.
+
+#### Reverse read: positional elements 2-6
+The reverse read contains the remaining six pattern elements, which collectively encode the $(x,y)$ spatial coordinates and UMI. 
+
+| Element Index | Type | Encoding |
+| --------- | ----------- | ------ | 
+| 0 | Genomic sequence | Transcript identity
+| 2,4 | Random pattern element | Linkers or anchors
+| 3,5 | Variable pattern element | $(x,y)$ spatial coordinates
+| 6 | Random pattern element | UMI
+
+The barcode pattern is represented as a sequence of seven bracket-enclosed substrings. Each bracket identifies a specific positional element and contains a comma-separated list of possible barcode sequences for that position. 
+          
+>```
+>SPATIAL:[DNA][-][9X][coordinate_barcode.txt][30X][coordinate_barcode.txt][30X]
+>```
 
 
 
