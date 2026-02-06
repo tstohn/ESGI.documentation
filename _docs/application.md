@@ -178,7 +178,7 @@ For the RNA modality, run this command:
 ```
 
 ## Multipattern
-Application example for multipattern data, using **single cell Immuno-Detection by sequencing (scIDseq)** data. This technology quantifies intracellular protein abundances using antibodies conjugated to unique DNA barcodes. The approach uses a multipattern design where linkers of varying lengths, in combination with variable barcode elements, encode the specific protein identity. 
+Application example for multipattern data, using **scIDseq**. This technology quantifies intracellular protein abundances using antibodies conjugated to unique DNA barcodes. The approach uses a multipattern design where linkers of varying lengths, in combination with variable barcode elements, encode the specific protein identity. The remaing of the pattern encodes the single cell identity and UMI.
 
 ### Set up:
 **ESGI** can demultiplex reads for multiple barcode patterns simultaneously. This specific dataset includes eight barcode patterns defined by different linker lengths, ranging from one to eight bases. To maintain the same total sequence length, the final element in the six-element patterns varies inversely with the linker length. The exception is the longest linker length pattern, which contains only five elements. 
@@ -190,13 +190,13 @@ The barcode patterns are contained entirely within the forward read and consist 
 | 0,3,(5) | Constant pattern element | Linker or anchor
 | 1 | Random pattern element | Unique Molecule Identifier (UMI)
 | 2 | Variable pattern element | Feature identities
-| 4 | Variable pattern element | Single-cell identities
+| 4 | Variable pattern element | Well-plate position
 
-Across the patterns, there are specific and shared elements: 
-* Variable pattern element 2, encoding the feature identity, consists of a defined list of barcode sequences unique to each linker.
-* Variable pattern element 4, encoding the single-cell identity, is shared across all patterns to assign well-plate positions. 
+The multipattern design contains specific and shared barcodes elements:
+* Feature identity (element 2): each pattern has a unique linker, length and sequence, and is associated with a unique set of barcode sequences that define the protein identity. 
+* Well plate position (element 4), universal barcode set to ensure consistent assignent of well-plate positions.  
 
-Each pattern is defined by a unique name, with its pattern elements represented as a series of bracket enclosed substring. Within each set of brackets is a comma-separated list of all possible barcode sequences for that specific position. Accordingly, patterns 1 through 7 are defined by six bracketed substrings, while pattern 8 consists of five. 
+Each pattern is assigned a unique name, with its pattern elements represented as a series of bracket enclosed substrings. Within each set of brackets is a comma-separated list of all possible barcode sequences for that specific position. Accordingly, patterns 1 through 7 are defined by six bracketed substrings, while pattern 8 consists of five. 
 
 >```
 >---
@@ -261,7 +261,7 @@ Execute **ESGI** by running the following command in your terminal:
 Application example for spatial data using **Multiplexed Deterministic Barcoding in Tissue (xDBiT)**. This technology uses microfluidic-based deterministic barcoding with DNA oligonucleotides to encode transcriptomes alongside their spatial coordinates for multiple tissue sections in parallel. 
 
 ### Set up:
-The **xDBiT** barcode pattern consists of seven positional pattern elements. The data is generated via paired-end sequencing, where the forward read encodes the transcript and the reverse read the $(x,y)$ spatial coordinates and UMI.
+The **xDBiT** barcode pattern consists of seven positional pattern elements. The data is generated via paired-end sequencing, where the forward read encodes the transcript and the reverse read the (x,y) spatial coordinates and UMI.
 
 #### Forward read: positional element 0
 The forward read contains the first pattern element, a genomic DNA sequence encoding the transcript. 
@@ -270,13 +270,13 @@ The forward read contains the first pattern element, a genomic DNA sequence enco
 Discrete transition separating the forward and reverse read without sequence overlap.
 
 #### Reverse read: positional elements 2-6
-The reverse read contains the remaining six pattern elements, which collectively encode the $(x,y)$ spatial coordinates and UMI. 
+The reverse read contains the remaining six pattern elements, which collectively encode the (x,y) spatial coordinates and UMI. 
 
 | Element Index | Type | Encoding |
 | --------- | ----------- | ------ | 
 | 0 | Genomic sequence | Transcript identity
 | 2,4 | Random pattern element | Linkers or anchors
-| 3,5 | Variable pattern element | $(x,y)$ spatial coordinates
+| 3,5 | Variable pattern element | (x,y) spatial coordinates
 | 6 | Random pattern element | UMI
 
 The barcode pattern is represented as a sequence of seven bracket-enclosed substrings. Each bracket identifies a specific positional element and contains a comma-separated list of possible barcode sequences for that position. 
@@ -284,23 +284,4 @@ The barcode pattern is represented as a sequence of seven bracket-enclosed subst
 >```
 >SPATIAL:[DNA][-][9X][coordinate_barcode.txt][30X][coordinate_barcode.txt][30X]
 >```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
