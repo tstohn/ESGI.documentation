@@ -79,7 +79,7 @@ Also, it reports the alignment performance into three match type categories, exp
 ### STAR
 Following demultiplexing, the genomic sequences within the FASTQ files are mapped to a reference genome using the **STAR** (Spliced Transcripts Alignment to a Reference) aligner. 
 
-Instructions for downloading reference genomes - like for human (GRCh38) or mice (GRCm38) - along with instructions for generating the required STAR genome indices, are provided in the Multimodal and Spatial application sections, respectively. 
+Instructions for downloading reference genomes - like for human (GRCh38) or mice (GRCm38) - along with instructions for generating the required STAR genome indices, are provided in the [Multimodal](application#multimodal) and [Spatial](application#spatial) application sections, respectively. 
 
 Once the genome index is constructed, STAR can perform the allignment to generate the output files for annotation. 
 
