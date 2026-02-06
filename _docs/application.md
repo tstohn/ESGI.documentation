@@ -235,3 +235,29 @@ Execute **ESGI** by running the following command in your terminal:
 ./bin/esgi myExperiment.ini
 ```
 
+## Spatial
+Application example for spatial data, using **Multiplexed Deterministic Barcoding in Tissue (xDBiT)** data. This technology uses deterministic barcoding via DNA oligonucleotides to encode transcriptomes alongside their spatial coordinates for multiple tissue sections in parallel. 
+
+### Set up:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
