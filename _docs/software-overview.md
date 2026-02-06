@@ -30,7 +30,7 @@ Example of a barcode pattern called PATTERN consisting of five positional patter
 >PATTERN:[Ab_barcodes.txt][-][BC1.txt][AGCTCATC][10X]
 >         |                |  |        |         └─── Random pattern element
 >         |                |  |        └─── Constant pattern element
->         |                |  └─── Variable barcode element encoding single-cell identity
+>         |                |  └─── Variable barcode element encoding single-cell ID
 >         |                └─── Read separator for forward and reverse read
 >         └─── Variable barcode element encoding feature identity
 >```
@@ -77,35 +77,16 @@ Also, it reports the alignment performance into three match type categories, exp
 {% include alert.html type="info" title="Generic barcode sequences follow demultiplex → count, whereas genomic sequences follow demultiplex → STAR → annotate → count." %}
 
 ### STAR
-For genomic sequences, demultiplexed FASTQ reads are aligned to a reference genome using the **STAR** (Spliced Transcripts Alignment to a Reference) aligner. 
+Following demultiplexing, the genomic sequences within the FASTQ files are mapped to a reference genome using the **STAR** (Spliced Transcripts Alignment to a Reference) aligner. 
 
-Use the commands below to download the human reference genome (GRCh38) and the corresponding annotation files.
+Instructions for downloading reference genomes - like for human (GRCh38) or mice (GRCm38) - along with instructions for generating the required STAR genome indices, are provided in the Multimodal and Spatial application sections, respectively. 
 
->```
->mkdir GRCh38
->cd GRCh38
->
->wget ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_43/GRCh38.primary_assembly.genome.fa.gz
->wget ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_43/gencode.v43.annotation.gtf.gz
->gunzip *.gz
->```
-
-Next, generate a STAR genome index: 
->```
->STAR --runThreadN 70 \
->     --runMode genomeGenerate \
->     --genomeDir GRCh38_STAR_index \
->     --genomeFastaFiles GRCh38.primary_assembly.genome.fa \
->     --sjdbGTFfile gencode.v43.annotation.gtf \
->     --sjdbOverhang 73
->```
-
-Once the index is build, run **STAR** for alignment to produce the output files required for annotation.
+Once the genome index is constructed, STAR can perform the allignment to generate the output files for annotation. 
 
 | File type | Description |
 | --------- | ----------- |
-| aligned.out.bam | Sequence reads aligned to the reference genome.
-| TSV | Table of detected splice junctions and exon-intron boundaries.
+| aligned.out.bam | Binary file containing the sequence reads aligned to the reference genome coordinates.
+| TSV | Tab separated table of detected splice junctions and exon-intron boundaries.
 
 ### Annotate
 The **annotate** step uses the **STAR**-derived genomic coordinates to assign gene annotations to the reads and merges this information with the final demultiplexed TSV output file. 
