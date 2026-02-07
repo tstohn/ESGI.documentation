@@ -114,10 +114,12 @@ Required parameters:
 Optional parameters for annotation:
 Barcode sequences can be replaced by labels, such as feature names or single-cell annotations (e.g. experimental conditions). To do this, provide an annotation file where the entries follow the exact order of the barcode sequences defined in your positional pattern element.
 
+Barcode sequences for a positional pattern element encoding feature identity:
 >```
-># Barcode sequences for a positional pattern element encoding feature identity:
 >CTGATC,CGTTGA,GTAGCG,CATCGT
-># Feature names in same order as corresponding barcode sequences:
+>```
+Feature names in same order as corresponding barcode sequences:
+>```
 >feature1,feature2,feature3,feature4
 >```
 
