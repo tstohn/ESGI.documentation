@@ -13,7 +13,7 @@ Demultiplex maps sequencing reads to barcode patterns, where positional pattern 
 ### Input:
 To perform demultiplexing, input yout experimental FASTQ files and define barcode patterns en elements using text files. Also, specify the allowed mismatches for each pattern element as a comma-separated list of integers (e.g. `0,1,1`). 
 
-Required input parameters:
+**Required input parameters:**
 
 | Option | Description | Type |
 | --------- | ----------- | ------ | 
@@ -46,7 +46,7 @@ Specify the maximum allowed mismatched for each pattern element using a comma-se
 >1,0,1,1,0
 >```
 
-Optional parameters:
+**Optional parameters:**
 
 | Option | Description | Default |
 | --------- | ----------- | ------ | 
@@ -101,7 +101,7 @@ The **count** module takes as input the pattern-aligned TSV file generated durin
 
 Indices follow zero-based counting and correspond to the columns in the pattern-aligned TSV file. In this file, the first column (index 0) is always the read name, folowed by the pattern elements (starting at index 1).
 
-Required parameters:
+**Required parameters:**
 
 | Option | Description | Type |
 | --------- | ----------- | ------ | 
@@ -111,7 +111,7 @@ Required parameters:
 | `--singleCellIndices`, `-c` | Indices of the pattern elements encoding the single-cell identities. | Comma-separated list
 | `--umiIndex`, `-u` | Index of pattern element encodeing the UMI. | Comma-separated list
 
-Optional parameters for annotation:
+**Optional parameters for annotation:**
 Barcode sequences can be replaced by labels, such as feature names or single-cell annotations (e.g. experimental conditions). To do this, provide an annotation file where the entries follow the exact order of the barcode sequences defined in your positional pattern element.
 
 Barcode sequences for a positional pattern element encoding feature identity:
@@ -130,8 +130,7 @@ Feature names in same order as corresponding barcode sequences:
 |  `--annotationIdxs`, `-y` | List of space separated indices used to annotate cells  | (.txt) | None
 |  `--scIdAsString`, `-s` | Stores the single-cell ID as the sequence string instead of barcode ID. | None | 1
 
-Optional parameters for UMI collapsing:
-
+**Optional parameters for UMI collapsing:**
 By default, UMI collapsing is enabled using Hamming distance, allowing a single mismatch. Using the parameters below, you can adjust the distance metric, mismatch threshold, or disable collapsing entirely.
 
 | Option | Description | Default |
