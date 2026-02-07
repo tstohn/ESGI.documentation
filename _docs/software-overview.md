@@ -115,7 +115,8 @@ Indices follow zero-based counting and correspond to the columns in the pattern-
 
 Barcode sequences within a pattern element can be replaced by labels, such as feature names or single-cell annotations (e.g. experimental conditions). To implement this, provide an annotation file where the entries follow the exact order of the barcode sequences defined in the pattern element.
 
-**Example:**
+*Example:*
+
 Barcode sequences for a pattern element encoding feature identity:
 >```
 >CTGATC,CGTTGA,GTAGCG,CATCGT
