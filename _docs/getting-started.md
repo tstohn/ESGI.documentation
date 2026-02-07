@@ -18,11 +18,11 @@ The tool can either be downloaded or build from scratch.
 The precompiled binaries are available on the GitHub releases: 
 [https://github.com/tstohn/ESGI/releases/tag/v1.0.0](https://github.com/tstohn/ESGI/releases/tag/v1.0.0) 
 
-Go to latest release, find the assets for your operating system, then download and extract the ZIP file. All binaries will be available in the `bin/ directory`.
+Go to latest release and download the ZIP file compatible with your operating system. Once extracted, you can find all executable files in the `bin/ directory`.
 
 ### Build Tool
 
-To compile the tool on your own system, clone the GitHub repository, install the dependencies, and build **ESGI**. 
+To build **ESGI** locally, clone the GitHub repository, install the dependencies, and run the build command. 
 
 >```
 ># Clone repository
@@ -36,7 +36,6 @@ To compile the tool on your own system, clone the GitHub repository, install the
 >make esgi
 >```
 
-The executables **demultiplex**, **count**, **annotate** and **ESGI**, will be available in the `bin/ directory`. You can run each submodule individually, or use ESGI to execute the complete workflow. 
+Once the build is complete, the `bin/ directory` will contain the **ESGI**, **demultiplex**, **count**, and **annotate** executables. You can run the submodules individually or use ESGI to execute the full workflow. 
 
-Next, read how to execute **ESGI** and its submodules in the [Software Overview](software-overview#demultiplex)
-
+For detailed usage, visit the [Software Overview](software-overview#demultiplex). 
