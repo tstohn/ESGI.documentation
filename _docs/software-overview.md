@@ -118,6 +118,7 @@ Barcode sequences for a positional pattern element encoding feature identity:
 >```
 >CTGATC,CGTTGA,GTAGCG,CATCGT
 >```
+
 Feature names in same order as corresponding barcode sequences:
 >```
 >feature1,feature2,feature3,feature4
