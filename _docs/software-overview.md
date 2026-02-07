@@ -26,7 +26,7 @@ Required input parameters:
 Example of a barcode pattern called `PATTERN` consisting of five positional pattern elements:
 
 ```
-          -----------------> <-----------------------
+        -----------------> <-----------------------
 PATTERN:[Ab_barcodes.txt][-][BC1.txt][AGCTCATC][10X]
          |                |  |        |         └─── Random pattern element
          |                |  |        └─── Constant pattern element
@@ -35,12 +35,13 @@ PATTERN:[Ab_barcodes.txt][-][BC1.txt][AGCTCATC][10X]
          └─── Variable barcode element encoding feature identity
 ```
 
-Variable barcode elements contain a list of possible barcode sequences for that position
+For variable barcode elements, define the possible sequences for that specific positional element as a comma-separated list.
+
 >```
 >CTGATC,CGTTGA,GTAGCG,CATCGT
 >```
 
-Define the number of allowed mismatched per pattern element as a comma-separated list.
+Specify the maximum allowed mismatched for each pattern element using a comma-separated list of integers.
 >``` 
 >1,0,1,1,0
 >```
@@ -49,12 +50,11 @@ Optional parameters:
 
 | Option | Description | Default |
 | --------- | ----------- | ------ | 
-| `--independent`, `-d` | Treat the forward read as two separate sequences in the 5'-->3' direction. Use together with the read separator [-] in the `--BarcodePatternsFile` to indicate where one read ends and the other begins.  | Disabled |
-|  `--namePrefix`, `-n` | Prefix for file names. | None |
-|  `--writeStats`, `-q` | Creates output files for statistics of pattern element alignment. | Disabled |
-|  `--writeFailedLined`, `-f` | Generate output file for reads with failed pattern alignment. | 0 |
-|  `--hamming`, `-H` | Use Hamming distance instead of Levenshtein for variable barcodes. Only supported when allowing for one mismatch per pattern element. | Levenshtein |
-
+| `--independent`, `-d` | Treats the forward read as two distinct sequences in the `5′→3′` direction. Requirs the separator `[-]` in the `--BarcodePatternsFile` to indicate where one read ends and the other begins.  | Disabled |
+|  `--namePrefix`, `-n` | Sets a prefix for all output file names. | None |
+|  `--writeStats`, `-q` | Generates statistics files regardign the alignment of individual pattern elements. | Disabled |
+|  `--writeFailedLined`, `-f` | Generates an output file containing reads that failed to align with any pattern. | 0 |
+|  `--hamming`, `-H` | Uses Hamming distance instead of Levenshtein for variable barcodes. Only supported when allowing for one mismatch per pattern element. | Levenshtein |
 
 ### Output: 
 When **demultiplex** completes, it generates output files containing demultiplexed reads and quality metrics. The output type and subsequent downstream steps depend on the feature modality encoded by the pattern element. 
