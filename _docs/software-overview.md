@@ -57,22 +57,22 @@ Optional parameters:
 |  `--hamming`, `-H` | Uses Hamming distance instead of Levenshtein for variable barcodes. Only supported when allowing for one mismatch per pattern element. | Levenshtein |
 
 ### Output: 
-When **demultiplex** completes, it generates output files containing demultiplexed reads and quality metrics. The output type and subsequent downstream steps depend on the feature modality encoded by the pattern element. 
-* **Generic barcode sequence**: Reads are split and aligned to the barcode pattern and saved as a TSV file.
-* **Genomic sequence**, Gene or transcript sequences are extracted into a FASTQ file for alignment with **STAR** and subsequent annotation. Remaining read elements are aligned to the pattern and saved in a TSV file.
+Upon completion, **demultiplex** generates files containing processed reads and quality metrics. The output format and subsequent downstream steps depend on the modality of the feature defined in the pattern element. 
+* **Generic barcode sequence**: Reads are split and aligned to the defined pattern, and saved as a TSV file.
+* **Genomic sequence**: Gene or transcript sequences are extracted into a separate FASTQ file for alignment with **STAR** and subsequent annotation. The remaining read elements are aligned to the pattern and saved in a TSV file.
 
 | Name | Description | File type | 
 | ---------- | ------------- | ----------- |
-| `Quality_numberMM`| Reports the frequency of mismatches (0, 1, 2) per pattern element. |TXT 
-| `Quality_typeMM` | Counts per pattern element the according type of mismatch; insertion, deletion or subsitution. | TXT
-| `FailedLines` | Contains all reads that were not aligned to a pattern | TXT
-| `PATTERN`  | For every barcode pattern, a TSV file is created with split and aligned reads. The first column contains the read name, followed by the pattern elements. | TSV 
-| `Genomic Sequence` | Extracted gene of transcript sequences | FASTQ 
+| `Quality_numberMM`| Reports the frequency of mismatches (0, 1, 2) detected per pattern element. |TXT 
+| `Quality_typeMM` | Counts of mismatch types (insertion, deletion, subtitution) per pattern element. | TXT
+| `FailedLines` | Contains all reads that failed to aligned to a pattern | TXT
+| `PATTERN`  | A TSV file per pattern where reads are split and aligned by element. The first column is the read name, followed by the aligned elements. | TSV 
+| `Genomic Sequence` | Extracted gene or transcript sequences | FASTQ 
 
-Also, it reports the alignment performance into three match type categories, expressed as percentages of the total sequencing reads:
-* **Perfect matches:** Reads whose barcodes match completely
-* **Moderate matches:** Reads that match within the allowed number of mismatches
-* **Mismatches:** Reads that cannot be matched given the number of allowed mismatches
+The tool also reports the alignment performance into three match type categories, expressed as percentages of the total sequencing reads:
+* **Perfect matches:** Reads whose barcodes match completely.
+* **Moderate matches:** Reads that match within the maximum allowed mismatches.
+* **Mismatches:** Reads that cannot be matched given the maximum allowed mismatches.
 
 {% include alert.html type="info" title="Generic barcode sequences follow demultiplex → count, whereas genomic sequences follow demultiplex → STAR → annotate → count." %}
 
