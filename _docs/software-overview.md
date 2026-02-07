@@ -112,6 +112,7 @@ Indices follow zero-based counting and correspond to the columns in the pattern-
 | `--umiIndex`, `-u` | Index of pattern element encodeing the UMI. | Comma-separated list
 
 **Optional parameters for annotation:**
+
 Barcode sequences can be replaced by labels, such as feature names or single-cell annotations (e.g. experimental conditions). To do this, provide an annotation file where the entries follow the exact order of the barcode sequences defined in your positional pattern element.
 
 Barcode sequences for a positional pattern element encoding feature identity:
@@ -132,6 +133,7 @@ Feature names in same order as corresponding barcode sequences:
 |  `--scIdAsString`, `-s` | Stores the single-cell ID as the sequence string instead of barcode ID. | None | 1
 
 **Optional parameters for UMI collapsing:**
+
 By default, UMI collapsing is enabled using Hamming distance, allowing a single mismatch. Using the parameters below, you can adjust the distance metric, mismatch threshold, or disable collapsing entirely.
 
 | Option | Description | Default |
