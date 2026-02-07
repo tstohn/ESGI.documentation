@@ -130,8 +130,8 @@ Feature names in same order as corresponding barcode sequences:
 | Option | Description | File type | Default |
 | ---------- | ------------- | ----------- | -------------- |
 | `--featureNames`, `-a` | A list of feature names provided in same order as the barcode sequences in the pattern element. | (.txt) | Nucleotide sequences
-|  `--annotationFiles`, `-g` | List of space separated paths to files, where every file contains a list of single-cell annotations. | (.txt) | None
-|  `--annotationIdxs`, `-y` | List of space separated indices used to annotate cells  | (.txt) | None
+|  `--annotationIdxs`, `-y` | A space separated list of indices for the pattern elements you want to annotate. | (.txt) | None
+|  `--annotationFiles`, `-g` | A space-separated list of file path containing the annotations. The first file maps to the first index and contains labels for the corresponding barcode sequences.  | (.txt) | None
 |  `--scIdAsString`, `-s` | Stores the single-cell ID as the sequence string instead of barcode ID. | None | 1
 
 **Optional parameters for UMI collapsing:**
@@ -158,34 +158,36 @@ After **count** completes, it creates several output files. The most important a
 |  `UMISTAT` | Describes UMI amplification per feature and its occurrence | tsv
 
 ## ESGI
-Instead of running **demultiplex** and **count** separately, you can execute them together using **ESGI**. To do this, you must provide an *initialization-file (.ini)* containing the essential input, including paths to all barcode files, as well as indexing information. Including feature names and single-cell annotations is optional.
+Instead of running **demultiplex** and **count** separately, you can execute them together using **ESGI**. To do this, you must provide an `initialization-file (.ini)` containing the essential input, including paths to all pattern files, as well as indexing information. Including feature names and single-cell annotations is optional.
 
-Example of ESGI Initialization-file:
 
->```
-># Input directory
->forward="/path/to/forward_reads.fastq.gz"
-># Reverse reads (optional)
->reverse="/path/to/reverse_reads.fastq.gz"
->
-># Output directory
->output="/path/to/output"
->
-># Paths to barcode scheme and mismatch settings
->pattern="/path/to/barcode_pattern.txt"
->mismatches="/path/to/mismatches.txt"
->
-># Indexes for single-cell, feature, and UMI assignment
->SC_ID=1,5
->FEATURE_ID=3
->UMI_ID=4
->
-># Optional: feature names and single-cell annotations
->FEATURE_NAMES="/path/to/feature_names.txt"
->
->ANNOTATION_IDs="/path/to/annotation_ID.txt"
->ANNOTATION_NAMES="/path/to/annotation_names.txt"
->
->threads=10
->prefix=MYEXPERIMENT
->```
+
+*Example of ESGI Initialization-file:*
+
+```
+# Input directory
+forward="/path/to/forward_reads.fastq.gz"
+# Reverse reads (optional)
+reverse="/path/to/reverse_reads.fastq.gz"
+
+# Output directory
+output="/path/to/output"
+
+# Paths to barcode scheme and mismatch settings
+pattern="/path/to/barcode_pattern.txt"
+mismatches="/path/to/mismatches.txt"
+
+# Indexes for single-cell, feature, and UMI assignment
+SC_ID=1,5
+FEATURE_ID=3
+UMI_ID=4
+
+# Optional: feature names and single-cell annotations
+FEATURE_NAMES="/path/to/feature_names.txt"
+
+ANNOTATION_IDs="/path/to/annotation_ID.txt"
+ANNOTATION_NAMES="/path/to/annotation_names.txt"
+
+threads=10
+prefix=MYEXPERIMENT
+```
