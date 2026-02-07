@@ -178,7 +178,7 @@ For the RNA modality, run this command:
 ```
 
 ## Multipattern
-Application example for multipattern data, using **scIDseq**. This technology quantifies intracellular protein abundances using antibodies conjugated to unique DNA barcodes. The approach uses a multipattern design where linkers of varying lengths, in combination with variable barcode elements, encode the specific protein identity. The remaing of the pattern encodes the single cell identity and UMI.
+Application example for multipattern data, using **scIDseq**. This technology quantifies intracellular protein abundances using antibodies conjugated to unique DNA barcodes. The approach uses a multipattern design where linkers of varying lengths, in combination with variable barcode elements, encode the specific protein identity. The remaining of the pattern encodes the single cell identity and UMI.
 
 ### Set up:
 **ESGI** can demultiplex reads for multiple barcode patterns simultaneously. This specific dataset includes eight barcode patterns defined by different linker lengths, ranging from one to eight bases. To maintain the same total sequence length, the final element in the six-element patterns varies inversely with the linker length. The exception is the longest linker length pattern, which contains only five elements. 
