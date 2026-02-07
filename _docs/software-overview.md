@@ -8,32 +8,32 @@ description: How to turn on and use versioning
 **ESGI** is a debarcoding tool for single-cell sequencing data, consisting of two submodules: **demultiplex** and **count**. They can be executed directly via **ESGI** or called individually. For more details, run demultiplex, count, or ESGI with the  `--help` flag. 
 
 ## Demultiplex
-Demultiplexing maps sequencing reads to barcode patterns, where positional pattern elements are used to encode experiment-specific information, like cell identities, molecular modalities, and experimental conditions. The tool handles simultaneous mapping to multiple barcode patterns, supports pattern elements of varying lengths, and allows for mismatches in the pattern elements arising from insertions, deletions, and substitutions. 
+Demultiplex maps sequencing reads to barcode patterns, where positional pattern elements are used to encode experiment-specific information, like single cell identities, molecular modalities, and experimental conditions. The tool handles simultaneous mapping to multiple barcode patterns, supports pattern elements of varying lengths, and allows for mismatches in the pattern elements arising from insertions, deletions, and substitutions. 
 
 ### Input:
-To demultiplex barcode sequences, provide the experimental FASTQ files along with text files defining the barcode patterns and elements. Also, you must specify the number of allowed mismatches for each pattern element. 
+To perform demultiplexing, input yout experimental FASTQ files and define barcode patterns en elements using text files. Also, specify the allowed mismatches for each pattern element as a comma-separated list of integers (e.g. `0,1,1`). 
 
 Required input parameters:
 
 | Option | Description | Type |
 | --------- | ----------- | ------ | 
-| `--input`, `-i` | Single-end or forward read file | fastq(.gz) 
-| `--reverse`, `-r` | Reverse read file (optional) | fastq(.gz)
-|  `--output`, `-o` |  Output directory | Directory 
-| `--BarcodePatternsFile`, `-p` | Description of the barcode patterns, specifying the pattern name followed by its positional pattern elements in bracket-enclosed sequence substrings. Each bracket contains a comma separated list of possible barcode sequences for that position, and these barcodes may vary in length | (.txt)
-|  `--mismatchFile`, `-m` |  A comma-separated list of integers, one for each pattern in the barcode scheme, specifying the number of mismatches allowed for in each bracket-enclosed substring | (.txt) 
+| `--input`, `-i` | Path to the single-end or forward read FASTQ file. | fastq(.gz) 
+| `--reverse`, `-r` | Path to the reverse read FASTQ file (optional). | fastq(.gz)
+|  `--output`, `-o` |  Directory for all output files. | Directory 
+| `--BarcodePatternsFile`, `-p` | A text file defining barcode patterns. Format: patternname followed by bracketed `[A,B,C]` lists of barcodes for each positional element. | (.txt)
+|  `--mismatchFile`, `-m` |  A text file containing a comma-separated list of integers. Each integer defines the allowed number of mismatches for that bracketed element in the patterns file. | (.txt) 
 
-Example of a barcode pattern called PATTERN consisting of five positional pattern elements:
+Example of a barcode pattern called `PATTERN` consisting of five positional pattern elements:
 
->```
->         -----------------> <-----------------------
->PATTERN:[Ab_barcodes.txt][-][BC1.txt][AGCTCATC][10X]
->         |                |  |        |         └─── Random pattern element
->         |                |  |        └─── Constant pattern element
->         |                |  └─── Variable barcode element encoding single-cell ID
->         |                └─── Read separator for forward and reverse read
->         └─── Variable barcode element encoding feature identity
->```
+```
+          -----------------> <-----------------------
+PATTERN:[Ab_barcodes.txt][-][BC1.txt][AGCTCATC][10X]
+         |                |  |        |         └─── Random pattern element
+         |                |  |        └─── Constant pattern element
+         |                |  └─── Variable barcode element encoding single-cell ID
+         |                └─── Read separator for forward and reverse read
+         └─── Variable barcode element encoding feature identity
+```
 
 Variable barcode elements contain a list of possible barcode sequences for that position
 >```
