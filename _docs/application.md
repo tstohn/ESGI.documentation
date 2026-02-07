@@ -276,7 +276,7 @@ The read contains the remaining six pattern elements, which collectively encode 
 | --------- | ----------- | ------ | 
 | 0 | Genomic sequence | Transcript identity
 | 2 | Random sequence element of 10 bases | UMI
-| 1,3,5 | Variable pattern element | (x,y) spatial coordinates
+| 3,5,7 | Variable pattern element | (x,y) spatial coordinates
 | 4,6 | Constant sequence element of 30 bases | Linkers or anchors
 
 The barcode pattern is represented as eight bracket-enclosed substrings. Each bracket identifies a specific positional element and contains a comma-separated list of possible barcode sequences for that position. 
