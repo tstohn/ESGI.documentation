@@ -261,27 +261,38 @@ Execute **ESGI** by running the following command in your terminal:
 Application example for spatial data using **Multiplexed Deterministic Barcoding in Tissue (xDBiT)**. This technology uses microfluidic-based deterministic barcoding with DNA oligonucleotides to encode transcriptomes alongside their spatial coordinates for multiple tissue sections in parallel. 
 
 ### Set up:
-The **xDBiT** barcode pattern consists of seven positional pattern elements. The data is generated via paired-end sequencing, where the forward read encodes the transcript and the reverse read the (x,y) spatial coordinates and UMI.
+The **xDBiT** barcode pattern consists of eight positional pattern elements. The data is generated as two independent forward reads. The first forward read captures the transcript and the second forward read encodes the UMI and spatial (x,y) coordinates. 
 
-#### Forward read: positional element 0
-The forward read contains the first pattern element, a genomic DNA sequence encoding the transcript. 
+#### Forward read I: positional element 0
+The read contains the first pattern element, a genomic DNA sequence encoding the transcript. 
 
 #### Read transition: positional element 1
-Discrete transition separating the forward and reverse read without sequence overlap.
+A discrete transition separating the two forward reads without sequence overlap. By including the `[-]` symbol in the pattern and enabling the `independent` flag, the tool treats both reads as two distinct sequences in the `5'→3'` direction.
 
-#### Reverse read: positional elements 2-6
-The reverse read contains the remaining six pattern elements, which collectively encode the (x,y) spatial coordinates and UMI. 
+#### Forward read II: positional elements 2-6
+The read contains the remaining six pattern elements, which collectively encode the (x,y) spatial coordinates and UMI. 
 
 | Element Index | Type | Encoding |
 | --------- | ----------- | ------ | 
 | 0 | Genomic sequence | Transcript identity
-| 2,4 | Random pattern element | Linkers or anchors
-| 3,5 | Variable pattern element | (x,y) spatial coordinates
-| 6 | Random pattern element | UMI
+| 2 | Random sequence element of 10 bases | UMI
+| 1,3,5 | Variable pattern element | (x,y) spatial coordinates
+| 4,6 | Constant sequence element of 30 bases | Linkers or anchors
 
-The barcode pattern is represented as a sequence of seven bracket-enclosed substrings. Each bracket identifies a specific positional element and contains a comma-separated list of possible barcode sequences for that position. 
+The barcode pattern is represented as eight bracket-enclosed substrings. Each bracket identifies a specific positional element and contains a comma-separated list of possible barcode sequences for that position. 
           
 >```
->SPATIAL:[DNA][-][9X][coordinate_barcode.txt][30X][coordinate_barcode.txt][30X]
+>SPATIAL:[DNA][-][10X][coordinate_barcode.txt][30X][coordinate_barcode.txt][30X][coordinate_barcode.txt]
 >```
 
+The `coordinate_barcode.txt` file defines the (x,y) spatial coordinates using an 8x12 matrix of 96 unique 8-base long barcode sequences.
+
+Maximum allowed mismatched for each of the eight pattern elements:
+>```
+>0,0,0,1,0,1,0,1
+>```
+
+## Refences
+1 SIGNALseq
+2 scIDseq
+3 xDBiT
