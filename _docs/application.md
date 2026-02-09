@@ -178,12 +178,12 @@ For the RNA modality, run this command:
 ```
 
 ## Multipattern
-Application example for multipattern data, using **scIDseq**. This technology quantifies intracellular protein abundances using antibodies conjugated to unique DNA barcodes. The approach uses a multipattern design where linkers of varying lengths, in combination with variable barcode elements, encode the specific protein identity. The remaining of the pattern encodes the single cell identity and UMI.
+Application example for multipattern data, using **scIDseq**. This technology quantifies intracellular protein abundances using antibodies conjugated to unique DNA barcodes. The approach uses a multipattern design where linkers of varying lengths, in combination with variable barcode elements, encode the specific protein identity. 
 
 ### Set up:
-**ESGI** can demultiplex reads for multiple barcode patterns simultaneously. This specific dataset includes eight barcode patterns defined by different linker lengths, ranging from one to eight bases. To maintain the same total sequence length, the final element in the six-element patterns varies inversely with the linker length. The exception is the longest linker length pattern, which contains only five elements. 
+**ESGI** can demultiplex reads for multiple barcode patterns simultaneously. This specific dataset includes barcode patterns defined by different linker lengths, ranging from one to eight bases. To maintain the same total sequence length, the final positional element varies inversely with the linker length. The barcode pattern with the longest linker length contains five pattern elements and the other patterns contain six. 
 
-The barcode patterns are contained entirely within the forward read and consist of five to six positional elements. The table below outlines the  element indexes and what they encode for. 
+The barcode patterns are contained entirely within the forward read. The table below outlines the  element indexes and what they encode for. 
 
 | Element Index | Type | Encoding |
 | --------- | ----------- | ------ | 
@@ -193,35 +193,33 @@ The barcode patterns are contained entirely within the forward read and consist 
 | 4 | Variable pattern element | Well-plate position
 
 The multipattern design contains specific and shared barcodes elements:
-* Feature identity (element 2): each pattern has a unique linker, length and sequence, and is associated with a unique set of barcode sequences that define the protein identity. 
-* Well plate position (element 4), universal barcode set to ensure consistent assignent of well-plate positions.  
+* Feature identity (element 2): each pattern has an unique linker (length and sequence) and is associated with a unique set of barcode sequences that together define the protein identity. 
+* Well plate position (element 4), universal barcode set to ensure consistent assignment of well-plate positions.  
 
 Each pattern is assigned a unique name, with its pattern elements represented as a series of bracket enclosed substrings. Within each set of brackets is a comma-separated list of all possible barcode sequences for that specific position. Accordingly, patterns 1 through 7 are defined by six bracketed substrings, while pattern 8 consists of five. 
 
->```
->---
->PATTERN_1:[][][][][][]
->PATTERN_2:[][][][][][]
->PATTERN_3:[][][][][][]
->PATTERN_4:[][][][][][]
->PATTERN_5:[][][][][][]
->PATTERN_6:[][][][][][]
->PATTERN_7:[][][][][][]
->PATTERN_8:[][][][][]
->---
->```
+```
+PATTERN_1:[][][][][][]
+PATTERN_2:[][][][][][]
+PATTERN_3:[][][][][][]
+PATTERN_4:[][][][][][]
+PATTERN_5:[][][][][][]
+PATTERN_6:[][][][][][]
+PATTERN_7:[][][][][][]
+PATTERN_8:[][][][][]
+```
 
 For each pattern, the maximum number of allowed mismatches per element is defined using a comma-separated list. Each integer in the list corresponds to a specific positional element. Patterns 1 throug 7 require six mismatch values, while pattern 8 requires five. 
 
 >```
->0,1,1,1,1,2
->0,1,1,1,1,2
->1,1,1,1,1,1
->1,1,1,1,1,1
->1,1,1,1,1,1
->1,1,1,1,1,1
->1,1,1,1,1,1
->1,1,1,1,1
+>0,0,1,1,1,1
+>0,0,1,1,1,1
+>1,0,1,1,1,1
+>1,0,1,1,1,1
+>1,0,1,1,1,1
+>1,0,1,1,1,1
+>1,0,1,1,1,1
+>1,0,1,1,1
 >```
 
 With all structural patameters defined, you can now create the ESGI-initialization file, `myExperiment.ini`. This file links your raw forward reads to the pattern and mismatch definitions established in the previous sections. 
