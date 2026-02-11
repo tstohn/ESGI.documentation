@@ -46,7 +46,7 @@ For both modalities, the reverse read contains the remaining six pattern element
 | 3, 5 | Constant pattern element | anchors or linkers
 |  7 |  Random pattern element | Unique Molecule Identifier (UMI)
 
-The following eight bracket-enclosed sequence substrings illustrate patterns for both modalities. Each bracket represents a specific pattern element, containing a comma-separated list of possible barcode sequences for that position. In this pattern, the constant elements have been replaced with 22 and 30 random bases, respectively, effectively bypassing any alignment constraints for those elements. This can be usefull when strict mapping is unnecessary 
+The following eight bracket-enclosed sequence substrings illustrate patterns for both modalities. Each bracket represents a specific pattern element, containing a comma-separated list of possible barcode sequences for that position. In this pattern, the constant elements have been replaced with 22 and 30 random bases, respectively, effectively bypassing any alignment constraints. This can be usefull when strict mapping is unnecessary 
 or when the sequencing quality is suboptimal. 
  
 >```
