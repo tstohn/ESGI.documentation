@@ -363,6 +363,6 @@ Finally, execute **ESGI** using the command line below:
 ```
 
 ## Refences
-1 SIGNALseq
-2 scIDseq
-3 xDBiT
+1. SIGNALseq
+2. scIDseq
+3. *Wirth, J., Huber, N., Yin, K. et al. Spatial transcriptomics using multiplexed deterministic barcoding in tissue. Nat Commun 14, 1523 (2023). https://doi.org/10.1038/s41467-023-37111-w*
