@@ -46,8 +46,9 @@ For both modalities, the reverse read contains the remaining six pattern element
 | 3, 5 | Constant pattern element | anchors or linkers
 |  7 |  Random pattern element | Unique Molecule Identifier (UMI)
 
-Below an illustration of the patterns for both modalities shown as eight bracket-enclosed sequence substrings. Each bracket corresponds to a pattern element containing a comma-separated list of possible barcode sequences for that position. 
-          
+The following eight bracket-enclosed sequence substrings illustrate patterns for both modalities. Each bracket represents a specific pattern element, containing a comma-separated list of possible barcode sequences for that position. In this pattern, the constant elements have been replaced with 22 and 30 random bases, respectively, effectively bypassing any alignment constraints for those elements. This can be usefull when strict mapping is unnecessary 
+or when the sequencing quality is suboptimal. 
+ 
 >```
 >PROTEIN:[Antibodies.txt][*][BC1.txt][22X][BC2.txt][30X[BC2.txt][10X]
 >```
@@ -68,7 +69,7 @@ Example of a barcode-aligned sequence for the protein modality:
 >AGACAGTGATGTCCG  CCGATCCC   ATCCACGTGCTTGAGACTGTGG  TTAGGCAT  GTGGCCGATGTTTCGCATCGGCGTACGACT  TAACGCTG  TAAAGGAAGT
 >```
 
-Next, for each pattern element, we define the allowed number of mismatches. The protein modality allows one mismatch in the feature-encoding barcode, whereas the RNA modality allows none. Both modalities accept one mismatch for the variable barcode elements and zero for the constant and random pattern elements. 
+The maximum allowed mismatches has to be defined as a comma separated list of integers, where each value maps to a positional element in the pattern. For the protein modality, the feature-encoding barcode is assigned a tolerance of one mismatch, whereas the RNA modality allows none. Both modalities, accept one mismatch for the variable barcode elements. For the random pattern elements we set the tolerance to zero, although they are functionally irrelevant. 
 
 Mismatches protein modality:
 >```
@@ -137,6 +138,8 @@ Next, generate the STAR genome index:
 
 To integrate the reference genome with **ESGI**, the initialization file requires an additional parameter defining the directory path to the STAR genome index. 
 
+During processing, **STAR** appends the annotated transcripts to the remaining demultiplexed barcode reads. As a result, the feature identity index (`FEATURE_ID`) is positioned at the end of the pattern, becoming the last pattern element index + 1.
+
 `myExperiment_RNA.ini`:
 ```
 Path_data = "/path/to/raw_data"
@@ -155,7 +158,7 @@ pattern="${Path_background_data}/pattern_RNA.txt"
 mismatches="${Path_background_data}/mismatches_RNA_1MM.txt"
 
 # Indexing for elements encoding: feature, single-cell ID and UMI:
-FEATURE_ID=0
+FEATURE_ID=8
 SC_ID=2,4,6
 UMI_ID=7
 
