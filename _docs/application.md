@@ -11,7 +11,7 @@ description: Application examples for different types of data.
 
 ## Multimodal
 
-Application example for multimodal data using **SIGNALseq**, which produces separate sequencing libraries for both RNA and protein modalities via combinatorial indexing. In this method, protein levels are captured using DNA barcoded antibodies and transcripts through mRNA reverse transcription. Both modalities are processed into distinct FASTQ files, but share a common barcode pattern: the forward read encodes the feature identity and the reverse read encodes the single-cell identity and Unique Molecular Identifier (UMI). 
+Application example for multimodal data using **SIGNALseq^1**, which produces separate sequencing libraries for both RNA and protein modalities via combinatorial indexing. In this method, protein levels are captured using DNA barcoded antibodies and transcripts through mRNA reverse transcription. Both modalities are processed into distinct FASTQ files, but share a common barcode pattern: the forward read encodes the feature identity and the reverse read encodes the single-cell identity and Unique Molecular Identifier (UMI). 
 
 Download the SRA files for both modalities and extract the paired-end FASTQ reads:
 ```
@@ -363,6 +363,6 @@ Finally, execute **ESGI** using the command line below:
 ```
 
 ## Refences
-1. SIGNALseq
+1. *Opzoomer, J. W. et al. SIGNAL-seq: Multimodal Single-cell Inter- and Intra-cellular Signalling Analysis (2024).*
 2. scIDseq
-3. *Wirth, J., Huber, N., Yin, K. et al. Spatial transcriptomics using multiplexed deterministic barcoding in tissue. Nat Commun 14, 1523 (2023). https://doi.org/10.1038/s41467-023-37111-w*
+3. *Wirth, J., Huber, N., Yin, K. et al. Spatial transcriptomics using multiplexed deterministic barcoding in tissue. Nat Commun 14, 1523 (2023).*
