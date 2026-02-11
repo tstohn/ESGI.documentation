@@ -293,6 +293,7 @@ Maximum allowed mismatched for each of the eight pattern elements:
 >0,0,0,1,0,1,0
 >```
 
+##### Mouse Reference Genome
 The first pattern element contains the transcript and will be aligned to the mouse reference genome (GRCm38) using the **STAR** aligner. Follow the instruction below to download the GRCm38 primary assembly and the corresponding GENCODE annotation files.
 
 >```
