@@ -50,7 +50,7 @@ The following eight bracket-enclosed sequence substrings illustrate patterns for
 or when the sequencing quality is suboptimal. 
  
 >```
->PROTEIN:[Antibodies.txt][*][BC1.txt][22X][BC2.txt][30X[BC2.txt][10X]
+>PROTEIN:[Antibodies.txt][*][BC1.txt][22X][BC2.txt][30X][BC2.txt][10X]
 >```
        
 >```
@@ -270,28 +270,96 @@ The read contains the first pattern element, a genomic DNA sequence encoding the
 #### Read transition: positional element 1
 A discrete transition separating the two forward reads without sequence overlap. By including the `[-]` symbol in the pattern and enabling the `independent` flag, the tool treats both reads as two distinct sequences in the `5'→3'` direction.
 
-#### Forward read II: positional elements 2-6
-The read contains the remaining six pattern elements, which collectively encode the (x,y) spatial coordinates and UMI. 
+#### Forward read II: positional elements 2-5
+The read contains the remaining five pattern elements, which collectively encode the (x,y) spatial coordinates and UMI. 
 
 | Element Index | Type | Encoding |
 | --------- | ----------- | ------ | 
 | 0 | Genomic sequence | Transcript identity
 | 2 | Random sequence element of 10 bases | UMI
-| 3,5,7 | Variable pattern element | (x,y) spatial coordinates
+| 3,5 | Variable pattern element | (x,y) spatial coordinates
 | 4,6 | Constant sequence element of 30 bases | Linkers or anchors
 
-The barcode pattern is represented as eight bracket-enclosed substrings. Each bracket identifies a specific positional element and contains a comma-separated list of possible barcode sequences for that position. 
+The barcode pattern is represented as seven bracket-encloded sequence substrings. Each bracket corresponds to a positional element and contains a comma-separated list of possible barcode sequences for that position. The constant elements have been replaced with 30 random bases, bypassing any alignment contraints. 
           
 >```
->SPATIAL:[DNA][-][10X][coordinate_barcode.txt][30X][coordinate_barcode.txt][30X][coordinate_barcode.txt]
+>SPATIAL:[RNA][-][10X][coordinate_barcode.txt][30X][coordinate_barcode.txt][30X]
 >```
 
 The `coordinate_barcode.txt` file defines the (x,y) spatial coordinates using an 8x12 matrix of 96 unique 8-base long barcode sequences.
 
 Maximum allowed mismatched for each of the eight pattern elements:
 >```
->0,0,0,1,0,1,0,1
+>0,0,0,1,0,1,0
 >```
+
+The first pattern element contains the transcript and will be aligned to the mouse reference genome (GRCm38) using the **STAR** aligner. Follow the instruction below to download the GRCm38 primary assembly and the corresponding GENCODE annotation files.
+
+>```
+>mkdir GRCm38
+>cd GRCm38
+>
+>wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M25/GRCm38.primary_assembly.genome.fa.gz -P data/GRCm38
+>wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M25/gencode.vM25.annotation.gtf.gz -P data/GRCm38
+>gunzip *.gz
+>```
+
+Next, generate the STAR genome index: 
+>```
+>STAR --runThreadN 70 \
+>     --runMode genomeGenerate \
+>     --genomeDir GRCh38_STAR_index \
+>     --genomeFastaFiles GRCh38.primary_assembly.genome.fa \
+>     --sjdbGTFfile gencode.v43.annotation.gtf \
+>     --sjdbOverhang 73
+>```
+
+The ESGI-initialization file requires the directory path to the STAR genome index and all the pattern details described above. 
+
+Note that because **STAR** appends the annotated transcript to the remaining set of demultiplexed barcode elements, the feature identity,`FEATURE_ID`, will get an index equal to the final pattern element index +1. 
+
+`myExperiment.ini`:
+
+```
+Path_data = "/path/to/raw_data"
+# Includes FASTQ files of the two forward reads
+
+Path_background_data = "/path/to/background_data"
+# .txt files for barcode pattern, mismatches, annotation
+
+Path_output = "/path/to/output"
+
+# Forward read:
+forward="${Path_data}/SRR20073555_1.fastq.gz"
+reverse="${Path_data}/SRR20073555_2.fastq.gz"
+
+pattern="${Path_background_data}/patterns.txt"
+mismatches="${Path_background_data}/mismatches.txt"
+
+# Indexing for elements encoding: feature, single-cell ID and UMI:
+FEATURE_ID=7
+SC_ID=3,5
+
+ANNOTATION_IDs=3,5
+ANNOTATION_NAMES="${Path_background_data}/xAnnotation.txt","${Path_background_data}/yAnnotation.txt"
+
+genomeDir="/path/to/GRCm38_STAR_index/"
+feature=GN
+
+UMI_ID=2
+hamming=1
+
+independent=1
+
+threads=10
+prefix=MYEXPERIMENT
+```
+
+Finally, execute **ESGI** using the command line below:
+
+```
+./bin/esgi myExperiment.ini
+```
 
 ## Refences
 1 SIGNALseq
