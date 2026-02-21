@@ -28,14 +28,14 @@ Example of a barcode pattern called `PATTERN` consisting of five positional patt
 ```
         -----------------> <-----------------------
 PATTERN:[Ab_barcodes.txt][-][BC1.txt][AGCTCATC][10X]
-         |                |  |        |         └─── Ten-base random sequence element
-         |                |  |        └─── Constant sequence element
-         |                |  └─── Variable barcode element encoding single-cell ID
+         |                |  |        |         └─── Random element (ten bases)
+         |                |  |        └─── Constant element
+         |                |  └─── Barcode element encoding single-cell ID
          |                └─── Read separator for forward and reverse read
-         └─── Variable barcode element encoding feature identity
+         └─── Barcode element encoding feature identity
 ```
 
-For variable barcode elements, define the possible sequences for that specific positional element as a comma-separated list.
+For barcode elements, define the possible sequences for that specific positional element as a comma-separated list.
 
 >```
 >CTGATC,CGTTGA,GTAGCG,CATCGT
@@ -159,8 +159,6 @@ After **count** completes, it creates several output files. The most important a
 
 ## ESGI
 Instead of running **demultiplex** and **count** separately, you can execute them together using **ESGI**. To do this, you must provide an `initialization-file (.ini)` containing the essential input, including paths to all pattern files, as well as indexing information. Including feature names and single-cell annotations is optional.
-
-
 
 *Example of ESGI Initialization-file:*
 
