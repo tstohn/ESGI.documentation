@@ -66,10 +66,10 @@ or when the sequencing quality is suboptimal.
 | BC2.txt | 8 | 96 | ATCACGTT,CGATGTTT,TTAGGCAT
 
 Example of a barcode-aligned sequence for the protein modality: 
->```
->[Antibodies.txt] [BC1.txt]           [22X]          [BC2.txt]              [30X]              [BC2.txt]   [10X]  
->AGACAGTGATGTCCG  CCGATCCC   ATCCACGTGCTTGAGACTGTGG  TTAGGCAT  GTGGCCGATGTTTCGCATCGGCGTACGACT  TAACGCTG  TAAAGGAAGT
->```
+```
+[Antibodies.txt] [BC1.txt]           [22X]          [BC2.txt]              [30X]              [BC2.txt]   [10X]  
+AGACAGTGATGTCCG  CCGATCCC   ATCCACGTGCTTGAGACTGTGG  TTAGGCAT  GTGGCCGATGTTTCGCATCGGCGTACGACT  TAACGCTG  TAAAGGAAGT
+```
 
 The maximum allowed mismatches has to be defined as a comma-separated list of integers, where each value maps to a positional element in the pattern. For the protein modality, the feature-encoding barcode is assigned a tolerance of one mismatch, whereas the RNA modality allows none. Both modalities, accept one mismatch for the barcode elements. For the random pattern elements we set the tolerance to zero, although they are not used. 
 
