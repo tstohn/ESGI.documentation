@@ -49,12 +49,12 @@ For both modalities, the reverse read contains the remaining six pattern element
 The following eight bracket-enclosed sequence substrings illustrate patterns for both modalities. Each bracket represents a specific pattern element, containing a comma-separated list of possible barcodes for that position. In this pattern, the constant elements have been replaced with 22 and 30 random bases, respectively, to bypass any alignment constraints. This can be useful when strict mapping is unnecessary 
 or when the sequencing quality is suboptimal. 
 
-*Example of pattern_PROTEIN.txt file:*
+*Example of `pattern_PROTEIN.txt` file:*
 >```
 >PROTEIN:[Antibodies.txt][*][BC1.txt][22X][BC2.txt][30X][BC2.txt][10X]
 >```
 
-*Example of pattern_RNA.txt file:*
+*Example of `pattern_RNA.txt` file:*
 >```
 >RNA:[RNA][-][BC1.txt][22X][BC2.txt][30X][BC2.txt][10X]
 >```
