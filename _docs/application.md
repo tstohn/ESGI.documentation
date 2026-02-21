@@ -48,11 +48,13 @@ For both modalities, the reverse read contains the remaining six pattern element
 
 The following eight bracket-enclosed sequence substrings illustrate patterns for both modalities. Each bracket represents a specific pattern element, containing a comma-separated list of possible barcodes for that position. In this pattern, the constant elements have been replaced with 22 and 30 random bases, respectively, to bypass any alignment constraints. This can be useful when strict mapping is unnecessary 
 or when the sequencing quality is suboptimal. 
- 
+
+*Example of pattern_PROTEIN.txt file:*
 >```
 >PROTEIN:[Antibodies.txt][*][BC1.txt][22X][BC2.txt][30X][BC2.txt][10X]
 >```
-       
+
+*Example of pattern_RNA.txt file:*
 >```
 >RNA:[RNA][-][BC1.txt][22X][BC2.txt][30X][BC2.txt][10X]
 >```
@@ -71,19 +73,19 @@ Example of a barcode-aligned sequence for the protein modality:
 
 The maximum allowed mismatches has to be defined as a comma-separated list of integers, where each value maps to a positional element in the pattern. For the protein modality, the feature-encoding barcode is assigned a tolerance of one mismatch, whereas the RNA modality allows none. Both modalities, accept one mismatch for the barcode elements. For the random pattern elements we set the tolerance to zero, although they are not used. 
 
-Mismatches protein modality:
+*Example of mismatches_PROTEIN.txt file:*
 >```
 >1,0,1,0,1,0,1,0
 >```
 
-Mismatches RNA modality
+*Example of mismatches_RNA.txt file:*
 >```
 >0,0,1,0,1,0,1,0
 >```
 
 Now, we have defined all structural parameters to create the ESGI-initialization files for both modalities:`myExperiment_PROTEIN.ini` and `myExperiment_RNA.ini`.
 
-Both configuration files use the element indexes for feature identities, single-cell IDs, and UMIs from the table, along with the patterns and mismatch information illustrated in the example blocks to define `patterns.txt` and `mismatches.txt`.
+Both configuration files use the element indexes for feature identities, single-cell IDs, and UMIs from the table, along with the patterns and mismatch information illustrated in the blue example blocks.
 
 `myExperiment_PROTEIN.ini`:
 ```
@@ -100,7 +102,7 @@ forward="${Path_data}/SRR28056728_1.fastq.gz"
 reverse="${Path_data}/SRR28056728_2.fastq.gz"
 
 pattern="${Path_background_data}/pattern_PROTEIN.txt"
-mismatches="${Path_background_data}/mismatches_PROTEIN_1MM.txt"
+mismatches="${Path_background_data}/mismatches_PROTEIN.txt"
 
 # Indexing for elements encoding: feature, single-cell ID and UMI:
 FEATURE_ID=0
@@ -155,7 +157,7 @@ forward="${Path_data}/SRR28056729_1.fastq.gz"
 reverse="${Path_data}/SRR28056729_2.fastq.gz"
 
 pattern="${Path_background_data}/pattern_RNA.txt"
-mismatches="${Path_background_data}/mismatches_RNA_1MM.txt"
+mismatches="${Path_background_data}/mismatches_RNA.txt"
 
 # Indexing for elements encoding: feature, single-cell ID and UMI:
 FEATURE_ID=8
@@ -202,6 +204,8 @@ The multipattern design contains specific and shared barcodes elements:
 
 Each pattern is assigned an unique name, with its pattern elements represented as a series of bracket enclosed substrings. Within each set of brackets is a comma-separated list of all possible barcodes for that specific position. In this example, the constant elements defining the linkers are replaced with random bases to bypass any alignment constraints. 
 
+*Example of patterns.txt file:*
+
 >```
 >PATTERN_1:[][15X][Ab1_barcodes.txt][20X][wellbarcodes.txt][7X]
 >PATTERN_2:[][15X][Ab2_barcodes.txt][20X][wellbarcodes.txt][6X]
@@ -214,6 +218,8 @@ Each pattern is assigned an unique name, with its pattern elements represented a
 >```
 
 For each pattern, the maximum number of allowed mismatches per element is defined using a comma-separated list. Each integer in the list corresponds to a specific positional element.
+
+*Example of mismatches.txt file:*
 
 >```
 >0,0,1,0,1,0
@@ -280,14 +286,15 @@ The read contains the remaining five pattern elements, encoding the (x,y) spatia
 | 4,6 | Constant element | Linkers or anchors
 
 The barcode pattern is represented as seven bracket-encloded sequence substrings. Each bracket corresponds to a positional element and contains a comma-separated list of possible barcodes for that position. The constant elements have been replaced with 30 random bases to bypass any alignment contraints. 
-          
+
+*Example of patterns.txt file:*
 >```
 >SPATIAL:[RNA][-][10X][coordinate_barcode.txt][30X][coordinate_barcode.txt][30X]
 >```
 
 The `coordinate_barcode.txt` file defines the (x,y) spatial coordinates using an 8x12 matrix of 96 unique 8-base long barcode sequences.
 
-Maximum allowed mismatched for each of the eight pattern elements:
+*Example of mismatches.txt file:*
 >```
 >0,0,0,1,0,1,0
 >```
