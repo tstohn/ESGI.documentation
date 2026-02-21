@@ -11,7 +11,7 @@ description: Application examples for different types of data.
 
 ## Multimodal
 
-Application example for multimodal data using **SIGNALseq^1**, which produces separate sequencing libraries for both RNA and protein modalities via combinatorial indexing. In this method, protein levels are captured using DNA barcoded antibodies and transcripts through mRNA reverse transcription. Both modalities are processed into distinct FASTQ files, but share a common barcode pattern: the forward read encodes the feature identity and the reverse read encodes the single-cell identity and Unique Molecular Identifier (UMI). 
+Application example for multimodal data using **SIGNALseq**, which produces separate sequencing libraries for both RNA and protein modalities via combinatorial indexing. In this method, protein levels are captured using DNA barcoded antibodies and transcripts through mRNA reverse transcription. Both modalities are processed into distinct FASTQ files, but share a common barcode pattern: the forward read encodes the feature identity and the reverse read encodes the single-cell identity and Unique Molecular Identifier (UMI). 
 
 Download the SRA files for both modalities and extract the paired-end FASTQ reads:
 ```
@@ -181,53 +181,52 @@ For the RNA modality, run this command:
 ```
 
 ## Multipattern
-Application example for multipattern data, using **scIDseq**. This technology quantifies intracellular protein abundances using antibodies conjugated to unique DNA barcodes. The approach uses a multipattern design where linkers of varying lengths, in combination with variable barcode elements, encode the specific protein identity. 
+Application example for multipattern data, using **scIDseq**. This technology quantifies intracellular protein abundances using antibodies conjugated to unique DNA barcodes. The approach uses a multipattern design where staggers of varying lengths, in combination with barcode elements, encode the protein identity. 
 
 ### Set up:
-**ESGI** can demultiplex reads for multiple barcode patterns simultaneously. This specific dataset includes barcode patterns defined by different linker lengths, ranging from one to eight bases. To maintain the same total sequence length, the final positional element varies inversely with the linker length. The barcode pattern with the longest linker length contains five pattern elements and the other patterns contain six. 
+**ESGI** can demultiplex reads for multiple barcode patterns simultaneously. This specific dataset includes eight distinct barcode patterns defined by different stagger lengths, ranging from one to eight bases. To maintain the same total sequence length, the final positional element varies inversely with this stagger length.
 
-The barcode patterns are contained entirely within the forward read. The table below outlines the  element indexes and what they encode for. 
+The barcode patterns are contained entirely within the forward read and all contain six pattern elements. The table below outlines the  element indexes and what they encode for. 
 
 | Element Index | Type | Encoding |
 | --------- | ----------- | ------ | 
-| 0,3,(5) | Constant pattern element | Linker or anchor
-| 1 | Random pattern element | Unique Molecule Identifier (UMI)
-| 2 | Variable pattern element | Feature identities
-| 4 | Variable pattern element | Well-plate position
+| 0 | Constant element | Stagger
+| 1 | Random element | Unique Molecule Identifier (UMI)
+| 2 | Barcode element | Feature identities
+| 3,5 | Constant element | Linker
+| 4 | Barcode element | Well-plate position
 
 The multipattern design contains specific and shared barcodes elements:
-* Feature identity (element 2): each pattern has an unique linker (length and sequence) and is associated with a unique set of barcode sequences that together define the protein identity. 
-* Well plate position (element 4), universal barcode set to ensure consistent assignment of well-plate positions.  
+* Feature identity (element 2): each pattern has an unique stagger (length and sequence) and is associated with a unique set of barcode sequences that together encode the protein identity. 
+* Well plate position (element 4): universal barcode set to ensure consistent assignment of well-plate positions.  
 
-Each pattern is assigned a unique name, with its pattern elements represented as a series of bracket enclosed substrings. Within each set of brackets is a comma-separated list of all possible barcode sequences for that specific position. Accordingly, patterns 1 through 7 are defined by six bracketed substrings, while pattern 8 consists of five. 
+Each pattern is assigned an unique name, with its pattern elements represented as a series of bracket enclosed substrings. Within each set of brackets is a comma-separated list of all possible barcodes for that specific position. In this example, the constant elements defining the linkers are replaced with random bases to bypass any alignment constraints. 
 
 ```
-PATTERN_1:[][][][][][]
-PATTERN_2:[][][][][][]
-PATTERN_3:[][][][][][]
-PATTERN_4:[][][][][][]
-PATTERN_5:[][][][][][]
-PATTERN_6:[][][][][][]
-PATTERN_7:[][][][][][]
-PATTERN_8:[][][][][]
+PATTERN_1:[][15X][Ab1_barcodes.txt][20X][wellbarcodes.txt][7X]
+PATTERN_2:[][15X][Ab2_barcodes.txt][20X][wellbarcodes.txt][6X]
+PATTERN_3:[][15X][Ab3_barcodes.txt][20X][wellbarcodes.txt][5X]
+PATTERN_4:[][15X][Ab4_barcodes.txt][20X][wellbarcodes.txt][4X]
+PATTERN_5:[][15X][Ab5_barcodes.txt][20X][wellbarcodes.txt][3X]
+PATTERN_6:[][15X][Ab6_barcodes.txt][20X][wellbarcodes.txt][2X]
+PATTERN_7:[][15X][Ab7_barcodes.txt][20X][wellbarcodes.txt][1X]
+PATTERN_8:[][15X][Ab8_barcodes.txt][20X][wellbarcodes.txt][1X]
 ```
 
-For each pattern, the maximum number of allowed mismatches per element is defined using a comma-separated list. Each integer in the list corresponds to a specific positional element. Patterns 1 throug 7 require six mismatch values, while pattern 8 requires five. 
+For each pattern, the maximum number of allowed mismatches per element is defined using a comma-separated list. Each integer in the list corresponds to a specific positional element. 
 
 >```
->0,0,1,1,1,1
->0,0,1,1,1,1
->1,0,1,1,1,1
->1,0,1,1,1,1
->1,0,1,1,1,1
->1,0,1,1,1,1
->1,0,1,1,1,1
->1,0,1,1,1
+>0,0,1,0,1,0
+>0,0,1,0,1,0
+>1,0,1,0,1,0
+>1,0,1,0,1,0
+>1,0,1,0,1,0
+>1,0,1,0,1,0
+>1,0,1,0,1,0
+>1,0,1,0,1,0
 >```
 
-With all structural patameters defined, you can now create the ESGI-initialization file, `myExperiment.ini`. This file links your raw forward reads to the pattern and mismatch definitions established in the previous sections. 
-
-The configuration uses the element indexes for feature identities, single-cell IDs, and UMIs as defined in the table, alongside the pattern and mismatch information as illustrates in the example blocks to define the `patterns.txt` and `mismatches.txt` files. 
+Next, we can create the ESGI-initialization file, `myExperiment.ini`, to link the raw forward reads to the pattern and mismatch definitions established above. The configuration uses the element indexes for feature identities, single-cell IDs, and UMIs as defined in the table, alongside the pattern and mismatch information as illustrates in the example blocks to define the `patterns.txt` and `mismatches.txt` files. 
 
 ```
 Path_data = "/path/to/raw_data"
