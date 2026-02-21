@@ -73,12 +73,12 @@ Example of a barcode-aligned sequence for the protein modality:
 
 The maximum allowed mismatches has to be defined as a comma-separated list of integers, where each value maps to a positional element in the pattern. For the protein modality, the feature-encoding barcode is assigned a tolerance of one mismatch, whereas the RNA modality allows none. Both modalities, accept one mismatch for the barcode elements. For the random pattern elements we set the tolerance to zero, although they are not used. 
 
-*Example of mismatches_PROTEIN.txt file:*
+*Example of `mismatches_PROTEIN.txt` file:*
 >```
 >1,0,1,0,1,0,1,0
 >```
 
-*Example of mismatches_RNA.txt file:*
+*Example of `mismatches_RNA.txt` file:*
 >```
 >0,0,1,0,1,0,1,0
 >```
@@ -204,7 +204,7 @@ The multipattern design contains specific and shared barcodes elements:
 
 Each pattern is assigned an unique name, with its pattern elements represented as a series of bracket enclosed substrings. Within each set of brackets is a comma-separated list of all possible barcodes for that specific position. In this example, the constant elements defining the linkers are replaced with random bases to bypass any alignment constraints. 
 
-*Example of patterns.txt file:*
+*Example of `patterns.txt` file:*
 
 >```
 >PATTERN_1:[][15X][Ab1_barcodes.txt][20X][wellbarcodes.txt][7X]
@@ -219,7 +219,7 @@ Each pattern is assigned an unique name, with its pattern elements represented a
 
 For each pattern, the maximum number of allowed mismatches per element is defined using a comma-separated list. Each integer in the list corresponds to a specific positional element.
 
-*Example of mismatches.txt file:*
+*Example of `mismatches.txt` file:*
 
 >```
 >0,0,1,0,1,0
@@ -287,14 +287,14 @@ The read contains the remaining five pattern elements, encoding the (x,y) spatia
 
 The barcode pattern is represented as seven bracket-encloded sequence substrings. Each bracket corresponds to a positional element and contains a comma-separated list of possible barcodes for that position. The constant elements have been replaced with 30 random bases to bypass any alignment contraints. 
 
-*Example of patterns.txt file:*
+*Example of `patterns.txt` file:*
 >```
 >SPATIAL:[RNA][-][10X][coordinate_barcode.txt][30X][coordinate_barcode.txt][30X]
 >```
 
 The `coordinate_barcode.txt` file defines the (x,y) spatial coordinates using an 8x12 matrix of 96 unique 8-base long barcode sequences.
 
-*Example of mismatches.txt file:*
+*Example of `mismatches.txt` file:*
 >```
 >0,0,0,1,0,1,0
 >```
