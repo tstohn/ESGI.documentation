@@ -25,11 +25,11 @@ fastq-dump --split-files --gzip SRR28056729.sra
 ```
 
 ### Set up:
-To process both modalities, separate ESGI-initialization files must be created. Both modalities share a pattern structure consisting of eight positional elements, but they differ in how the feature identity is encoded in the forward read.
+To process both modalities, separate ESGI-initialization files must be created. Both modalities share a pattern structure consisting of eight elements, but they differ in how the feature identity is encoded in the forward read.
 
 #### Forward read: positional element 0
 The forward read contains the first pattern element and encodes the feature identity. 
-* **Protein modality**: The first element is a variable antibody derived DNA barcode. This is followed by a poly-A tail, which creates a sequence overlap between the forward and reverse reads. 
+* **Protein modality**: The first element is a DNA barcode and is followed by a poly-A tail, causing a sequence overlap between the forward and reverse reads. 
 * **RNA modality**: The first element is the genomic transcript sequence. The forward read terminates at the end of the RNA sequence, resulting in no overlap with the reverse read.
 
 #### Read transition: positional element 1
@@ -42,11 +42,11 @@ For both modalities, the reverse read contains the remaining six pattern element
 
 | Element Index | Type | Encoding |
 | --------- | ----------- | ------ | 
-| 2, 4, 6 | Variable barcode element | Single-cell identities
-| 3, 5 | Constant pattern element | anchors or linkers
-|  7 |  Random pattern element | Unique Molecule Identifier (UMI)
+| 2, 4, 6 | Barcode element | Single-cell identities
+| 3, 5 | Constant element | anchors or linkers
+|  7 |  Random element | Unique Molecule Identifier (UMI)
 
-The following eight bracket-enclosed sequence substrings illustrate patterns for both modalities. Each bracket represents a specific pattern element, containing a comma-separated list of possible barcode sequences for that position. In this pattern, the constant elements have been replaced with 22 and 30 random bases, respectively, effectively bypassing any alignment constraints. This can be useful when strict mapping is unnecessary 
+The following eight bracket-enclosed sequence substrings illustrate patterns for both modalities. Each bracket represents a specific pattern element, containing a comma-separated list of possible barcodes for that position. In this pattern, the constant elements have been replaced with 22 and 30 random bases, respectively, to bypass any alignment constraints. This can be useful when strict mapping is unnecessary 
 or when the sequencing quality is suboptimal. 
  
 >```
@@ -69,7 +69,7 @@ Example of a barcode-aligned sequence for the protein modality:
 >AGACAGTGATGTCCG  CCGATCCC   ATCCACGTGCTTGAGACTGTGG  TTAGGCAT  GTGGCCGATGTTTCGCATCGGCGTACGACT  TAACGCTG  TAAAGGAAGT
 >```
 
-The maximum allowed mismatches has to be defined as a comma-separated list of integers, where each value maps to a positional element in the pattern. For the protein modality, the feature-encoding barcode is assigned a tolerance of one mismatch, whereas the RNA modality allows none. Both modalities, accept one mismatch for the variable barcode elements. For the random pattern elements we set the tolerance to zero, although they are not used. 
+The maximum allowed mismatches has to be defined as a comma-separated list of integers, where each value maps to a positional element in the pattern. For the protein modality, the feature-encoding barcode is assigned a tolerance of one mismatch, whereas the RNA modality allows none. Both modalities, accept one mismatch for the barcode elements. For the random pattern elements we set the tolerance to zero, although they are not used. 
 
 Mismatches protein modality:
 >```
@@ -186,7 +186,7 @@ Application example for multipattern data, using **scIDseq**. This technology qu
 ### Set up:
 **ESGI** can demultiplex reads for multiple barcode patterns simultaneously. This specific dataset includes eight distinct barcode patterns defined by different stagger lengths, ranging from one to eight bases. To maintain the same total sequence length, the final positional element varies inversely with this stagger length.
 
-The barcode patterns are contained entirely within the forward read and all contain six pattern elements. The table below outlines the  element indexes and what they encode for. 
+The barcode patterns are contained entirely within the forward read and all consist of six pattern elements. The table below outlines the  element indexes and what they encode for. 
 
 | Element Index | Type | Encoding |
 | --------- | ----------- | ------ | 
@@ -202,18 +202,18 @@ The multipattern design contains specific and shared barcodes elements:
 
 Each pattern is assigned an unique name, with its pattern elements represented as a series of bracket enclosed substrings. Within each set of brackets is a comma-separated list of all possible barcodes for that specific position. In this example, the constant elements defining the linkers are replaced with random bases to bypass any alignment constraints. 
 
-```
-PATTERN_1:[][15X][Ab1_barcodes.txt][20X][wellbarcodes.txt][7X]
-PATTERN_2:[][15X][Ab2_barcodes.txt][20X][wellbarcodes.txt][6X]
-PATTERN_3:[][15X][Ab3_barcodes.txt][20X][wellbarcodes.txt][5X]
-PATTERN_4:[][15X][Ab4_barcodes.txt][20X][wellbarcodes.txt][4X]
-PATTERN_5:[][15X][Ab5_barcodes.txt][20X][wellbarcodes.txt][3X]
-PATTERN_6:[][15X][Ab6_barcodes.txt][20X][wellbarcodes.txt][2X]
-PATTERN_7:[][15X][Ab7_barcodes.txt][20X][wellbarcodes.txt][1X]
-PATTERN_8:[][15X][Ab8_barcodes.txt][20X][wellbarcodes.txt][1X]
-```
+>```
+>PATTERN_1:[][15X][Ab1_barcodes.txt][20X][wellbarcodes.txt][7X]
+>PATTERN_2:[][15X][Ab2_barcodes.txt][20X][wellbarcodes.txt][6X]
+>PATTERN_3:[][15X][Ab3_barcodes.txt][20X][wellbarcodes.txt][5X]
+>PATTERN_4:[][15X][Ab4_barcodes.txt][20X][wellbarcodes.txt][4X]
+>PATTERN_5:[][15X][Ab5_barcodes.txt][20X][wellbarcodes.txt][3X]
+>PATTERN_6:[][15X][Ab6_barcodes.txt][20X][wellbarcodes.txt][2X]
+>PATTERN_7:[][15X][Ab7_barcodes.txt][20X][wellbarcodes.txt][1X]
+>PATTERN_8:[][15X][Ab8_barcodes.txt][20X][wellbarcodes.txt][1X]
+>```
 
-For each pattern, the maximum number of allowed mismatches per element is defined using a comma-separated list. Each integer in the list corresponds to a specific positional element. 
+For each pattern, the maximum number of allowed mismatches per element is defined using a comma-separated list. Each integer in the list corresponds to a specific positional element.
 
 >```
 >0,0,1,0,1,0
@@ -226,7 +226,7 @@ For each pattern, the maximum number of allowed mismatches per element is define
 >1,0,1,0,1,0
 >```
 
-Next, we can create the ESGI-initialization file, `myExperiment.ini`, to link the raw forward reads to the pattern and mismatch definitions established above. The configuration uses the element indexes for feature identities, single-cell IDs, and UMIs as defined in the table, alongside the pattern and mismatch information as illustrates in the example blocks to define the `patterns.txt` and `mismatches.txt` files. 
+To integrate the raw forward reads with the pattern and mismatch information, we create the ESGI-initialization file, `myExperiment.ini`. The configuration uses the table's element indexes for feature identity, well position, and UMIs, along with pattern and mismatch information as illustrated in the blue example blocks.  
 
 ```
 Path_data = "/path/to/raw_data"
@@ -261,7 +261,7 @@ Execute **ESGI** by running the following command in your terminal:
 Application example for spatial data using **Multiplexed Deterministic Barcoding in Tissue (xDBiT)**. This technology uses microfluidic-based deterministic barcoding with DNA oligonucleotides to encode transcriptomes alongside their spatial coordinates for multiple tissue sections in parallel. 
 
 ### Set up:
-The **xDBiT** barcode pattern consists of eight positional pattern elements. The data is generated as two independent forward reads. The first forward read captures the transcript and the second forward read encodes the UMI and spatial (x,y) coordinates. 
+The **xDBiT** barcode pattern consists of eight pattern elements. The data is generated as two independent forward reads. The first forward read captures the transcript and the second forward read encodes the UMI and spatial (x,y) coordinates. 
 
 #### Forward read I: positional element 0
 The read contains the first pattern element, a genomic DNA sequence encoding the transcript. 
@@ -270,16 +270,16 @@ The read contains the first pattern element, a genomic DNA sequence encoding the
 A discrete transition separating the two forward reads without sequence overlap. By including the `[-]` symbol in the pattern and enabling the `independent` flag, the tool treats both reads as two distinct sequences in the `5'→3'` direction.
 
 #### Forward read II: positional elements 2-5
-The read contains the remaining five pattern elements, which collectively encode the (x,y) spatial coordinates and UMI. 
+The read contains the remaining five pattern elements, encoding the (x,y) spatial coordinates and UMI. 
 
 | Element Index | Type | Encoding |
 | --------- | ----------- | ------ | 
 | 0 | Genomic sequence | Transcript identity
-| 2 | Random sequence element of 10 bases | UMI
-| 3,5 | Variable pattern element | (x,y) spatial coordinates
-| 4,6 | Constant sequence element of 30 bases | Linkers or anchors
+| 2 | Random element | UMI
+| 3,5 | Barcode element | (x,y) spatial coordinates
+| 4,6 | Constant element | Linkers or anchors
 
-The barcode pattern is represented as seven bracket-encloded sequence substrings. Each bracket corresponds to a positional element and contains a comma-separated list of possible barcode sequences for that position. The constant elements have been replaced with 30 random bases, bypassing any alignment contraints. 
+The barcode pattern is represented as seven bracket-encloded sequence substrings. Each bracket corresponds to a positional element and contains a comma-separated list of possible barcodes for that position. The constant elements have been replaced with 30 random bases to bypass any alignment contraints. 
           
 >```
 >SPATIAL:[RNA][-][10X][coordinate_barcode.txt][30X][coordinate_barcode.txt][30X]
