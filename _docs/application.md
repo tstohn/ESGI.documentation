@@ -370,5 +370,5 @@ Finally, execute **ESGI** using the command line below:
 
 ## Refences
 1. *Opzoomer, J. W. et al. SIGNAL-seq: Multimodal Single-cell Inter- and Intra-cellular Signalling Analysis (2024).*
-2. scIDseq
+2. *Krämer, N. et al. Cell-state specific drug-responses are associated with differences in signaling network wiring. Mol. Cell. Proteomics 101529 (2026).*
 3. *Wirth, J., Huber, N., Yin, K. et al. Spatial transcriptomics using multiplexed deterministic barcoding in tissue. Nat Commun 14, 1523 (2023).*
