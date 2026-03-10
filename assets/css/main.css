@@ -96,12 +96,34 @@ excluded_in_search: true
     border-collapse: collapse; /* Prevents double borders */
     table-layout: fixed;      /* Ensures columns are balanced */
 }
-.td-content table th, 
-.td-content table td {
-    text-align: left;
-    padding: 12px;
-    vertical-align: top;
-    border-bottom: 1px solid #eee; /* Clean look */
+
+/* Global, consistent table styling */
+table {
+  width: 100%;
+  max-width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;      /* consistent column sizing */
+  margin: 1rem 0;           /* consistent spacing and alignment */
+}
+
+th,
+td {
+  text-align: left;
+  padding: 12px;
+  vertical-align: top;
+  border-bottom: 1px solid #eee;
+  overflow-wrap: anywhere;  /* prevents long text from breaking layout */
+}
+
+/* Optional: header emphasis */
+th {
+  font-weight: 700;
+}
+
+/* Optional: handle wide tables on mobile */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
 }
 
 /*!* Bootstrap v4.1.3 (https://getbootstrap.com/)
