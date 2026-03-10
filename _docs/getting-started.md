@@ -15,8 +15,7 @@ The tool can either be downloaded or build from scratch.
 
 ### Download Tool
 
-The precompiled binaries are available on the GitHub releases: 
-[https://github.com/tstohn/ESGI/releases/tag/v1.0.0](https://github.com/tstohn/ESGI/releases/tag/v1.0.0) 
+The precompiled binaries are available on the GitHub [Releases](https://github.com/tstohn/ESGI/releases/tag/v1.0.0).
 
 Go to latest release and download the ZIP file compatible with your operating system. Once extracted, you can find all executable files in the `bin/ directory`.
 
