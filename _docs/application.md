@@ -1,10 +1,6 @@
 ---
-title: Application
-tags: 
- - Multimodal
- - Multipattern
- - Spatial
-description: Application examples for different types of data.
+title: Versioning your Docs
+description: How to turn on and use versioning
 ---
 
 # Application
