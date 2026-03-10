@@ -16,12 +16,12 @@ To perform demultiplexing, input yout experimental FASTQ files and define barcod
 **Required input parameters:**
 
 | Option | Description | Type |
-| --------- | ----------- | ------ | 
-| `--input`, `-i` | Path to the single-end or forward read FASTQ file. | fastq(.gz) 
+| --------- | ----------- | ------ |
+| `--input`, `-i` | Path to the single-end or forward read FASTQ file. | fastq(.gz)
 | `--reverse`, `-r` | Path to the reverse read FASTQ file (optional). | fastq(.gz)
-|  `--output`, `-o` |  Directory for all output files. | Directory 
+|  `--output`, `-o` |  Directory for all output files. | Directory
 | `--BarcodePatternsFile`, `-p` | A text file defining barcode patterns. Format: patternname followed by bracketed `[A,B,C]` lists of barcodes for each positional element. | (.txt)
-|  `--mismatchFile`, `-m` |  A text file containing a comma-separated list of integers. Each integer defines the allowed number of mismatches for that bracketed element in the patterns file. | (.txt) 
+|  `--mismatchFile`, `-m` |  A text file containing a comma-separated list of integers. Each integer defines the allowed number of mismatches for that bracketed element in the patterns file. | (.txt)
 
 Example of a barcode pattern called `PATTERN` consisting of five positional pattern elements:
 
@@ -49,25 +49,25 @@ Specify the maximum allowed mismatched for each pattern element using a comma-se
 **Optional parameters:**
 
 | Option | Description | Default |
-| --------- | ----------- | ------ | 
-| `--independent`, `-d` | Treats the forward read as two distinct sequences in the `5′→3′` direction. Requirs the separator `[-]` in the `--BarcodePatternsFile` to indicate where one read ends and the other begins.  | Disabled |
-|  `--namePrefix`, `-n` | Sets a prefix for all output file names. | None |
-|  `--writeStats`, `-q` | Generates statistics files regardign the alignment of individual pattern elements. | Disabled |
-|  `--writeFailedLined`, `-f` | Generates an output file containing reads that failed to align with any pattern. | 0 |
-|  `--hamming`, `-H` | Uses Hamming distance instead of Levenshtein for variable barcodes. Only supported when allowing for one mismatch per pattern element. | Levenshtein |
+| --------- | ----------- | ------ |
+| `--independent`, `-d` | Treats the forward read as two distinct sequences in the `5′→3′` direction. Requirs the separator `[-]` in the `--BarcodePatternsFile` to indicate where one read ends and the other begins.  | Disabled
+|  `--namePrefix`, `-n` | Sets a prefix for all output file names. | None
+|  `--writeStats`, `-q` | Generates statistics files regardign the alignment of individual pattern elements. | Disabled
+|  `--writeFailedLined`, `-f` | Generates an output file containing reads that failed to align with any pattern. | 0
+|  `--hamming`, `-H` | Uses Hamming distance instead of Levenshtein for variable barcodes. Only supported when allowing for one mismatch per pattern element. | Levenshtein
 
 ### Output: 
 Upon completion, **demultiplex** generates files containing processed reads and quality metrics. The output format and subsequent downstream steps depend on the modality of the feature defined in the pattern element. 
 * **Generic barcode sequence**: Reads are split and aligned to the defined pattern, and saved as a TSV file.
 * **Genomic sequence**: Gene or transcript sequences are extracted into a separate FASTQ file for alignment with **STAR** and subsequent annotation. The remaining read elements are aligned to the pattern and saved in a TSV file.
 
-| Name | Description | File type | 
+| Name | Description | File type |
 | ---------- | ------------- | ----------- |
-| `Quality_numberMM`| Reports the frequency of mismatches (0, 1, 2) detected per pattern element. |TXT 
+| `Quality_numberMM`| Reports the frequency of mismatches (0, 1, 2) detected per pattern element. |TXT
 | `Quality_typeMM` | Counts of mismatch types (insertion, deletion, subtitution) per pattern element. | TXT
 | `FailedLines` | Contains all reads that failed to aligned to a pattern | TXT
-| `PATTERN`  | A TSV file per pattern where reads are split and aligned by element. The first column is the read name, followed by the aligned elements. | TSV 
-| `Genomic Sequence` | Extracted gene or transcript sequences | FASTQ 
+| `PATTERN`  | A TSV file per pattern where reads are split and aligned by element. The first column is the read name, followed by the aligned elements. | TSV
+| `Genomic Sequence` | Extracted gene or transcript sequences | FASTQ
 
 The tool also reports the alignment performance into three match type categories, expressed as percentages of the total sequencing reads:
 * **Perfect matches:** Reads whose barcodes match completely.
@@ -104,7 +104,7 @@ Indices follow zero-based counting and correspond to the columns in the pattern-
 **Required parameters:**
 
 | Option | Description | Type |
-| --------- | ----------- | ------ | 
+| --------- | ----------- | ------ |
 | `--input`, `-i` | The TSV file of pattern-aligned reads generated by the demultiplex module. |TSV
 | `--barcodeDir`, `-d` | Path to the directory containing all pattern-related files. | Directory
 | `--FeatureIndex`, `-x` | Index of the pattern element encoding the feature identity. | Comma-separated list
