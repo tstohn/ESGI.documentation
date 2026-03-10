@@ -10,9 +10,7 @@ ESGI - Efficient Splitting of Generic Indices - makes demultiplexing single-cell
 
 ![assets/img/overview.png](assets/img/overview.png)
 
-## ESGI
-
-ESGI demultiplexes single-cell data by assigning reads to their cell of origin and counting them per cell. The input is a file specifying the mapping pattern, which can be written quickly and makes running ESGI straightforward.
+ESGI enables flexible demultiplexing and counting of various barcoding-based single-cell data types, including multimodal, combinatorial and spatial formats. As input, ESGI uses user-defined barcode patterns as a template to processes raw FASTQ files. After demultiplexing, the tool counts single-cell features and collapses UMIs to generate a final single-cell feature matrix. In addition to this final data matrix, ESGI generates quality metrics for botch the demultiplexing and count steps. 
 
 ## Features
 
