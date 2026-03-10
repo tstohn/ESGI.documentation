@@ -2344,34 +2344,30 @@ pre code {
 .td-content>table>.table-bordered {
     border: 0
 }
-/* Standardize all cell alignment */
-.td-content table th, 
-.td-content table td {
-    padding: 0.75rem;
-    text-align: left;
-    vertical-align: top;
-    border-bottom: 1px solid #dee2e6;
-}
 
-/* Remove weird overrides from the theme */
+/* 1. Reset: Strip all theme-specific table overrides */
 .td-content table, 
-.td-content table tbody, 
-.td-content table tr {
-    border-collapse: collapse;
-}
-
-/* Ensure consistent spacing for block elements in content */
-.td-content > p,
-.td-content > table,
-.td-content > pre,
-.td-content > ul {
+.td-box .row.section > table {
+    display: table !important; /* Force standard table behavior */
+    width: 100% !important;
+    border-collapse: collapse !important;
     margin-bottom: 1.5rem !important;
 }
 
-/* Force all tables to be block-level to avoid alignment issues */
-.td-content table {
-    display: table; /* Standard display */
-    width: 100% !important;
+/* 2. Standardize cells: Ensure uniform padding and alignment */
+.td-content table th, 
+.td-content table td {
+    padding: 12px !important;
+    text-align: left !important;
+    vertical-align: top !important;
+    border: 1px solid #dee2e6 !important; /* Consistent borders */
+}
+
+/* 3. Even spacing for all content elements */
+.td-content p, 
+.td-content table, 
+.td-content pre, 
+.td-content ul {
     margin-bottom: 1.5rem !important;
 }
 
