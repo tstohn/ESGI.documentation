@@ -6,7 +6,7 @@ permalink: /
 
 # Demultiplexing barcoded single-cell sequencing data with ESGI
 
-ESGI - Efficient Splitting of Generic Indices - makes demultiplexing single-cell data easy. Download the tool from Release and start demultiplexing your own data. 
+ESGI - Efficient Splitting of Generic Indices - makes demultiplexing single-cell data easy. Download the tool from [Release](https://github.com/tstohn/ESGI/releases/tag/v1.0.0) and start demultiplexing your own data. 
 
 ![assets/img/overview.png](assets/img/overview.png)
 
