@@ -1,9 +1,6 @@
 ---
-title: Getting Started
-tags: 
- - jekyll
- - github
-description: Getting started with Docsy Jekyll
+title: Versioning your Docs
+description: How to turn on and use versioning
 ---
 
 # Getting Started
