@@ -97,23 +97,28 @@ excluded_in_search: true
     table-layout: fixed;      /* Ensures columns are balanced */
 }
 
-/* Global, consistent table styling */
+/* Keep tables centered with equal space left/right */
 table {
+  display: table;          /* ensure it's treated as a table */
   width: 100%;
   max-width: 100%;
+  margin: 1rem auto;       /* auto left/right keeps it centered */
   border-collapse: collapse;
-  table-layout: fixed;      /* consistent column sizing */
-  margin: 1rem 0;           /* consistent spacing and alignment */
+  table-layout: fixed;
+  float: none;             /* overrides any float:right/left coming from elsewhere */
 }
 
-th,
-td {
-  text-align: left;
-  padding: 12px;
-  vertical-align: top;
-  border-bottom: 1px solid #eee;
-  overflow-wrap: anywhere;  /* prevents long text from breaking layout */
+/* If your container stretches edge-to-edge, add padding around tables */
+.td-content table {
+  padding-left: 0;         /* tables don't really "pad" well; use wrapper padding if needed */
 }
+
+/* Better: add padding to the content container so everything (incl. tables) has breathing room */
+.td-content {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
 
 /* Optional: header emphasis */
 th {
