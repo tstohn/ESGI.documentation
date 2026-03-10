@@ -14,8 +14,6 @@ Demultiplex maps sequencing reads to barcode patterns, where positional pattern 
 To perform demultiplexing, input yout experimental FASTQ files and define barcode patterns en elements using text files. Also, specify the allowed mismatches for each pattern element as a comma-separated list of integers (e.g. `0,1,1`). 
 
 **Required input parameters:**
-
-<div class="table-wrap">
         
 | Option | Description | Type |
 | --------- | ----------- | ------ |
@@ -24,8 +22,6 @@ To perform demultiplexing, input yout experimental FASTQ files and define barcod
 |  `--output`, `-o` |  Directory for all output files. | Directory
 | `--BarcodePatternsFile`, `-p` | A text file defining barcode patterns. Format: patternname followed by bracketed `[A,B,C]` lists of barcodes for each positional element. | (.txt)
 |  `--mismatchFile`, `-m` |  A text file containing a comma-separated list of integers. Each integer defines the allowed number of mismatches for that bracketed element in the patterns file. | (.txt)
-
-</div>
 
 Example of a barcode pattern called `PATTERN` consisting of five positional pattern elements:
 
@@ -52,8 +48,6 @@ Specify the maximum allowed mismatched for each pattern element using a comma-se
 
 **Optional parameters:**
 
-<div class="table-wrap">
-
 | Option | Description | Default |
 | --------- | ----------- | ------ |
 | `--independent`, `-d` | Treats the forward read as two distinct sequences in the `5′→3′` direction. Requirs the separator `[-]` in the `--BarcodePatternsFile` to indicate where one read ends and the other begins.  | Disabled
@@ -61,8 +55,6 @@ Specify the maximum allowed mismatched for each pattern element using a comma-se
 |  `--writeStats`, `-q` | Generates statistics files regardign the alignment of individual pattern elements. | Disabled
 |  `--writeFailedLined`, `-f` | Generates an output file containing reads that failed to align with any pattern. | 0
 |  `--hamming`, `-H` | Uses Hamming distance instead of Levenshtein for variable barcodes. Only supported when allowing for one mismatch per pattern element. | Levenshtein
-
-</div>
 
 ### Output: 
 Upon completion, **demultiplex** generates files containing processed reads and quality metrics. The output format and subsequent downstream steps depend on the modality of the feature defined in the pattern element. 
