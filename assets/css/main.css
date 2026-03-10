@@ -2347,6 +2347,13 @@ pre code {
 .td-content>table>.table-bordered {
     border: 0
 }
+### ADDED
+.td-content p, 
+.td-content table, 
+.td-content pre, 
+.td-content ul {
+    margin-bottom: 1.5rem;
+} 
 
 .form-control {
     display: block;
