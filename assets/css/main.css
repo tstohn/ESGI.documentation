@@ -92,13 +92,17 @@ excluded_in_search: true
     vertical-align: middle;
 }
 .td-content table {
-    display: block;
     width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    margin-bottom: 1rem;
+    border-collapse: collapse; /* Prevents double borders */
+    table-layout: fixed;      /* Ensures columns are balanced */
 }
-
+.td-content table th, 
+.td-content table td {
+    text-align: left;
+    padding: 12px;
+    vertical-align: top;
+    border-bottom: 1px solid #eee; /* Clean look */
+}
 
 /*!* Bootstrap v4.1.3 (https://getbootstrap.com/)
 * Copyright 2011-2018 The Bootstrap Authors
@@ -2334,26 +2338,42 @@ pre code {
 
 .table-responsive,
 .td-box .row.section>table,
-.td-content>table {
-    display: block;
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    -ms-overflow-style: -ms-autohiding-scrollbar
-}
 
 .table-responsive>.table-bordered,
 .td-box .row.section>table>.table-bordered,
 .td-content>table>.table-bordered {
     border: 0
 }
-### ADDED
-.td-content p, 
+/* Standardize all cell alignment */
+.td-content table th, 
+.td-content table td {
+    padding: 0.75rem;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid #dee2e6;
+}
+
+/* Remove weird overrides from the theme */
 .td-content table, 
-.td-content pre, 
-.td-content ul {
-    margin-bottom: 1.5rem;
-} 
+.td-content table tbody, 
+.td-content table tr {
+    border-collapse: collapse;
+}
+
+/* Ensure consistent spacing for block elements in content */
+.td-content > p,
+.td-content > table,
+.td-content > pre,
+.td-content > ul {
+    margin-bottom: 1.5rem !important;
+}
+
+/* Force all tables to be block-level to avoid alignment issues */
+.td-content table {
+    display: table; /* Standard display */
+    width: 100% !important;
+    margin-bottom: 1.5rem !important;
+}
 
 .form-control {
     display: block;
