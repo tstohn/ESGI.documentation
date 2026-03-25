@@ -70,9 +70,10 @@ Specify the maximum allowed mismatched for each pattern element using a comma-se
 |  `--hamming`, `-H` | Uses Hamming distance instead of Levenshtein for variable barcodes. Only supported when allowing for one mismatch per pattern element. | Levenshtein
 
 ### Output: 
-Upon completion, **demultiplex** generates files containing processed reads and quality metrics. The output format and subsequent downstream steps depend on the modality of the feature defined in the pattern element. 
-* **Generic barcode sequence**: Reads are split and aligned to the defined pattern, and saved as a TSV file.
-* **Genomic sequence**: Gene or transcript sequences are extracted into a separate FASTQ file for alignment with **STAR** and subsequent annotation. The remaining read elements are aligned to the pattern and saved in a TSV file.
+
+For every pattern, **demultiplex** outputs a tab-delimited (TSV) file containing the demultiplexed reads. In this file, every successfully demutliplexed read appears as a row split and aligned according to the elements specified in the pattern. If the pattern includes a DNA element, an additional FASTQ file is generated alongside the TSV file, containing the extracted genomic sequences. These sequences can later be aligned using **STAR**. In addition, several quality metrics are generated. 
+
+**Output files:**
 
 | Name | Description | File type |
 | ---------- | ------------- | ----------- |
