@@ -143,9 +143,10 @@ Feature names in same order as corresponding barcode sequences:
 
 | Option | Description | File type | Default |
 | ---------- | ------------- | ----------- | -------------- |
-| `--featureNames`, `-a` | A list of feature names provided in same order as the barcode sequences in the pattern element. | (.txt) | Nucleotide sequences
+| `--featureNames`, `-a` | A list of feature names provided in same order as the barcode sequences in the pattern element. | TXT | Nucleotide sequences
+|  `--shareBarcodes`, `-w` | A TSV file specifying barcode-pairs that should be merged along with their positions. It consists of three columns: the first indicates the barcode position (0-indexed), the second lists the barcode to retain, and the third lists the barcode to be replaced by the retained one. For example, `1` `AGT` `GGG` means that all occurences of the barcode AGT at position 1 will be replaced with GGG. | TSV | None
 |  `--annotationIdxs`, `-y` | A space separated list of indices for the pattern elements you want to annotate. | (.txt) | None
-|  `--annotationFiles`, `-g` | A space-separated list of file path containing the annotations. The first file maps to the first index and contains labels for the corresponding barcode sequences.  | (.txt) | None
+|  `--annotationFiles`, `-g` | A space-separated list of file path containing the annotations. The first file maps to the first index and contains labels for the corresponding barcode sequences.  | TXT | None
 |  `--scIdAsString`, `-s` | Stores the single-cell ID as the sequence string instead of barcode ID. | None | 1
 
 **Optional parameters for UMI collapsing:**
@@ -156,7 +157,8 @@ By default, UMI collapsing is enabled using Hamming distance, allowing a single 
 | ---------- | ------------- | -------------- |
 |  `--mismatches`, `-m` | Maximum number of mismatches allowed to consider two UMIs identical. | 1
 |  `--hamming`, `-H` | If set to 0, use Levenshtein distance, allowing for insertions and deletions. If 1, use Hamming distance, allowing for substitutions only. | 0
-|  `--umiThreshold`, `-f` | Minimum read count required for a UMI to be considered valid before collapsing. | 0
+|  `--umiThreshold`, `-v` | Threshold between 0 and 1 of UMI abundance, above which UMIs are not collapsed. This means that an UMI is collapsed into another one if their distance is below the threshold and this UMI has less than 20% of the counts of the high abundant UMI. | 0.2
+|  `--umiAbundanceThreshold`, `-f` | Minimum read count required for a UMI to be considered valid before collapsing. | 0
 |  `--umiRemoval`, `-z` | UMIs are collapsed. If set to 0, every unique read is counted separately. | 1
 
 ### Output
@@ -173,6 +175,8 @@ After **count** completes, it creates several output files. The most important a
 
 ## ESGI
 Instead of running **demultiplex** and **count** separately, you can execute them together using **ESGI**. To do this, you must provide an `initialization-file (.ini)` containing the essential input, including paths to all pattern files, as well as indexing information. Including feature names and single-cell annotations is optional.
+
+Run `esgi --help` for a full list of arguments that can be used in the initialization file.
 
 *Example of ESGI Initialization-file:*
 
