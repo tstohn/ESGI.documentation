@@ -111,7 +111,7 @@ The **annotate** step uses the **STAR**-derived genomic coordinates to assign ge
 The **count** submodule groups the demultiplexed reads by single-cell and feature barcode. By default, identical UMI-tagged entries are collapsed to produce the final counts for each unique cell- feature combination. 
 
 ### Input:
-The **count** module takes as input the pattern-aligned TSV file generated during demultiplexing, along with the pattern information. It requires indices of the pattern elements encoding the single-cell, feature, and UMI identities. 
+The **count** module takes as input the pattern-aligned TSV file generated during demultiplexing, along with indexing information. It requires indices of the pattern elements encoding the single-cell, feature, and UMI identities. 
 
 Indices follow zero-based counting and correspond to the columns in the pattern-aligned TSV file. In this file, the first column (index 0) is always the read name, folowed by the pattern elements (starting at index 1).
 
@@ -123,7 +123,7 @@ Indices follow zero-based counting and correspond to the columns in the pattern-
 | `--barcodeDir`, `-d` | Path to the directory containing all pattern-related files. | Directory
 | `--FeatureIndex`, `-x` | Index of the pattern element encoding the feature identity. | Comma-separated list
 | `--singleCellIndices`, `-c` | Indices of the pattern elements encoding the single-cell identities. | Comma-separated list
-| `--umiIndex`, `-u` | Index of pattern element encodeing the UMI. | Comma-separated list
+| `--umiIndex`, `-u` | Index of pattern element encodeding the UMI. It can be a single element or a list of elements. If it is a list all elements are concatenated and treated as a single long UMI. This feature is only available when running count individually. | Comma-separated list
 
 **Optional parameters for annotation:**
 
