@@ -5,7 +5,11 @@ description: How to turn on and use versioning
 
 # Software Overview
 
-**ESGI** is a debarcoding tool for single-cell sequencing data, consisting of two submodules: **demultiplex** and **count**. They can be executed directly via **ESGI** or called individually. For more details, run demultiplex, count, or ESGI with the  `--help` flag. 
+**ESGI** is a flexible debarcoding tool for single-cell sequencing data. It can be split into two separate steps: demultiplexing the reads and counting the single-cell features. ESGI can be run as a wrapper of these tools, or **demultiplex** and **count** can be executed separately for more control. 
+
+During the demultiplexing step, the FASTQ reads are split into the elements as defined in the input pattern. Elements are corrected when they fall within the allowed mismatch threshold. If genomic sequences are included, ESGI can call **STAR** to map these sequences to a reference genome and add the resulting annotation to the demultiplexed reads. The counting step collapses UMIs, generates a single-cell feature matrix, and assigns additional barcoded attributes, like treatment conditions. Alongside the final matrix, ESGI can report qulaity control metrics for both the demultiplexing and counting step.
+
+For more details, run demultiplex, count, or ESGI with the  `--help` flag. 
 
 ## Demultiplex
 Demultiplex maps sequencing reads to barcode patterns, where positional pattern elements are used to encode experiment-specific information, like single cell identities, molecular modalities, and experimental conditions. The tool handles simultaneous mapping to multiple barcode patterns, supports pattern elements of varying lengths, and allows for mismatches in the pattern elements arising from insertions, deletions, and substitutions. 
@@ -50,9 +54,9 @@ Specify the maximum allowed mismatched for each pattern element using a comma-se
 
 | Option | Description | Default |
 | --------- | ----------- | ------ |
-| `--independent`, `-d` | Treats the forward read as two distinct sequences in the `5′→3′` direction. Requirs the separator `[-]` in the `--BarcodePatternsFile` to indicate where one read ends and the other begins.  | Disabled
+| `--independent`, `-d` | Treats the forward read as two distinct sequences in the `5′→3′` direction. Requires the separator `[-]` in the `--BarcodePatternsFile` to indicate where one read ends and the other begins.  | Disabled
 |  `--namePrefix`, `-n` | Sets a prefix for all output file names. | None
-|  `--writeStats`, `-q` | Generates statistics files regardign the alignment of individual pattern elements. | Disabled
+|  `--writeStats`, `-q` | Generates statistics files regarding the alignment of individual pattern elements. | Disabled
 |  `--writeFailedLined`, `-f` | Generates an output file containing reads that failed to align with any pattern. | 0
 |  `--hamming`, `-H` | Uses Hamming distance instead of Levenshtein for variable barcodes. Only supported when allowing for one mismatch per pattern element. | Levenshtein
 
