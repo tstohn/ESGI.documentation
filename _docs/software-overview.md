@@ -27,7 +27,14 @@ To perform demultiplexing, input yout experimental FASTQ files and define barcod
 | `--BarcodePatternsFile`, `-p` | A text file defining barcode patterns. Format: patternname followed by bracketed `[A,B,C]` lists of barcodes for each positional element. | (.txt)
 |  `--mismatchFile`, `-m` |  A text file containing a comma-separated list of integers. Each integer defines the allowed number of mismatches for that bracketed element in the patterns file. | (.txt)
 
-Example of a barcode pattern called `PATTERN` consisting of five positional pattern elements:
+**Pattern element options:**
+* Barcodes `[filename.txt]`: Path to text file containing a list of barcode sequences. 
+* Constant region `[ATCG]`: Fixed nucleotide sequence.
+* UMI `[nX]`: A unique molecule identifier consisting of `n` random bases. 
+* Forward/reverse separator `[-]`: Use when there is no overlap between forward and reverse reads and you want them to be mapped independently.
+* Stop mapping element `[*]`: stops mapping at this point. This allows you to ignore long, error-prone, or non-informative regions.
+
+*Example of a barcode pattern called `PATTERN` consisting of five positional pattern elements:*
 
 ```
         -----------------> <-----------------------
