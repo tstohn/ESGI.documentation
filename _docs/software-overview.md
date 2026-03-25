@@ -34,6 +34,8 @@ To perform demultiplexing, input yout experimental FASTQ files and define barcod
 * Forward/reverse separator `[-]`: Use when there is no overlap between forward and reverse reads and you want them to be mapped independently.
 * Stop mapping element `[*]`: stops mapping at this point. This allows you to ignore long, error-prone, or non-informative regions.
 
+The pattern expects the forward read to be in the `5′→3′` direction, while the revere read corresponds to the reverse complement of the pattern. Forward and reverse reads may overlap. If the forward and reverse reads are non-overlapping, the read separator `[-]` can be applied together with the `independent` flag, as described in the optional parameters table below. 
+
 *Example of a barcode pattern called `PATTERN` consisting of five positional pattern elements:*
 
 ```
