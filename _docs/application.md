@@ -29,9 +29,7 @@ The forward read contains the first pattern element and encodes the feature iden
 * **RNA modality**: The first element is the genomic transcript sequence. The forward read terminates at the end of the RNA sequence, resulting in no overlap with the reverse read.
 
 #### Read transition: positional element 1
-A specific symbol is used to define the relationship between the forward and reverse reads:
-* **Protein modality:** uses the `*` symbol to indicate overlapping sequences.
-* **RNA modality:** uses the `-` symbol to indicate no overlap.
+Both modalities use the read separator `[-]` to separate the forward and reverse reads. 
 
 #### Reverse read: positional elements 2-7
 For both modalities, the reverse read contains the remaining six pattern elements encoding the single-cell identity and UMI.
@@ -52,7 +50,7 @@ or when the sequencing quality is suboptimal.
 
 *Example of `pattern_RNA.txt` file:*
 >```
->RNA:[RNA][-][BC1.txt][22X][BC2.txt][30X][BC2.txt][10X]
+>DNA:[DNA][-][BC1.txt][22X][BC2.txt][30X][BC2.txt][10X]
 >```
 
 | File name | Element length (bases) | Number of subsequences | Sequence example |
